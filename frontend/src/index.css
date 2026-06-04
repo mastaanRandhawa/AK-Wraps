@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette */
+  --color-baltic-blue: #2f6690;
+  --color-cerulean: #3a7ca5;
+  --color-alabaster-grey: #d9dcd6;
+  --color-yale-blue: #16425b;
+  --color-sky-blue-light: #81c3d7;
+
+  /* Semantic aliases (existing utilities keep working) */
+  --color-cream: #eef1ee;
+  --color-beige: var(--color-alabaster-grey);
+  --color-gold: var(--color-baltic-blue);
+  --color-charcoal: var(--color-yale-blue);
+  --color-gray-soft: #c5cac4;
+  --color-warm-white: #f3f4f2;
+
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-charcoal);
+  --color-primary: var(--color-baltic-blue);
+  --color-primary-foreground: #ffffff;
+  --color-muted: var(--color-beige);
+  --color-muted-foreground: var(--color-cerulean);
+  --color-card: var(--color-warm-white);
+  --color-card-foreground: var(--color-charcoal);
+  --color-border: var(--color-gray-soft);
+  --color-ring: var(--color-cerulean);
+  --color-accent: var(--color-sky-blue-light);
+  --color-accent-foreground: var(--color-charcoal);
+
+  --font-serif: "Urbanist", system-ui, sans-serif;
+  --font-sans: "Open Sans", system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  :root {
+    --navbar-offset: 5.75rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--navbar-offset);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-cream font-sans text-charcoal antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif font-medium tracking-tight;
+  }
+}
