@@ -48,20 +48,14 @@ export const galleryImages = [
 export const beforeAfter = [
   {
     id: "ba1",
-    before: images.paintCorrection,
-    after: images.detailing,
+    before: images.beforeDetail,
+    after: images.afterDetail,
     label: "Paint Correction & Ceramic Coating",
   },
   {
     id: "ba2",
-    before: images.vehicleWrap,
-    after: images.wrappedCar,
+    before: images.beforeWrap,
+    after: images.afterWrap,
     label: "Full Vehicle Wrap Transformation",
   },
-];
-
-export const stats = [
-  { label: "Years of Experience", value: "10+" },
-  { label: "Vehicles Completed", value: "500+" },
-  { label: "Services Offered", value: "6+" },
 ];

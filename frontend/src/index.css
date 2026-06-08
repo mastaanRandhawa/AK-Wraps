@@ -1,36 +1,49 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette */
-  --color-baltic-blue: #2f6690;
-  --color-cerulean: #3a7ca5;
-  --color-alabaster-grey: #d9dcd6;
-  --color-yale-blue: #16425b;
-  --color-sky-blue-light: #81c3d7;
+  /* Premium dark palette */
+  --color-black: #000000;
+  --color-surface: #0a0a0a;
+  --color-surface-elevated: #111111;
+  --color-card-charcoal: #121212;
+  --color-surface-glass: rgba(10, 10, 10, 0.92);
 
-  /* Semantic aliases (existing utilities keep working) */
-  --color-cream: #eef1ee;
-  --color-beige: var(--color-alabaster-grey);
-  --color-gold: var(--color-baltic-blue);
-  --color-charcoal: var(--color-yale-blue);
-  --color-gray-soft: #c5cac4;
-  --color-warm-white: #f3f4f2;
+  --color-white: #ffffff;
+  --color-silver: #c8c8c8;
+  --color-silver-muted: #6b6b6b;
+  --color-accent: #e8e8e8;
+  --color-accent-glow: rgba(255, 255, 255, 0.06);
 
-  --color-background: var(--color-cream);
-  --color-foreground: var(--color-charcoal);
-  --color-primary: var(--color-baltic-blue);
-  --color-primary-foreground: #ffffff;
-  --color-muted: var(--color-beige);
-  --color-muted-foreground: var(--color-cerulean);
-  --color-card: var(--color-warm-white);
-  --color-card-foreground: var(--color-charcoal);
-  --color-border: var(--color-gray-soft);
-  --color-ring: var(--color-cerulean);
-  --color-accent: var(--color-sky-blue-light);
-  --color-accent-foreground: var(--color-charcoal);
+  /* Legacy aliases — mapped to dark theme */
+  --color-baltic-blue: #c8c8c8;
+  --color-cerulean: #a8a8a8;
+  --color-alabaster-grey: #1a1a1a;
+  --color-yale-blue: #ffffff;
+  --color-sky-blue-light: #222222;
 
-  --font-serif: "Urbanist", system-ui, sans-serif;
-  --font-sans: "Open Sans", system-ui, sans-serif;
+  --color-cream: var(--color-black);
+  --color-beige: var(--color-surface-elevated);
+  --color-gold: var(--color-white);
+  --color-charcoal: var(--color-white);
+  --color-gray-soft: rgba(255, 255, 255, 0.12);
+  --color-warm-white: var(--color-white);
+
+  --color-background: var(--color-black);
+  --color-foreground: var(--color-white);
+  --color-primary: var(--color-white);
+  --color-primary-foreground: var(--color-black);
+  --color-muted: var(--color-surface-elevated);
+  --color-muted-foreground: rgba(255, 255, 255, 0.45);
+  --color-card: var(--color-surface-elevated);
+  --color-card-foreground: var(--color-white);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-ring: rgba(255, 255, 255, 0.3);
+  --color-accent-foreground: var(--color-black);
+
+  --font-serif: "Syne", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-none: 0;
 }
 
 @layer base {
@@ -39,10 +52,27 @@
   }
 
   :root {
-    --navbar-offset: 5.75rem;
+    --navbar-offset: clamp(4rem, 3.5rem + 1vw, 4.5rem);
+
+    /* Fluid type scale — scales smoothly across viewports */
+    --text-fluid-xs: clamp(0.625rem, 0.58rem + 0.22vw, 0.75rem);
+    --text-fluid-sm: clamp(0.8125rem, 0.78rem + 0.18vw, 0.9375rem);
+    --text-fluid-base: clamp(0.875rem, 0.84rem + 0.22vw, 1.0625rem);
+    --text-fluid-lg: clamp(1.0625rem, 0.98rem + 0.4vw, 1.3125rem);
+    --text-fluid-xl: clamp(1.25rem, 1.1rem + 0.65vw, 1.625rem);
+    --text-fluid-2xl: clamp(1.5rem, 1.25rem + 1.1vw, 2.125rem);
+    --text-fluid-3xl: clamp(1.875rem, 1.5rem + 1.6vw, 2.75rem);
+    --text-fluid-4xl: clamp(2.125rem, 1.65rem + 2.2vw, 3.375rem);
+    --text-fluid-display: clamp(2.375rem, 1.75rem + 3.2vw, 4.5rem);
+    --text-fluid-section: clamp(1.875rem, 1.45rem + 2vw, 3.25rem);
+    --text-fluid-stat: clamp(2rem, 1.55rem + 2.2vw, 3.125rem);
+    --text-fluid-quote: clamp(1.375rem, 1.1rem + 1.2vw, 2.5rem);
+    --tracking-fluid-label: clamp(0.18em, 0.14em + 0.08vw, 0.35em);
+    --tracking-fluid-wide: clamp(0.12em, 0.1em + 0.05vw, 0.25em);
   }
 
   html {
+    font-size: clamp(15px, 14px + 0.35vw, 16px);
     scroll-behavior: smooth;
     scroll-padding-top: var(--navbar-offset);
   }
@@ -54,13 +84,203 @@
   }
 
   body {
-    @apply bg-cream font-sans text-charcoal antialiased;
+    @apply bg-black font-sans text-white antialiased;
+    font-size: var(--text-fluid-base);
+    line-height: 1.6;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply font-serif font-medium tracking-tight;
+    @apply font-serif font-medium tracking-tight text-white;
+    text-wrap: balance;
   }
+
+  ::selection {
+    @apply bg-white/20 text-white;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply relative overflow-hidden border border-white/10 bg-white/[0.04];
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      inset 1px 1px 0 rgba(255, 255, 255, 0.06),
+      inset -1px -1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .image-zoom-hover {
+    @apply transition-transform duration-500 ease-out group-hover:scale-[1.02];
+  }
+
+  .section-divider {
+    @apply h-px w-full bg-white/10;
+  }
+
+  .editorial-label {
+    @apply font-sans font-medium uppercase text-white/40;
+    font-size: var(--text-fluid-xs);
+    letter-spacing: var(--tracking-fluid-label);
+  }
+
+  .type-display {
+    font-size: var(--text-fluid-display);
+    line-height: 1.02;
+  }
+
+  .type-display-md {
+    font-size: var(--text-fluid-4xl);
+    line-height: 1.05;
+  }
+
+  .type-display-sm {
+    font-size: var(--text-fluid-3xl);
+    line-height: 1.08;
+  }
+
+  .type-section {
+    font-size: var(--text-fluid-section);
+    line-height: 1.08;
+  }
+
+  .type-subsection {
+    font-size: var(--text-fluid-sm);
+    letter-spacing: var(--tracking-fluid-wide);
+  }
+
+  .type-body {
+    font-size: var(--text-fluid-base);
+    line-height: 1.65;
+  }
+
+  .type-body-sm {
+    font-size: var(--text-fluid-sm);
+    line-height: 1.6;
+  }
+
+  .type-caption {
+    font-size: var(--text-fluid-xs);
+    letter-spacing: var(--tracking-fluid-wide);
+  }
+
+  .type-stat {
+    font-size: var(--text-fluid-stat);
+    line-height: 1;
+  }
+
+  .type-quote {
+    font-size: var(--text-fluid-quote);
+    line-height: 1.35;
+  }
+
+  .type-brand {
+    font-size: clamp(1rem, 0.92rem + 0.35vw, 1.25rem);
+  }
+
+  .type-nav {
+    font-size: var(--text-fluid-xs);
+    letter-spacing: var(--tracking-fluid-wide);
+  }
+
+  .type-btn {
+    font-size: clamp(0.625rem, 0.58rem + 0.2vw, 0.75rem);
+    letter-spacing: clamp(0.14em, 0.12em + 0.06vw, 0.2em);
+  }
+
+  .type-marquee-sm {
+    font-size: var(--text-fluid-xl);
+  }
+
+  .type-marquee-md {
+    font-size: var(--text-fluid-2xl);
+  }
+
+  .type-marquee-lg {
+    font-size: var(--text-fluid-3xl);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-scroll-bounce {
+  animation: scroll-bounce 2.5s ease-in-out infinite;
+}
+
+.animate-page-enter {
+  animation: page-enter 0.5s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-scroll-bounce,
+  .animate-page-enter,
+  .animate-marquee,
+  .animate-marquee-reverse {
+    animation: none;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 45s) linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse var(--marquee-duration, 45s) linear infinite;
 }

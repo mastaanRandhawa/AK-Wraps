@@ -1,7 +1,8 @@
 import { HeroSection } from "@/components/hero/HeroSection";
-import { AboutPreview } from "@/components/sections/AboutPreview";
 import { ServiceCards } from "@/components/sections/ServiceCards";
 import { StatsSection } from "@/components/sections/StatsSection";
+import { BeforeAfterShowcase } from "@/components/sections/BeforeAfterShowcase";
+import { ProcessSection } from "@/components/sections/ProcessSection";
 import { GalleryPreview } from "@/components/sections/GalleryPreview";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { CtaBand } from "@/components/sections/CtaBand";
@@ -12,11 +13,12 @@ export function HomePage() {
   return (
     <>
       <HeroSection />
-      <AboutPreview />
       <ServiceCards services={featuredServices} showAllLink />
       <StatsSection />
-      <GalleryPreview />
+      <BeforeAfterShowcase />
+      <ProcessSection />
       <Testimonials items={testimonials} />
+      <GalleryPreview />
       <CtaBand />
     </>
   );

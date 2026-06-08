@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Facebook } from "lucide-react";
+import { Instagram, Facebook, Phone, Mail } from "lucide-react";
 import { navigation, site } from "@/config/site";
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -19,56 +19,56 @@ export function Footer() {
   return (
     <footer
       data-nav-background="dark"
-      className="border-t border-gray-soft bg-charcoal text-warm-white"
+      className="border-t border-white/10 bg-black"
     >
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 sm:gap-12 md:grid-cols-3">
-          <div>
-            <p className="font-serif text-2xl font-medium">{site.name}</p>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-warm-white/70">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
+        <div className="grid gap-12 sm:grid-cols-2 sm:gap-16 lg:grid-cols-4">
+          <div className="lg:col-span-2">
+            <p className="type-brand font-serif font-medium text-white">
+              {site.name}
+            </p>
+            <p className="type-body-sm mt-5 max-w-sm font-light text-white/40 sm:mt-6">
               {site.tagline}
             </p>
-            <div className="mt-6 flex gap-4">
+            <div className="mt-10 flex gap-6">
               <a
                 href={site.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-warm-white/70 transition-colors hover:text-sky-blue-light"
+                className="text-white/40 transition-colors hover:text-white"
                 aria-label="Instagram"
               >
-                <Instagram className="h-5 w-5" />
+                <Instagram className="h-4 w-4" strokeWidth={1.5} />
               </a>
               <a
                 href={site.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-warm-white/70 transition-colors hover:text-sky-blue-light"
+                className="text-white/40 transition-colors hover:text-white"
                 aria-label="TikTok"
               >
-                <TikTokIcon className="h-5 w-5" />
+                <TikTokIcon className="h-4 w-4" />
               </a>
               <a
                 href={site.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-warm-white/70 transition-colors hover:text-sky-blue-light"
+                className="text-white/40 transition-colors hover:text-white"
                 aria-label="Facebook"
               >
-                <Facebook className="h-5 w-5" />
+                <Facebook className="h-4 w-4" strokeWidth={1.5} />
               </a>
             </div>
           </div>
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-sky-blue-light">
-              Navigate
-            </p>
-            <ul className="mt-4 space-y-2">
+            <p className="editorial-label mb-6">Navigate</p>
+            <ul className="space-y-4">
               {navigation.map((item) => (
                 <li key={item.href}>
                   <Link
                     to={item.href}
-                    className="text-sm text-warm-white/70 transition-colors hover:text-sky-blue-light"
+                    className="type-nav font-sans font-light uppercase text-white/40 transition-colors hover:text-white"
                   >
                     {item.name}
                   </Link>
@@ -78,18 +78,24 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-sky-blue-light">
-              Visit
-            </p>
-            <address className="mt-4 space-y-2 text-sm not-italic leading-relaxed text-warm-white/70">
+            <p className="editorial-label mb-6">Contact</p>
+            <address className="type-body-sm space-y-4 font-light not-italic text-white/40">
               <p>{site.address}</p>
               <p>
-                <a href={`tel:${site.phone}`} className="hover:text-sky-blue-light">
+                <a
+                  href={`tel:${site.phone.replace(/\D/g, "")}`}
+                  className="inline-flex items-center gap-2 transition-colors hover:text-white"
+                >
+                  <Phone className="h-3.5 w-3.5" strokeWidth={1.5} />
                   {site.phone}
                 </a>
               </p>
               <p>
-                <a href={`mailto:${site.email}`} className="hover:text-sky-blue-light">
+                <a
+                  href={`mailto:${site.email}`}
+                  className="inline-flex items-center gap-2 transition-colors hover:text-white"
+                >
+                  <Mail className="h-3.5 w-3.5" strokeWidth={1.5} />
                   {site.email}
                 </a>
               </p>
@@ -98,16 +104,18 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center gap-4 border-t border-warm-white/10 pt-8 text-center text-xs text-warm-white/50 sm:flex-row sm:justify-between">
+        <div className="section-divider mt-20" />
+
+        <div className="type-caption mt-8 flex flex-col items-start gap-4 font-light uppercase text-white/30 sm:flex-row sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {site.name}. All rights reserved.
+            © {new Date().getFullYear()} {site.name}
           </p>
-          <div className="flex gap-4">
-            <a href="#" className="transition-colors hover:text-sky-blue-light">
-              Privacy Policy
+          <div className="flex gap-8">
+            <a href="#" className="transition-colors hover:text-white/50">
+              Privacy
             </a>
-            <a href="#" className="transition-colors hover:text-sky-blue-light">
-              Terms & Conditions
+            <a href="#" className="transition-colors hover:text-white/50">
+              Terms
             </a>
           </div>
         </div>

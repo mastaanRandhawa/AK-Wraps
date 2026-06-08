@@ -1,16 +1,21 @@
 import { HeroLanding } from "@/components/ui/hero-1";
 import { site } from "@/config/site";
-import {
-  homeHeroGradient,
-  pageHeroGradients,
-  type HeroGradient,
-  type PageHeroKey,
-} from "@/config/hero-gradients";
+import { images } from "@/content/images";
+import { routes } from "@/config/routes";
+import { useHeroBackgroundMode } from "@/hooks/use-hero-background-mode";
+import type { PageHeroKey } from "@/config/hero-gradients";
 
-const defaultCallToActions = [
-  { text: "Get a Quote", href: "/contact", variant: "primary" as const },
-  { text: "View Our Work", href: "/gallery", variant: "secondary" as const },
+const homeCallToActions = [
+  { text: "Book Appointment", href: routes.contact, variant: "primary" as const },
+  { text: "View Services", href: routes.services, variant: "secondary" as const },
 ];
+
+const pageHeroImages: Record<PageHeroKey, string> = {
+  about: images.shopExterior,
+  services: images.detailing,
+  gallery: images.wrappedCar,
+  contact: images.shopExterior,
+};
 
 interface HomeHeroProps {
   page?: "home";
@@ -24,7 +29,7 @@ interface PageHeroProps {
   description: string;
 }
 
-export type HeroSectionProps = HomeHeroProps | PageHeroProps;
+type HeroSectionProps = HomeHeroProps | PageHeroProps;
 
 function isPageHero(props: HeroSectionProps): props is PageHeroProps {
   return (
@@ -36,20 +41,40 @@ function isPageHero(props: HeroSectionProps): props is PageHeroProps {
 
 export function HeroSection(props: HeroSectionProps) {
   const isPage = isPageHero(props);
-  const title = props.title ?? "Premium Vehicle Wraps & Customization";
-  const description = props.description ?? site.tagline;
-  const gradient: HeroGradient = isPage
-    ? pageHeroGradients[props.page]
-    : homeHeroGradient;
+  const homeBackgroundMode = useHeroBackgroundMode();
+  const title =
+    props.title ??
+    (isPage ? "" : "The Finish Your Vehicle Deserves");
+  const description =
+    props.description ??
+    (isPage ? "" : site.tagline);
+
+  const useBeamsOnHome = !isPage && homeBackgroundMode === "beams";
 
   return (
     <HeroLanding
       title={title}
       description={description}
-      gradient={gradient}
-      callToActions={defaultCallToActions}
+      shaderBackground={useBeamsOnHome}
+      backgroundImage={
+        isPage
+          ? pageHeroImages[props.page]
+          : useBeamsOnHome
+            ? undefined
+            : images.heroSupra
+      }
+      backgroundImageFallback={
+        isPage ? undefined : images.heroSupraFallback
+      }
+      backgroundImageClassName={
+        isPage ? undefined : "object-[70%_center] opacity-70"
+      }
+      shaderFallbackImage={!isPage ? images.heroSupraFallback : undefined}
+      shaderFallbackImageClassName="object-[70%_center] opacity-70"
+      callToActions={isPage ? undefined : homeCallToActions}
       titleSize={isPage ? "medium" : "large"}
       compact={isPage}
+      showScrollIndicator={!isPage}
     />
   );
 }

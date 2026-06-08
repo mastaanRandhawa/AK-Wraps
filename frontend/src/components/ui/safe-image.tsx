@@ -41,7 +41,7 @@ export const SafeImage = memo(function SafeImage({
       alt={alt}
       loading={loading}
       decoding={decoding}
-      referrerPolicy="no-referrer"
+      referrerPolicy="strict-origin-when-cross-origin"
       className={cn(
         "block max-w-full bg-beige object-cover",
         hasError && imgSrc === fallback && "opacity-90",

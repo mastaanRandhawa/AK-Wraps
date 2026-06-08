@@ -1,119 +1,85 @@
 import { Link } from "react-router-dom";
-import { HeroWave } from "@/components/ui/dynamic-wave-canvas-background";
+import { ChevronDown } from "lucide-react";
 import { NAVBAR_OFFSET } from "@/config/layout";
-import type { HeroGradient } from "@/config/hero-gradients";
-import { homeHeroGradient } from "@/config/hero-gradients";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { SafeImage } from "@/components/ui/safe-image";
+import { HeroShaderBackground } from "@/components/ui/hero-shader-background";
 
-export interface AnnouncementBanner {
-  text: string;
-  linkText: string;
-  linkHref: string;
-}
-
-export interface CallToAction {
+interface CallToAction {
   text: string;
   href: string;
   variant: "primary" | "secondary";
 }
 
-export interface HeroLandingProps {
+interface HeroLandingProps {
   title: string;
   description: string;
-  announcementBanner?: AnnouncementBanner;
   callToActions?: CallToAction[];
   titleSize?: "small" | "medium" | "large";
   backgroundImage?: string;
-  gradient?: HeroGradient;
+  backgroundImageFallback?: string;
+  backgroundImageClassName?: string;
+  shaderBackground?: boolean;
+  /** Shown if the beams canvas fails to load (mobile WebGL fallback) */
+  shaderFallbackImage?: string;
+  shaderFallbackImageClassName?: string;
   compact?: boolean;
   className?: string;
+  showScrollIndicator?: boolean;
 }
 
 const defaultProps: Partial<HeroLandingProps> = {
   titleSize: "large",
+  showScrollIndicator: true,
 };
 
 export function HeroLanding(props: HeroLandingProps) {
   const {
     title,
     description,
-    announcementBanner,
     callToActions,
     titleSize,
     backgroundImage,
-    gradient = homeHeroGradient,
+    backgroundImageFallback,
+    backgroundImageClassName,
+    shaderBackground = false,
+    shaderFallbackImage,
+    shaderFallbackImageClassName,
     compact = false,
     className,
+    showScrollIndicator = true,
   } = { ...defaultProps, ...props };
-
-  const textOnDark = true;
 
   const getTitleSizeClasses = () => {
     switch (titleSize) {
       case "small":
-        return "text-3xl sm:text-4xl md:text-5xl";
+        return "type-display-sm";
       case "medium":
-        return "text-4xl sm:text-5xl md:text-6xl lg:text-7xl";
+        return "type-display-md";
       case "large":
       default:
-        return "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl";
+        return "type-display";
     }
   };
 
   const renderCallToAction = (cta: CallToAction, index: number) => {
     const isExternal = cta.href.startsWith("http");
+    const variant = cta.variant === "primary" ? "default" : "secondary";
+    const size = compact ? "default" : "lg";
 
-    if (cta.variant === "primary") {
-      const className =
-        "rounded-md bg-gold px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-gold/90 sm:px-7 sm:py-3 sm:text-base";
-      return isExternal ? (
-        <a key={index} href={cta.href} className={className}>
-          {cta.text}
-        </a>
-      ) : (
-        <Link key={index} to={cta.href} className={className}>
-          {cta.text}
-        </Link>
-      );
-    }
-
-    const className = cn(
-      "text-sm font-semibold transition-colors sm:text-base",
-      textOnDark
-        ? "text-warm-white/90 hover:text-warm-white"
-        : "text-charcoal/80 hover:text-charcoal",
-    );
-    return isExternal ? (
-      <a key={index} href={cta.href} className={className}>
-        {cta.text} <span aria-hidden="true">→</span>
-      </a>
-    ) : (
-      <Link key={index} to={cta.href} className={className}>
-        {cta.text} <span aria-hidden="true">→</span>
-      </Link>
-    );
-  };
-
-  const HeroLink = ({
-    href,
-    children,
-    className: cls,
-  }: {
-    href: string;
-    children: React.ReactNode;
-    className?: string;
-  }) => {
-    if (href.startsWith("http")) {
+    if (isExternal) {
       return (
-        <a href={href} className={cls}>
-          {children}
-        </a>
+        <Button key={index} variant={variant} size={size} asChild>
+          <a href={cta.href}>{cta.text}</a>
+        </Button>
       );
     }
+
     return (
-      <Link to={href} className={cls}>
-        {children}
-      </Link>
+      <Button key={index} variant={variant} size={size} asChild>
+        <Link to={cta.href}>{cta.text}</Link>
+      </Button>
     );
   };
 
@@ -121,86 +87,71 @@ export function HeroLanding(props: HeroLandingProps) {
     <div
       data-nav-background="dark"
       className={cn(
-        "relative w-full overflow-hidden bg-charcoal",
-        compact ? "min-h-[42vh] sm:min-h-[44vh]" : "min-h-[85vh] sm:min-h-screen",
+        "relative w-full overflow-hidden bg-black",
+        compact ? "min-h-[40vh] sm:min-h-[45vh]" : "min-h-screen",
         className,
       )}
       style={{ paddingTop: NAVBAR_OFFSET }}
     >
-      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-        <HeroWave accentRgb={gradient.accentRgb} />
-        {backgroundImage && (
-          <img
-            src={backgroundImage}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover opacity-15 mix-blend-overlay"
-            loading="lazy"
-          />
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden="true"
+      >
+        {shaderBackground ? (
+          <>
+            <HeroShaderBackground
+              fallbackImage={shaderFallbackImage}
+              fallbackImageClassName={shaderFallbackImageClassName}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
+          </>
+        ) : (
+          <>
+            {backgroundImage && (
+              <SafeImage
+                src={backgroundImage}
+                fallback={backgroundImageFallback}
+                alt=""
+                className={cn(
+                  "absolute inset-0 h-full w-full object-cover object-center opacity-60",
+                  backgroundImageClassName,
+                )}
+                loading="eager"
+                fetchPriority="high"
+              />
+            )}
+            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/80 to-transparent" />
+          </>
         )}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: [
-              `linear-gradient(155deg, ${gradient.from}${compact ? "66" : "38"} 0%, transparent 40%, ${gradient.to}f2 100%)`,
-              gradient.wash
-                ? `linear-gradient(to top, ${gradient.wash}e8 0%, ${gradient.wash}40 50%, transparent 85%)`
-                : "linear-gradient(to top, rgba(31,31,31,0.85) 0%, transparent 55%)",
-            ].join(", "),
-          }}
-        />
       </div>
 
       <div
         className={cn(
-          "relative z-10 isolate flex flex-col justify-center px-4 sm:px-6 lg:px-8",
+          "relative z-10 flex flex-col justify-end px-5 sm:px-8 lg:px-12",
           compact
-            ? "min-h-[calc(42vh-var(--navbar-offset))] py-14 sm:min-h-[calc(44vh-var(--navbar-offset))] sm:py-16"
-            : "min-h-[calc(85vh-var(--navbar-offset))] py-20 sm:min-h-[calc(100vh-var(--navbar-offset))] sm:py-24",
+            ? "min-h-[calc(40vh-var(--navbar-offset))] pb-12 sm:min-h-[calc(45vh-var(--navbar-offset))] sm:pb-16"
+            : "min-h-[calc(100vh-var(--navbar-offset))] pb-20 sm:pb-28 md:pb-32",
         )}
       >
-        <div className="mx-auto w-full max-w-5xl">
-          {announcementBanner && (
-            <div className="mb-6 flex justify-center sm:mb-8">
-              <div
-                className={cn(
-                  "relative rounded-md px-3 py-1.5 text-xs ring-1 transition-all sm:px-4 sm:text-sm",
-                  textOnDark
-                    ? "text-warm-white/90 ring-warm-white/30 hover:ring-gold"
-                    : "text-muted-foreground ring-border hover:ring-gold",
-                )}
-              >
-                {announcementBanner.text}{" "}
-                <HeroLink
-                  href={announcementBanner.linkHref}
-                  className="font-semibold text-sky-blue-light hover:text-sky-blue-light/80"
-                >
-                  {announcementBanner.linkText} →
-                </HeroLink>
-              </div>
-            </div>
-          )}
-
-          <div className="text-center">
+        <div className="mx-auto w-full max-w-6xl animate-page-enter">
+          <div className="max-w-2xl">
+            <p className="editorial-label mb-8">Premium Automotive Detailing</p>
             <h1
               className={cn(
                 getTitleSizeClasses(),
-                "font-serif font-medium leading-[1.05] tracking-tight text-balance",
-                textOnDark ? "text-warm-white" : "text-charcoal",
+                "font-serif font-medium leading-[1.02] tracking-tight text-white",
               )}
             >
               {title}
             </h1>
-            <p
-              className={cn(
-                "mx-auto mt-5 max-w-2xl text-base leading-relaxed sm:mt-6 sm:text-lg md:text-xl",
-                textOnDark ? "text-warm-white/85" : "text-muted-foreground",
-              )}
-            >
+            <p className="type-body-sm mt-6 max-w-md tracking-wide text-white/50 sm:mt-8">
               {description}
             </p>
 
             {callToActions && callToActions.length > 0 && (
-              <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+              <div className="mt-12 flex flex-col gap-3 sm:flex-row sm:gap-4">
                 {callToActions.map((cta, index) =>
                   renderCallToAction(cta, index),
                 )}
@@ -209,6 +160,16 @@ export function HeroLanding(props: HeroLandingProps) {
           </div>
         </div>
       </div>
+
+      {!compact && showScrollIndicator && (
+        <div
+          className="absolute inset-x-0 bottom-10 z-10 flex flex-col items-center gap-3"
+          aria-hidden="true"
+        >
+          <span className="editorial-label">Scroll</span>
+          <ChevronDown className="h-4 w-4 animate-scroll-bounce text-white/40" />
+        </div>
+      )}
     </div>
   );
 }

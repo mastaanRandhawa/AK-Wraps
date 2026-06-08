@@ -5,8 +5,9 @@ interface SectionProps {
   children: ReactNode;
   className?: string;
   id?: string;
-  variant?: "default" | "gold" | "warm";
+  variant?: "default" | "elevated" | "muted";
   containerClassName?: string;
+  fullWidth?: boolean;
 }
 
 export function Section({
@@ -15,22 +16,23 @@ export function Section({
   id,
   variant = "default",
   containerClassName,
+  fullWidth = false,
 }: SectionProps) {
   return (
     <section
       id={id}
-      data-nav-background="light"
+      data-nav-background="dark"
       className={cn(
-        "py-16 sm:py-20 md:py-28 [content-visibility:auto] [contain-intrinsic-size:auto_500px]",
-        variant === "gold" && "bg-sky-blue-light",
-        variant === "warm" && "bg-warm-white",
-        variant === "default" && "bg-cream",
+        "relative py-16 sm:py-24 md:py-32 lg:py-40 [content-visibility:auto] [contain-intrinsic-size:auto_500px]",
+        variant === "default" && "bg-black",
+        variant === "elevated" && "bg-surface",
+        variant === "muted" && "bg-surface-elevated",
         className,
       )}
     >
       <div
         className={cn(
-          "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
+          fullWidth ? "w-full" : "mx-auto max-w-6xl px-5 sm:px-8 lg:px-12",
           containerClassName,
         )}
       >
@@ -45,35 +47,27 @@ export function SectionHeading({
   title,
   description,
   align = "left",
-  light = false,
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
-  light?: boolean;
 }) {
   return (
     <div
       className={cn(
-        "mb-10 sm:mb-12 md:mb-16",
+        "mb-12 sm:mb-16 md:mb-24 lg:mb-28",
         align === "center" && "text-center",
       )}
     >
       {eyebrow && (
-        <p
-          className={cn(
-            "mb-3 text-xs font-semibold uppercase tracking-[0.2em]",
-            light ? "text-charcoal/70" : "text-baltic-blue",
-          )}
-        >
-          {eyebrow}
-        </p>
+        <p className="editorial-label mb-6">{eyebrow}</p>
       )}
       <h2
         className={cn(
-          "text-3xl font-medium leading-tight sm:text-4xl md:text-5xl lg:text-6xl",
-          light ? "text-charcoal" : "text-charcoal",
+          "type-section max-w-3xl font-medium",
+          align === "center" && "mx-auto",
+          "text-white",
         )}
       >
         {title}
@@ -81,9 +75,9 @@ export function SectionHeading({
       {description && (
         <p
           className={cn(
-            "mt-4 max-w-2xl text-base leading-relaxed md:text-lg",
+            "type-body-sm mt-5 max-w-md tracking-wide sm:mt-6",
             align === "center" && "mx-auto",
-            light ? "text-charcoal/80" : "text-muted-foreground",
+            "text-white/45",
           )}
         >
           {description}

@@ -1,7 +1,7 @@
 export const site = {
   name: "AK Wraps & Customs",
   tagline:
-    "Premium vehicle wraps, protection, and customization in Greater Vancouver",
+    "Premium detailing, paint protection, and ceramic coating for discerning vehicle owners in Greater Vancouver",
   phone: "(236) 412-5010",
   email: "ak.wraps.customs@gmail.com",
   address: "6165 BC-17A, Delta, BC V4K 0B2",
@@ -31,5 +31,3 @@ export const navigation = [
   { name: "Gallery", href: "/gallery" },
   { name: "Contact", href: "/contact" },
 ];
-
-export type NavItem = (typeof navigation)[number];

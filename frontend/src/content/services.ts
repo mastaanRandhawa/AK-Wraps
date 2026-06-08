@@ -6,77 +6,95 @@ export interface Service {
   description: string;
   price: string;
   image: string;
+  tagline?: string;
 }
 
 export const featuredServices: Service[] = [
   {
-    id: "vehicle-wraps",
-    title: "Vehicle Wraps",
+    id: "exterior-detailing",
+    title: "Exterior Detailing",
+    tagline: "Showroom shine, restored",
     description:
-      "Full wraps, partial wraps, color changes, and custom designs that transform your vehicle.",
+      "Hand wash, clay bar, polish, and protection for a flawless exterior finish.",
     price: "Starting from — contact for quote",
-    image: images.vehicleWrap,
+    image: images.exteriorDetail,
   },
   {
-    id: "ppf",
-    title: "Paint Protection Film (PPF)",
+    id: "interior-detailing",
+    title: "Interior Detailing",
+    tagline: "Refined comfort inside",
     description:
-      "Invisible protection against rock chips, scratches, and road debris for long-lasting paint.",
+      "Deep cleaning, leather care, and odor elimination for a pristine cabin.",
     price: "Starting from — contact for quote",
-    image: images.ppfInstall,
-  },
-  {
-    id: "ceramic-coating",
-    title: "Ceramic Coating",
-    description:
-      "Hydrophobic, UV-resistant protection that delivers a deep gloss and easier maintenance.",
-    price: "Starting from — contact for quote",
-    image: images.ceramicCoating,
+    image: images.interiorDetail,
   },
   {
     id: "paint-correction",
     title: "Paint Correction",
+    tagline: "Flawless paint, restored depth",
     description:
-      "Swirl mark removal, scratch reduction, and paint restoration for a flawless finish.",
+      "Multi-stage polishing removes swirls and scratches for mirror-like clarity.",
     price: "Starting from — contact for quote",
     image: images.paintCorrection,
   },
   {
-    id: "chrome-delete",
-    title: "Chrome Delete",
+    id: "ceramic-coating",
+    title: "Ceramic Coating",
+    tagline: "Lasting gloss & protection",
     description:
-      "Modern blackout styling for window trim, badges, and accents with a sleek custom look.",
+      "Hydrophobic, UV-resistant coating that delivers deep shine and easier maintenance.",
     price: "Starting from — contact for quote",
-    image: images.chromeDelete,
+    image: images.ceramicCoating,
   },
   {
-    id: "interior-upgrades",
-    title: "Interior Upgrades",
+    id: "ppf",
+    title: "Paint Protection Film",
+    tagline: "Invisible armor for your paint",
     description:
-      "Starlight headliners, ambient lighting, and personalized interior enhancements.",
+      "Self-healing film shields against rock chips, scratches, and road debris.",
     price: "Starting from — contact for quote",
-    image: images.interiorUpgrade,
+    image: images.ppfInstall,
+  },
+  {
+    id: "headlight-restoration",
+    title: "Headlight Restoration",
+    tagline: "Clarity you can see",
+    description:
+      "Restore yellowed, oxidized headlights for improved visibility and appearance.",
+    price: "Starting from — contact for quote",
+    image: images.headlightRestore,
   },
 ];
 
 export const serviceCategories = [
   {
-    title: "Vehicle Wraps",
+    title: "Exterior Detailing",
     items: [
-      "Full Wraps",
-      "Partial Wraps",
-      "Color Changes",
-      "Commercial Wraps",
-      "Custom Designs",
+      "Hand Wash & Dry",
+      "Clay Bar Treatment",
+      "Paint Decontamination",
+      "Wheel & Tire Detail",
+      "Trim Restoration",
     ],
   },
   {
-    title: "Paint Protection Film",
+    title: "Interior Detailing",
     items: [
-      "Full Front Coverage",
-      "Partial Coverage",
-      "Track Package",
-      "Self-Healing Film",
+      "Deep Vacuum & Shampoo",
+      "Leather Conditioning",
+      "Dashboard & Trim Care",
+      "Odor Elimination",
+      "Glass & Mirror Polish",
+    ],
+  },
+  {
+    title: "Paint Correction",
+    items: [
+      "Single-Stage Polish",
+      "Multi-Stage Correction",
+      "Swirl Removal",
+      "Scratch Reduction",
+      "Gloss Enhancement",
     ],
   },
   {
@@ -89,56 +107,49 @@ export const serviceCategories = [
     ],
   },
   {
-    title: "Paint Correction",
+    title: "Paint Protection Film",
     items: [
-      "Single-Stage Polish",
-      "Multi-Stage Correction",
-      "Swirl Removal",
-      "Scratch Reduction",
+      "Full Front Coverage",
+      "Partial Coverage",
+      "Track Package",
+      "Self-Healing Film",
     ],
   },
   {
-    title: "Chrome Delete",
+    title: "Headlight Restoration",
     items: [
-      "Window Trim",
-      "Badge Blackout",
-      "Grille Accents",
-      "Custom Styling",
-    ],
-  },
-  {
-    title: "Interior Customization",
-    items: [
-      "Starlight Headliners",
-      "Ambient Lighting",
-      "Trim Upgrades",
-      "Personalization",
+      "Oxidation Removal",
+      "UV Sealant Application",
+      "Clarity Restoration",
+      "Long-Term Protection",
     ],
   },
 ];
 
 export const pricing = [
-  { service: "Vehicle Wraps", price: "Quote required" },
+  { service: "Exterior Detailing", price: "Starting from — contact us" },
+  { service: "Interior Detailing", price: "Starting from — contact us" },
   { service: "Ceramic Coating", price: "Starting from — contact us" },
   { service: "Paint Protection Film", price: "Starting from — contact us" },
-  { service: "Chrome Delete", price: "Starting from — contact us" },
+  { service: "Paint Correction", price: "Quote required" },
+  { service: "Headlight Restoration", price: "Starting from — contact us" },
 ];
 
 export const faqs = [
   {
-    question: "How do I get a quote?",
+    question: "How do I book an appointment?",
     answer:
       "Fill out our contact form or call us at (236) 412-5010. We'll discuss your vehicle, goals, and provide a detailed estimate based on your specific project.",
   },
   {
-    question: "How long does a wrap or coating take?",
+    question: "How long does a detail or coating take?",
     answer:
-      "Turnaround depends on the service and vehicle size. Most wraps take 3–5 days; ceramic coating and PPF typically require 1–3 days. We'll give you a timeline with your quote.",
+      "Turnaround depends on the service and vehicle condition. Basic detailing takes 4–8 hours; paint correction and ceramic coating typically require 1–3 days. We'll give you a timeline with your quote.",
   },
   {
-    question: "What materials and brands do you use?",
+    question: "What products and brands do you use?",
     answer:
-      "We use premium industry-leading products from trusted partners including 3M, XPEL, Ceramic Pro, and Avery Dennison for lasting quality and warranty-backed results.",
+      "We use premium industry-leading products from trusted partners including 3M, XPEL, Ceramic Pro, and Gtechniq for lasting quality and warranty-backed results.",
   },
   {
     question: "What areas do you serve?",

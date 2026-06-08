@@ -1,22 +1,22 @@
-export const whyChooseUs = [
+export const statMetrics = [
   {
-    title: "Professional Installation",
-    description:
-      "Experienced workmanship and meticulous attention to detail on every project.",
+    value: "500+",
+    label: "Vehicles Detailed",
+    description: "Trusted by enthusiasts across Greater Vancouver",
   },
   {
-    title: "Premium Materials",
-    description:
-      "Industry-leading vinyl, PPF, and coating products from trusted manufacturers.",
+    value: "5-Star",
+    label: "Reviews",
+    description: "Consistently rated for quality and craftsmanship",
   },
   {
-    title: "Custom Solutions",
-    description:
-      "Every vehicle receives a tailored approach designed around your vision and needs.",
+    value: "10+",
+    label: "Years of Experience",
+    description: "Dedicated expertise in protection and detailing",
   },
   {
-    title: "Customer Satisfaction",
-    description:
-      "We focus on delivering exceptional results and standing behind our work.",
+    value: "100%",
+    label: "Satisfaction Guarantee",
+    description: "We stand behind every finish we deliver",
   },
-];
+] as const;

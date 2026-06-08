@@ -3,6 +3,7 @@ import { HeroSection } from "@/components/hero/HeroSection";
 import { MotionSection } from "@/components/ui/motion-section";
 import { Section } from "@/components/ui/Section";
 import { ContactForm } from "@/components/sections/ContactForm";
+import { CtaBand } from "@/components/sections/CtaBand";
 import { site } from "@/config/site";
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -24,18 +25,18 @@ export function ContactPage() {
       <HeroSection
         page="contact"
         title="Get in Touch"
-        description="Request a quote or book a vehicle consultation at our Delta shop."
+        description="Book an appointment or request a quote at our Delta shop."
       />
 
-      <Section>
+      <Section variant="elevated">
         <MotionSection>
           <ContactForm />
         </MotionSection>
       </Section>
 
-      <Section variant="warm" className="py-0 pb-20">
+      <Section variant="muted" className="pb-24">
         <MotionSection>
-          <div className="overflow-hidden rounded-lg">
+          <div className="overflow-hidden border border-white/15">
             <iframe
               title="AK Wraps & Customs location map"
               src={site.mapEmbedUrl}
@@ -49,42 +50,42 @@ export function ContactPage() {
 
       <Section>
         <MotionSection>
-          <div className="flex flex-col items-center gap-6 text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-cerulean">
-              Connect with us
-            </p>
-            <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-col items-center gap-8 text-center">
+            <p className="editorial-label">Connect</p>
+            <div className="flex flex-wrap justify-center gap-10">
               <a
                 href={site.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-charcoal transition-colors hover:text-charcoal/70"
+                className="type-nav flex items-center gap-3 font-sans font-medium uppercase text-white/40 transition-colors hover:text-white"
               >
-                <Instagram className="h-5 w-5" />
+                <Instagram className="h-4 w-4" strokeWidth={1.5} />
                 Instagram
               </a>
               <a
                 href={site.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-charcoal transition-colors hover:text-charcoal/70"
+                className="type-nav flex items-center gap-3 font-sans font-medium uppercase text-white/40 transition-colors hover:text-white"
               >
-                <TikTokIcon className="h-5 w-5" />
+                <TikTokIcon className="h-4 w-4" />
                 TikTok
               </a>
               <a
                 href={site.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-charcoal transition-colors hover:text-charcoal/70"
+                className="type-nav flex items-center gap-3 font-sans font-medium uppercase text-white/40 transition-colors hover:text-white"
               >
-                <Facebook className="h-5 w-5" />
+                <Facebook className="h-4 w-4" strokeWidth={1.5} />
                 Facebook
               </a>
             </div>
           </div>
         </MotionSection>
       </Section>
+
+      <CtaBand />
     </>
   );
 }
