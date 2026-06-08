@@ -67,10 +67,10 @@ export function HeroSection(props: HeroSectionProps) {
         isPage ? undefined : images.heroSupraFallback
       }
       backgroundImageClassName={
-        isPage ? undefined : "object-[70%_center] opacity-70"
+        isPage ? undefined : "object-[70%_center] opacity-70 grayscale"
       }
-      shaderFallbackImage={!isPage ? images.heroSupraFallback : undefined}
-      shaderFallbackImageClassName="object-[70%_center] opacity-70"
+      shaderFallbackImage={!isPage ? images.heroSupra : undefined}
+      shaderFallbackImageClassName="object-[70%_center] opacity-70 grayscale"
       callToActions={isPage ? undefined : homeCallToActions}
       titleSize={isPage ? "medium" : "large"}
       compact={isPage}

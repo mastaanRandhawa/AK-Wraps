@@ -3,10 +3,6 @@ function unsplash(photoId: string, width = 1200) {
   return `https://images.unsplash.com/${photoId}?auto=format&fit=crop&w=${width}&q=80`;
 }
 
-function localImage(name: string) {
-  return `${import.meta.env.BASE_URL}images/${name}`;
-}
-
 /**
  * Curated car-only imagery for AK Wraps.
  * Each ID maps to a known automotive photo on Unsplash.
@@ -38,9 +34,9 @@ export const images = {
   detailing: unsplash("photo-1583121274602-3b2824c1eeb2", 1600),
   /** Mustang — wheels & trim */
   customWheels: unsplash("photo-1494976388531-d105849883b6", 1600),
-  /** Local Supra hero when bundled in /public/images */
-  heroSupra: localImage("supra.jpg"),
-  heroSupraFallback: unsplash("photo-1605559424843-9e4f228af1f2", 1920),
+  /** Homepage hero — dark blue Toyota Supra (Unsplash) */
+  heroSupra: unsplash("photo-1747170201794-83aa34950596", 1920),
+  heroSupraFallback: unsplash("photo-1644582304103-7114aaccd897", 1920),
   /** Before/after — older finish vs polished */
   beforeDetail: unsplash("photo-148529157115-f1dea7746764", 1400),
   afterDetail: unsplash("photo-1503376780353-7e6692767b70", 1400),
