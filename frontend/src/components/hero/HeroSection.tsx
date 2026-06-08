@@ -12,9 +12,9 @@ const homeCallToActions = [
 
 const pageHeroImages: Record<PageHeroKey, string> = {
   about: images.shopExterior,
-  services: images.detailing,
+  services: images.exteriorDetail,
   gallery: images.wrappedCar,
-  contact: images.shopExterior,
+  contact: images.detailing,
 };
 
 interface HomeHeroProps {

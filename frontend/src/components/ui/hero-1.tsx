@@ -163,7 +163,7 @@ export function HeroLanding(props: HeroLandingProps) {
 
       {!compact && showScrollIndicator && (
         <div
-          className="absolute inset-x-0 bottom-10 z-10 flex flex-col items-center gap-3"
+          className="absolute inset-x-0 bottom-8 z-10 mt-10 flex flex-col items-center gap-3 sm:bottom-10 sm:mt-0"
           aria-hidden="true"
         >
           <span className="editorial-label">Scroll</span>
