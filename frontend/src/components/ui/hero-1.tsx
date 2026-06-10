@@ -4,7 +4,6 @@ import { NAVBAR_OFFSET } from "@/config/layout";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { SafeImage } from "@/components/ui/safe-image";
-import { HeroShaderBackground } from "@/components/ui/hero-shader-background";
 
 interface CallToAction {
   text: string;
@@ -20,10 +19,6 @@ interface HeroLandingProps {
   backgroundImage?: string;
   backgroundImageFallback?: string;
   backgroundImageClassName?: string;
-  shaderBackground?: boolean;
-  /** Shown if the beams canvas fails to load (mobile WebGL fallback) */
-  shaderFallbackImage?: string;
-  shaderFallbackImageClassName?: string;
   compact?: boolean;
   className?: string;
   showScrollIndicator?: boolean;
@@ -43,9 +38,6 @@ export function HeroLanding(props: HeroLandingProps) {
     backgroundImage,
     backgroundImageFallback,
     backgroundImageClassName,
-    shaderBackground = false,
-    shaderFallbackImage,
-    shaderFallbackImageClassName,
     compact = false,
     className,
     showScrollIndicator = true,
@@ -97,34 +89,21 @@ export function HeroLanding(props: HeroLandingProps) {
         className="pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
       >
-        {shaderBackground ? (
-          <>
-            <HeroShaderBackground
-              fallbackImage={shaderFallbackImage}
-              fallbackImageClassName={shaderFallbackImageClassName}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
-          </>
-        ) : (
-          <>
-            {backgroundImage && (
-              <SafeImage
-                src={backgroundImage}
-                fallback={backgroundImageFallback}
-                alt=""
-                className={cn(
-                  "absolute inset-0 h-full w-full object-cover object-center opacity-60",
-                  backgroundImageClassName,
-                )}
-                loading="eager"
-                fetchPriority="high"
-              />
+        {backgroundImage && (
+          <SafeImage
+            src={backgroundImage}
+            fallback={backgroundImageFallback}
+            alt=""
+            className={cn(
+              "absolute inset-0 h-full w-full object-cover object-center opacity-60",
+              backgroundImageClassName,
             )}
-            <div className="absolute inset-0 bg-black/40" />
-            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/80 to-transparent" />
-          </>
+            loading="eager"
+            fetchPriority="high"
+          />
         )}
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/80 to-transparent" />
       </div>
 
       <div
