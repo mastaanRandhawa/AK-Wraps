@@ -25,6 +25,8 @@ function CompareSlider({ before, after, label }: CompareSliderProps) {
   }, []);
 
   const onPointerDown = (e: React.PointerEvent) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
     dragging.current = true;
     e.currentTarget.setPointerCapture(e.pointerId);
     updatePosition(e.clientX);
@@ -32,22 +34,22 @@ function CompareSlider({ before, after, label }: CompareSliderProps) {
 
   const onPointerMove = (e: React.PointerEvent) => {
     if (!dragging.current) return;
+    e.preventDefault();
     updatePosition(e.clientX);
   };
 
-  const onPointerUp = () => {
+  const onPointerUp = (e: React.PointerEvent) => {
     dragging.current = false;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
   };
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 sm:space-y-8">
       <div
         ref={containerRef}
-        className="group relative aspect-[16/9] cursor-ew-resize overflow-hidden border border-white/15 bg-surface select-none"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
+        className="group relative aspect-[16/9] cursor-ew-resize touch-none overflow-hidden border border-white/15 bg-surface select-none"
         role="slider"
         aria-label={`Before and after comparison: ${label}`}
         aria-valuenow={Math.round(position)}
@@ -58,25 +60,35 @@ function CompareSlider({ before, after, label }: CompareSliderProps) {
           src={after}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover"
+          draggable={false}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
           loading="eager"
           width={1200}
           height={675}
         />
         <div
-          className="absolute inset-0 overflow-hidden"
+          className="pointer-events-none absolute inset-0 overflow-hidden"
           style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
         >
           <SafeImage
             src={before}
             alt=""
             aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover brightness-90 saturate-75"
+            draggable={false}
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover brightness-90 saturate-75"
             loading="eager"
             width={1200}
             height={675}
           />
         </div>
+
+        <div
+          className="absolute inset-0 z-10"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+        />
 
         <div
           className="pointer-events-none absolute inset-y-0 z-20 w-px bg-white"

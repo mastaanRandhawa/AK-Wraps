@@ -32,6 +32,11 @@ jobs:
         working-directory: frontend
         run: npm ci
 
+      - name: Fetch Instagram feed
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: node scripts/fetch-instagram-feed.mjs
+
       - name: Build
         working-directory: frontend
         run: npm run build
