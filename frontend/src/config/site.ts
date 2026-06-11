@@ -1,7 +1,12 @@
 export const site = {
   name: "AK Wraps & Customs",
-  tagline:
-    "Premium detailing, paint protection, and ceramic coating for discerning vehicle owners in Greater Vancouver",
+  nameShort: "AK WRAPS",
+  nameSub: "& Customs",
+  tagline: "Every vehicle leaves with our signature finish.",
+  heroBadge: "PREMIER IN GREATER VANCOUVER",
+  heroTitle: "Premier Auto Protection & Customization in Greater Vancouver",
+  heroSubtitle:
+    "From daily drivers to exotics, every vehicle leaves with our signature.",
   phone: "(236) 412-5010",
   email: "ak.wraps.customs@gmail.com",
   address: "6165 BC-17A, Delta, BC V4K 0B2",
@@ -25,9 +30,8 @@ export const site = {
 } as const;
 
 export const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Contact", href: "/contact" },
+  { name: "Portfolio", href: "/gallery" },
+  { name: "About Us", href: "/about" },
+  { name: "Contact Us", href: "/contact" },
 ];

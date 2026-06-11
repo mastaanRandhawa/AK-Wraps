@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink, Instagram } from "lucide-react";
-import { MotionSection } from "@/components/ui/motion-section";
+import { MotionReveal } from "@/components/ui/motion-reveal";
+import { IconCircleButton } from "@/components/ui/icon-circle-button";
 import { SafeImage } from "@/components/ui/safe-image";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
@@ -77,7 +79,7 @@ export function InstagramCarousel({
   return (
     <Section
       id={id}
-      variant={showHeading ? "default" : "elevated"}
+      variant={showHeading ? "elevated" : "default"}
       className={className}
     >
       {showHeading && (
@@ -89,7 +91,7 @@ export function InstagramCarousel({
         />
       )}
 
-      <MotionSection>
+      <MotionReveal variant="slideIn">
         {loading ? (
           <div className="mx-auto flex aspect-[4/5] max-w-3xl items-center justify-center border border-white/10 bg-black sm:aspect-[16/10]">
             <p className="type-body-sm text-white/40">Loading feed…</p>
@@ -126,28 +128,38 @@ export function InstagramCarousel({
                 href={current.permalink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative block aspect-[4/5] overflow-hidden border border-white/15 bg-black sm:aspect-[16/10]"
+                className="group relative block aspect-[4/5] overflow-hidden rounded-md border border-white/15 bg-black sm:aspect-[16/10]"
                 aria-label="Open Instagram post"
               >
-                <SafeImage
-                  key={current.id}
-                  src={current.imageUrl}
-                  alt={truncateCaption(current.caption, 80) || "Instagram post"}
-                  className="image-zoom-hover h-full w-full object-cover opacity-95 transition-opacity duration-500 group-hover:opacity-100"
-                  loading={index === 0 ? "eager" : "lazy"}
-                  width={1200}
-                  height={750}
-                  draggable={false}
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent p-5 sm:p-8">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={current.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute inset-0"
+                  >
+                    <SafeImage
+                      src={current.imageUrl}
+                      alt={truncateCaption(current.caption, 80) || "Instagram post"}
+                      className="h-full w-full object-cover brightness-[0.7] transition-[filter] duration-700 group-hover:brightness-100"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      width={1200}
+                      height={750}
+                      draggable={false}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+                <div className="absolute inset-x-0 bottom-0 translate-y-1 bg-gradient-to-t from-black via-black/70 to-transparent p-5 transition-transform duration-500 group-hover:translate-y-0 sm:p-8">
                   {current.caption ? (
                     <p className="type-body-sm max-w-2xl font-light text-white/85">
                       {truncateCaption(current.caption)}
                     </p>
                   ) : null}
-                  <span className="type-caption mt-4 inline-flex items-center gap-2 font-sans font-medium uppercase text-white/60 transition-colors group-hover:text-white">
+                  <span className="type-caption mt-4 inline-flex items-center gap-2 font-sans font-medium uppercase text-white/40 transition-colors duration-700 group-hover:text-accent-red">
                     View post
-                    <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.5} />
+                    <ExternalLink className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={1.5} />
                   </span>
                 </div>
               </a>
@@ -155,14 +167,7 @@ export function InstagramCarousel({
 
             {count > 1 && (
               <div className="mx-auto mt-8 flex max-w-4xl items-center justify-center gap-6 sm:mt-10 sm:gap-8">
-                <button
-                  type="button"
-                  onClick={prev}
-                  className="flex h-10 w-10 items-center justify-center border border-white/20 bg-black text-white/60 transition-colors hover:border-white/40 hover:text-white"
-                  aria-label="Previous post"
-                >
-                  <ChevronLeft className="h-4 w-4" strokeWidth={1.5} />
-                </button>
+                <IconCircleButton icon={ChevronLeft} label="Previous post" onClick={prev} />
                 <div className="flex gap-3">
                   {posts.map((post, i) => (
                     <button
@@ -179,14 +184,7 @@ export function InstagramCarousel({
                     />
                   ))}
                 </div>
-                <button
-                  type="button"
-                  onClick={next}
-                  className="flex h-10 w-10 items-center justify-center border border-white/20 bg-black text-white/60 transition-colors hover:border-white/40 hover:text-white"
-                  aria-label="Next post"
-                >
-                  <ChevronRight className="h-4 w-4" strokeWidth={1.5} />
-                </button>
+                <IconCircleButton icon={ChevronRight} label="Next post" onClick={next} />
               </div>
             )}
 
@@ -204,7 +202,7 @@ export function InstagramCarousel({
             </div>
           </>
         )}
-      </MotionSection>
+      </MotionReveal>
     </Section>
   );
 }

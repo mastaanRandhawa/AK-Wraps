@@ -1,5 +1,5 @@
 import { HeroSection } from "@/components/hero/HeroSection";
-import { MotionSection } from "@/components/ui/motion-section";
+import { MotionReveal } from "@/components/ui/motion-reveal";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import {
   Accordion,
@@ -7,8 +7,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ServiceCards } from "@/components/sections/ServiceCards";
-import { CtaBand } from "@/components/sections/CtaBand";
+import { PricingStrip } from "@/components/sections/PricingStrip";
+import { ServiceCarousel } from "@/components/sections/ServiceCarousel";
 import {
   featuredServices,
   serviceCategories,
@@ -22,28 +22,31 @@ export function ServicesPage() {
       <HeroSection
         page="services"
         title="Our Services"
-        description="Premium detailing, paint correction, ceramic coating, and paint protection."
+        description="Vinyl wraps, paint protection film, window tints, ceramic coating, and custom fabrication."
+        badge="What We Do"
       />
 
-      <Section variant="elevated">
+      <ServiceCarousel services={featuredServices} showPartners={false} />
+
+      <Section variant="default">
         <SectionHeading
           eyebrow="Categories"
           title="Everything we offer"
           align="center"
         />
-        <MotionSection>
+        <MotionReveal>
           <div className="grid gap-px border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
             {serviceCategories.map((cat) => (
               <div
                 key={cat.title}
-                className="bg-black px-5 py-8 sm:px-8 sm:py-12"
+                className="bg-black p-[var(--spacing-card-padding)]"
               >
-                <h3 className="type-caption font-sans font-semibold uppercase text-white">
+                <h3 className="type-card font-bold uppercase text-white">
                   {cat.title}
                 </h3>
                 <ul className="mt-5 space-y-2.5 sm:mt-6 sm:space-y-3">
                   {cat.items.map((item) => (
-                    <li key={item} className="type-body-sm font-light text-white/45">
+                    <li key={item} className="type-small font-light text-muted-foreground">
                       {item}
                     </li>
                   ))}
@@ -51,52 +54,24 @@ export function ServicesPage() {
               </div>
             ))}
           </div>
-        </MotionSection>
+        </MotionReveal>
       </Section>
 
-      <ServiceCards services={featuredServices} />
-
-      <Section variant="muted">
-        <SectionHeading
-          eyebrow="Pricing"
-          title="Starting prices"
-          description="Final pricing depends on vehicle size, condition, and complexity."
-          align="center"
-        />
-        <MotionSection>
-          <div className="mx-auto max-w-xl overflow-x-auto border border-white/15">
-            <table className="w-full min-w-[280px] text-left">
-              <thead>
-                <tr className="border-b border-white/10">
-                  <th className="type-caption px-5 py-4 font-sans font-medium uppercase text-white sm:px-8 sm:py-5">
-                    Service
-                  </th>
-                  <th className="type-caption px-5 py-4 text-right font-sans font-medium uppercase text-white sm:px-8 sm:py-5">
-                    Price
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {pricing.map((row) => (
-                  <tr
-                    key={row.service}
-                    className="border-b border-white/5 last:border-0"
-                  >
-                    <td className="type-body-sm px-5 py-4 font-light text-white/70 sm:px-8 sm:py-5">{row.service}</td>
-                    <td className="type-body-sm px-5 py-4 text-right font-light text-white/45 sm:px-8 sm:py-5">
-                      {row.price}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </MotionSection>
+      <Section variant="muted" fullWidth>
+        <div className="mx-auto max-w-7xl container-padding">
+          <SectionHeading
+            eyebrow="Pricing"
+            title="Starting prices"
+            description="Final pricing depends on vehicle size, condition, and complexity."
+            align="center"
+          />
+          <PricingStrip items={pricing} />
+        </div>
       </Section>
 
       <Section>
         <SectionHeading eyebrow="FAQ" title="Common questions" align="center" />
-        <MotionSection>
+        <MotionReveal>
           <Accordion type="single" collapsible className="mx-auto max-w-xl">
             {faqs.map((faq, i) => (
               <AccordionItem key={faq.question} value={`item-${i}`}>
@@ -105,10 +80,8 @@ export function ServicesPage() {
               </AccordionItem>
             ))}
           </Accordion>
-        </MotionSection>
+        </MotionReveal>
       </Section>
-
-      <CtaBand />
     </>
   );
 }

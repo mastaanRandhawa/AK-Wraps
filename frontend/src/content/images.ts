@@ -13,7 +13,7 @@ export const images = {
   /** Luxury cabin — steering wheel & dashboard */
   interiorDetail: unsplash("photo-1607863680196-e8849d3e5b97", 1600),
   /** Paint polishing / correction in progress */
-  paintCorrection: unsplash("photo-1621135802921-775740beca32", 1600),
+  paintCorrection: unsplash("photo-1617531653527-bcffc5f95266", 1600),
   /** Black sports car — ceramic coating gloss */
   ceramicCoating: unsplash("photo-1492144534655-ae79c964c9d7", 1600),
   /** Mercedes AMG — paint protection film */

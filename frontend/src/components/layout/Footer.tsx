@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
-import { Instagram, Facebook, Phone, Mail } from "lucide-react";
+import { Instagram, Facebook } from "lucide-react";
 import { navigation, site } from "@/config/site";
+import { routes } from "@/config/routes";
+import { Logo } from "@/components/brand/Logo";
+import { cn } from "@/lib/utils";
 
 function TikTokIcon({ className }: { className?: string }) {
   return (
@@ -15,108 +18,138 @@ function TikTokIcon({ className }: { className?: string }) {
   );
 }
 
+function SocialLink({
+  href,
+  label,
+  children,
+}: {
+  href: string;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/40 transition-all duration-300 hover:border-accent/60 hover:text-accent"
+    >
+      {children}
+    </a>
+  );
+}
+
+function FooterLink({
+  to,
+  children,
+  className,
+}: {
+  to: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Link
+      to={to}
+      className={cn(
+        "type-small font-medium uppercase tracking-[0.14em] text-white/45 transition-colors duration-300 hover:text-white",
+        className,
+      )}
+    >
+      {children}
+    </Link>
+  );
+}
+
 export function Footer() {
   return (
-    <footer
-      data-nav-background="dark"
-      className="border-t border-white/10 bg-black"
-    >
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
-        <div className="grid gap-12 sm:grid-cols-2 sm:gap-16 lg:grid-cols-4">
-          <div className="lg:col-span-2">
-            <p className="type-brand font-serif font-medium text-white">
-              {site.name}
-            </p>
-            <p className="type-body-sm mt-5 max-w-sm font-light text-white/40 sm:mt-6">
-              {site.tagline}
-            </p>
-            <div className="mt-10 flex gap-6">
-              <a
-                href={site.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/40 transition-colors hover:text-white"
-                aria-label="Instagram"
+    <footer data-nav-background="dark" className="bg-black">
+      <div className="container-padding">
+        <div className="fade-divider mx-auto max-w-7xl" />
+
+        <div className="mx-auto max-w-7xl px-0 py-14 sm:py-16 lg:py-20">
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-0">
+            <div className="sm:col-span-2 lg:col-span-4">
+              <Link
+                to={routes.home}
+                className="inline-block transition-opacity duration-300 hover:opacity-80"
               >
-                <Instagram className="h-4 w-4" strokeWidth={1.5} />
-              </a>
-              <a
-                href={site.tiktok}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/40 transition-colors hover:text-white"
-                aria-label="TikTok"
-              >
-                <TikTokIcon className="h-4 w-4" />
-              </a>
-              <a
-                href={site.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/40 transition-colors hover:text-white"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-4 w-4" strokeWidth={1.5} />
-              </a>
+                <Logo size="lg" />
+              </Link>
+              <p className="type-small mt-6 max-w-xs font-light leading-relaxed text-white/40">
+                {site.tagline}
+              </p>
+            </div>
+
+            <div className="lg:col-span-3">
+              <p className="type-label mb-5">Navigate</p>
+              <nav className="flex flex-col gap-3" aria-label="Footer">
+                {navigation.map((item) => (
+                  <FooterLink key={item.href} to={item.href}>
+                    {item.name}
+                  </FooterLink>
+                ))}
+              </nav>
+            </div>
+
+            <div className="lg:col-span-3">
+              <p className="type-label mb-5">Contact</p>
+              <div className="flex flex-col gap-3">
+                <a
+                  href={`tel:${site.phone.replace(/\D/g, "")}`}
+                  className="type-small font-medium text-white transition-colors duration-300 hover:text-white/75"
+                >
+                  {site.phone}
+                </a>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="type-small font-light text-white/45 transition-colors duration-300 hover:text-white/70"
+                >
+                  {site.email}
+                </a>
+                <p className="type-small max-w-[16rem] font-light leading-relaxed text-white/40">
+                  {site.address}
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-2 lg:justify-self-end">
+              <p className="type-label mb-5">Follow</p>
+              <div className="flex gap-2.5">
+                <SocialLink href={site.instagram} label="Instagram">
+                  <Instagram className="h-4 w-4" strokeWidth={1.5} />
+                </SocialLink>
+                <SocialLink href={site.facebook} label="Facebook">
+                  <Facebook className="h-4 w-4" strokeWidth={1.5} />
+                </SocialLink>
+                <SocialLink href={site.tiktok} label="TikTok">
+                  <TikTokIcon className="h-4 w-4" />
+                </SocialLink>
+              </div>
             </div>
           </div>
 
-          <div>
-            <p className="editorial-label mb-6">Navigate</p>
-            <ul className="space-y-4">
-              {navigation.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    to={item.href}
-                    className="type-nav font-sans font-light uppercase text-white/40 transition-colors hover:text-white"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div className="fade-divider mt-12 sm:mt-14" />
 
-          <div>
-            <p className="editorial-label mb-6">Contact</p>
-            <address className="type-body-sm space-y-4 font-light not-italic text-white/40">
-              <p>{site.address}</p>
-              <p>
-                <a
-                  href={`tel:${site.phone.replace(/\D/g, "")}`}
-                  className="inline-flex items-center gap-2 transition-colors hover:text-white"
-                >
-                  <Phone className="h-3.5 w-3.5" strokeWidth={1.5} />
-                  {site.phone}
-                </a>
-              </p>
-              <p>
-                <a
-                  href={`mailto:${site.email}`}
-                  className="inline-flex items-center gap-2 transition-colors hover:text-white"
-                >
-                  <Mail className="h-3.5 w-3.5" strokeWidth={1.5} />
-                  {site.email}
-                </a>
-              </p>
-              <p>{site.hours}</p>
-            </address>
-          </div>
-        </div>
-
-        <div className="section-divider mt-20" />
-
-        <div className="type-caption mt-8 flex flex-col items-start gap-4 font-light uppercase text-white/30 sm:flex-row sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} {site.name}
-          </p>
-          <div className="flex gap-8">
-            <a href="#" className="transition-colors hover:text-white/50">
-              Privacy
-            </a>
-            <a href="#" className="transition-colors hover:text-white/50">
-              Terms
-            </a>
+          <div className="type-small mt-8 flex flex-col gap-4 font-medium uppercase tracking-[0.14em] text-white/30 sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              © {new Date().getFullYear()} {site.name}
+            </p>
+            <div className="flex gap-6 sm:gap-8">
+              <a
+                href="#"
+                className="transition-colors duration-300 hover:text-white/55"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="#"
+                className="transition-colors duration-300 hover:text-white/55"
+              >
+                Terms & Conditions
+              </a>
+            </div>
           </div>
         </div>
       </div>

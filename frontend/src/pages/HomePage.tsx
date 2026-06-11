@@ -1,11 +1,10 @@
 import { HeroSection } from "@/components/hero/HeroSection";
-import { ServiceCards } from "@/components/sections/ServiceCards";
-import { StatsSection } from "@/components/sections/StatsSection";
-import { BeforeAfterShowcase } from "@/components/sections/BeforeAfterShowcase";
-import { ProcessSection } from "@/components/sections/ProcessSection";
-import { GalleryPreview } from "@/components/sections/GalleryPreview";
+import { BrandsSection } from "@/components/sections/BrandsSection";
+import { ServiceCarousel } from "@/components/sections/ServiceCarousel";
+import { PortfolioGrid } from "@/components/sections/PortfolioGrid";
+import { InstagramCarousel } from "@/components/sections/InstagramCarousel";
 import { Testimonials } from "@/components/sections/Testimonials";
-import { CtaBand } from "@/components/sections/CtaBand";
+import { ContactCta } from "@/components/sections/ContactCta";
 import { featuredServices } from "@/content/services";
 import { testimonials } from "@/content/testimonials";
 
@@ -13,13 +12,12 @@ export function HomePage() {
   return (
     <>
       <HeroSection />
-      <ServiceCards services={featuredServices} showAllLink />
-      <StatsSection />
-      <BeforeAfterShowcase />
-      <ProcessSection />
+      <BrandsSection />
+      <ServiceCarousel services={featuredServices} />
+      <PortfolioGrid limit={6} />
+      <InstagramCarousel id="gallery-preview" limit={6} showHeading />
       <Testimonials items={testimonials} />
-      <GalleryPreview />
-      <CtaBand />
+      <ContactCta />
     </>
   );
 }

@@ -1,8 +1,7 @@
 import { HeroSection } from "@/components/hero/HeroSection";
 import { BeforeAfterShowcase } from "@/components/sections/BeforeAfterShowcase";
-import { CtaBand } from "@/components/sections/CtaBand";
+import { PortfolioGrid } from "@/components/sections/PortfolioGrid";
 import { InstagramCarousel } from "@/components/sections/InstagramCarousel";
-
 export function GalleryPage() {
   return (
     <>
@@ -10,13 +9,14 @@ export function GalleryPage() {
         page="gallery"
         title="Portfolio"
         description="Detailing transformations, paint protection, and premium finishes."
+        badge="Our Work"
       />
 
-      <InstagramCarousel showHeading={false} />
+      <PortfolioGrid showCta={false} />
+
+      <InstagramCarousel showHeading />
 
       <BeforeAfterShowcase />
-
-      <CtaBand />
     </>
   );
 }
