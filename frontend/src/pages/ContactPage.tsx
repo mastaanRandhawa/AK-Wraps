@@ -14,7 +14,7 @@ export function ContactPage() {
 
       <ContactCta variant="contact" />
 
-      <MapEmbed variant="default" showHeading={false} className="!pt-0" />
+      <MapEmbed variant="default" showHeading />
     </>
   );
 }

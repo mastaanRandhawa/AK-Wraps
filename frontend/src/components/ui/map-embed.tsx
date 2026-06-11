@@ -1,6 +1,7 @@
 import { site } from "@/config/site";
 import { MotionReveal } from "@/components/ui/motion-reveal";
 import { Section, SectionHeading } from "@/components/ui/Section";
+import { cn } from "@/lib/utils";
 
 interface MapEmbedProps {
   showHeading?: boolean;
@@ -14,7 +15,10 @@ export function MapEmbed({
   className,
 }: MapEmbedProps) {
   return (
-    <Section variant={variant} className={className}>
+    <Section
+      variant={variant}
+      className={cn("[content-visibility:visible]", className)}
+    >
       {showHeading ? (
         <SectionHeading
           eyebrow="Location"
@@ -22,10 +26,13 @@ export function MapEmbed({
           description={site.address}
         />
       ) : (
-        <p className="type-label mb-6">Location</p>
+        <div className="mb-6">
+          <p className="type-label">Location</p>
+          <p className="type-small mt-2 text-white/60">{site.address}</p>
+        </div>
       )}
-      <MotionReveal variant="maskReveal">
-        <div className="aspect-video overflow-hidden rounded-lg border border-white/10">
+      <MotionReveal variant="fadeUp">
+        <div className="aspect-video min-h-[220px] w-full overflow-hidden rounded-lg border border-white/10 bg-surface-elevated sm:min-h-[320px]">
           <iframe
             title="AK Wraps & Customs location"
             src={site.mapEmbedUrl}

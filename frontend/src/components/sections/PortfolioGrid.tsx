@@ -36,7 +36,7 @@ export function PortfolioGrid({
   };
 
   return (
-    <Section variant="default" id="portfolio">
+    <Section variant="default" id="portfolio" className="[content-visibility:visible]">
       <SectionHeading
         eyebrow="AK Builds"
         title="Our Work"
@@ -62,13 +62,13 @@ export function PortfolioGrid({
 
       <div className="-mx-[var(--spacing-container-x)] sm:mx-0">
         <div className="fade-edge-x sm:[mask-image:none] sm:[-webkit-mask-image:none]">
-          <div className="carousel-snap flex flex-nowrap gap-[var(--spacing-grid-gap)] overflow-x-auto scroll-smooth px-[var(--spacing-container-x)] pb-2 pt-1 overscroll-x-contain [-webkit-overflow-scrolling:touch] sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 sm:pt-0 lg:grid-cols-3">
+          <div className="carousel-snap flex flex-nowrap items-stretch gap-[var(--spacing-grid-gap)] overflow-x-auto scroll-smooth px-[var(--spacing-container-x)] pb-2 pt-1 overscroll-x-contain [-webkit-overflow-scrolling:touch] sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 sm:pt-0 lg:grid-cols-3">
             {visibleBuilds.map((build, i) => (
               <MotionReveal
                 key={build.id}
                 delay={i * 80}
-                variant="maskReveal"
-                className="w-[min(68vw,220px)] shrink-0 snap-center sm:w-auto sm:shrink"
+                variant="fadeUp"
+                className="w-[min(78vw,260px)] shrink-0 snap-center sm:w-full sm:min-w-0"
               >
                 <MediaCard
                   variant="portfolio"
@@ -80,7 +80,6 @@ export function PortfolioGrid({
                   brandLogo={build.brandLogo}
                   brandName={build.brand}
                   services={build.services}
-                  className="aspect-[4/5] sm:aspect-[3/4]"
                 />
               </MotionReveal>
             ))}

@@ -60,7 +60,7 @@ export function PortfolioLightbox({
     <AnimatePresence>
       {open && build && (
         <motion.div
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-8"
+          className="fixed inset-0 z-[200] overflow-y-auto overscroll-contain p-3 sm:flex sm:items-center sm:justify-center sm:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -71,62 +71,69 @@ export function PortfolioLightbox({
         >
           <button
             type="button"
-            className="absolute inset-0 bg-black/85 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/85 backdrop-blur-sm"
             onClick={onClose}
             aria-label="Close project viewer"
           />
 
           <motion.div
-            className="relative z-10 flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-md border border-white/15 bg-black shadow-2xl"
+            className="relative z-10 mx-auto my-2 w-full max-w-5xl overflow-y-auto overscroll-contain rounded-md border border-white/15 bg-black shadow-2xl scroll-smooth sm:my-auto sm:max-h-[92vh]"
             initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-surface sm:aspect-[16/10]">
-              <SafeImage
-                key={build.id}
-                src={build.image}
-                fallback={build.imageFallback}
-                alt={`${build.brand} ${build.title}`}
-                className="h-full w-full object-cover"
-                loading="eager"
-              />
+            <div className="sticky top-0 z-20 flex items-center justify-between border-b border-white/10 bg-black/90 px-3 py-3 backdrop-blur-sm sm:px-4">
+              {hasMultiple ? (
+                <button
+                  type="button"
+                  onClick={goPrev}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white transition-colors hover:border-white/50 hover:bg-black/80"
+                  aria-label="Previous project"
+                >
+                  <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
+                </button>
+              ) : (
+                <span className="h-10 w-10" aria-hidden="true" />
+              )}
 
               <button
                 ref={closeRef}
                 type="button"
                 onClick={onClose}
-                className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-black/80 sm:right-4 sm:top-4"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white transition-colors hover:border-white/50 hover:bg-black/80"
                 aria-label="Close"
               >
                 <X className="h-4 w-4" strokeWidth={1.5} />
               </button>
 
-              {hasMultiple && (
-                <>
-                  <button
-                    type="button"
-                    onClick={goPrev}
-                    className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-black/80 sm:left-4"
-                    aria-label="Previous project"
-                  >
-                    <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={goNext}
-                    className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-black/80 sm:right-4"
-                    aria-label="Next project"
-                  >
-                    <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
-                  </button>
-                </>
+              {hasMultiple ? (
+                <button
+                  type="button"
+                  onClick={goNext}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white transition-colors hover:border-white/50 hover:bg-black/80"
+                  aria-label="Next project"
+                >
+                  <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
+                </button>
+              ) : (
+                <span className="h-10 w-10" aria-hidden="true" />
               )}
             </div>
 
-            <div className="overflow-y-auto p-5 sm:p-8">
+            <div className="portfolio-lightbox-media">
+              <SafeImage
+                key={build.id}
+                src={build.image}
+                fallback={build.imageFallback}
+                alt={`${build.brand} ${build.title}`}
+                className="absolute inset-0 h-full w-full object-cover object-center"
+                loading="eager"
+              />
+            </div>
+
+            <div className="p-4 sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   {build.brandLogo && (
@@ -152,7 +159,7 @@ export function PortfolioLightbox({
               )}
 
               {build.services.length > 0 && (
-                <ul className="mt-6 flex flex-wrap gap-2">
+                <ul className="mt-4 flex flex-wrap gap-2 sm:mt-5">
                   {build.services.map((service) => (
                     <li
                       key={service}
@@ -169,7 +176,7 @@ export function PortfolioLightbox({
               )}
 
               {hasMultiple && (
-                <p className="type-caption mt-6 text-center text-white/35">
+                <p className="type-caption mt-4 text-center text-white/35 sm:mt-5">
                   {activeIndex + 1} of {builds.length}
                 </p>
               )}

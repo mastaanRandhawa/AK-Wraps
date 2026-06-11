@@ -354,6 +354,21 @@
     opacity: 0.55;
   }
 
+  .portfolio-media {
+    @apply relative aspect-[3/4] w-full overflow-hidden bg-surface-elevated;
+  }
+
+  .portfolio-lightbox-media {
+    @apply relative w-full shrink-0 overflow-hidden bg-surface-elevated;
+    height: clamp(160px, 34vh, 380px);
+  }
+
+  @media (min-width: 640px) {
+    .portfolio-lightbox-media {
+      height: clamp(220px, 40vh, 440px);
+    }
+  }
+
   .portfolio-image {
     @apply transition-[filter] ease-out;
     transition-duration: var(--duration-reveal);

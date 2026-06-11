@@ -38,10 +38,18 @@ export const MotionReveal = memo(function MotionReveal({
           setVisible(false);
         }
       },
-      { rootMargin: "-48px", threshold: 0.08 },
+      { rootMargin: "0px 0px -5% 0px", threshold: 0.01 },
     );
 
     observer.observe(el);
+
+    // Catch elements already in view on mount (IO can miss zero-height frames).
+    const rect = el.getBoundingClientRect();
+    if (rect.height > 0 && rect.top < window.innerHeight && rect.bottom > 0) {
+      setVisible(true);
+      if (once) observer.disconnect();
+    }
+
     return () => observer.disconnect();
   }, [once]);
 
