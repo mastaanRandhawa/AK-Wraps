@@ -40,13 +40,19 @@ export const images = {
   servicePaintMatch: unsplash("photo-1617531653527-bcffc5f95266", 1600),
   servicePaintMatchFallback: unsplash("photo-1580274455190-239c970d747a", 1600),
 
-  /** Portfolio builds */
-  portfolioLamborghini: unsplash("photo-1621135802927-d21d14c0e782", 1600),
-  portfolioBmw: unsplash("photo-1544829094-7ed312fb3229", 1600),
+  /** Portfolio builds — reuse IDs already used elsewhere in this file */
+  portfolioLamborghini: unsplash("photo-1747170201794-83aa34950596", 1600),
+  portfolioLamborghiniFallback: unsplash("photo-1644582304103-7114aaccd897", 1600),
+  portfolioBmw: unsplash("photo-1503376780353-7e6692767b70", 1600),
+  portfolioBmwFallback: unsplash("photo-1618843479316-362cb246f151", 1600),
   portfolioPorsche: unsplash("photo-1542362567-b07e54358753", 1600),
-  portfolioMercedes: unsplash("photo-1617814076367-bef06855e460", 1600),
-  portfolioMustang: unsplash("photo-1494976388531-d105849883b6", 1600),
-  portfolioSupra: unsplash("photo-1708849634227-efd1c1acf176", 1600),
+  portfolioPorscheFallback: unsplash("photo-1525609008555-afe91aff34e8", 1600),
+  portfolioMercedes: unsplash("photo-1503736332586-24340f3ae982", 1600),
+  portfolioMercedesFallback: unsplash("photo-1492144534655-ae79c964c9d7", 1600),
+  portfolioMustang: unsplash("photo-1494901558403-6c44de542d48", 1600),
+  portfolioMustangFallback: unsplash("photo-1449965408869-eaa3f722e42d", 1600),
+  portfolioSupra: unsplash("photo-1605559426112-aaf3dd1bef84", 1600),
+  portfolioSupraFallback: unsplash("photo-148529157115-f1dea7746764", 1600),
 
   /** Gallery grid */
   galleryWrap: unsplash("photo-1553440568-b6f5fa5cbb3b", 1600),

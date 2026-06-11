@@ -354,6 +354,28 @@
     opacity: 0.55;
   }
 
+  .portfolio-image {
+    @apply transition-[filter] ease-out;
+    transition-duration: var(--duration-reveal);
+    filter: brightness(0.75) saturate(0.85);
+  }
+
+  .group:hover .portfolio-image,
+  .group:focus-visible .portfolio-image {
+    filter: brightness(1) saturate(1);
+  }
+
+  .portfolio-overlay {
+    @apply absolute inset-0 bg-black transition-opacity ease-out;
+    transition-duration: var(--duration-reveal);
+    opacity: 0.25;
+  }
+
+  .group:hover .portfolio-overlay,
+  .group:focus-visible .portfolio-overlay {
+    opacity: 0.1;
+  }
+
   .headlight-on .headlight-overlay,
   .group:hover .headlight-overlay,
   .group.headlight-on .headlight-overlay {

@@ -12,7 +12,7 @@ export function GalleryPage() {
         badge="Our Work"
       />
 
-      <PortfolioGrid showCta={false} />
+      <PortfolioGrid showCta={false} enableFilter />
 
       <InstagramCarousel showHeading />
 

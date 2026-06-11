@@ -1,5 +1,4 @@
 import { forwardRef, type KeyboardEvent, type ReactNode } from "react";
-import { Link } from "react-router-dom";
 import { SafeImage } from "@/components/ui/safe-image";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { cn } from "@/lib/utils";
@@ -12,8 +11,10 @@ interface MediaCardBaseProps {
 interface PortfolioCardProps extends MediaCardBaseProps {
   variant: "portfolio";
   image: string;
+  imageFallback?: string;
   alt: string;
-  href: string;
+  title: string;
+  onClick?: () => void;
   brandLogo?: string;
   brandName?: string;
   services?: string[];
@@ -166,21 +167,34 @@ export const MediaCard = forwardRef<HTMLElement, MediaCardProps>(
   }
 
   if (props.variant === "portfolio") {
+    const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+      if (!props.onClick) return;
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        props.onClick();
+      }
+    };
+
     return (
       <article
+        role="button"
+        tabIndex={0}
+        onClick={props.onClick}
+        onKeyDown={handleKeyDown}
+        aria-label={`View ${props.alt} project`}
         className={cn(
-          "group relative aspect-[3/4] cursor-pointer overflow-hidden rounded-md",
+          "group relative aspect-[3/4] cursor-pointer overflow-hidden rounded-md outline-none focus-visible:ring-2 focus-visible:ring-accent/80",
           props.className,
         )}
       >
-        <Link to={props.href} className="absolute inset-0 z-10" aria-label={props.alt} />
         <SafeImage
           src={props.image}
+          fallback={props.imageFallback}
           alt={props.alt}
-          className="headlight-image absolute inset-0 h-full w-full object-cover"
+          className="portfolio-image absolute inset-0 h-full w-full object-cover"
         />
-        <div className="headlight-overlay" aria-hidden="true" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent transition-opacity duration-700 group-hover:from-black/95" />
+        <div className="portfolio-overlay" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent transition-opacity duration-700 group-hover:from-black/90" />
 
         {props.brandLogo && props.brandName && (
           <div className="absolute left-4 top-4 sm:left-5 sm:top-5">
@@ -192,30 +206,35 @@ export const MediaCard = forwardRef<HTMLElement, MediaCardProps>(
           </div>
         )}
 
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
           <span className="type-card rounded-pill border border-white/30 bg-black/50 px-5 py-2 font-semibold uppercase tracking-widest text-white backdrop-blur-sm">
             View Project
           </span>
         </div>
 
-        {props.services && props.services.length > 0 && (
-          <div className="absolute inset-x-0 bottom-0 p-3 sm:p-6">
-            <p className="type-card font-semibold uppercase tracking-widest text-white/40 transition-colors duration-700 group-hover:text-white/65">
-              Signature Touches
-            </p>
-            <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
-              {props.services.map((service) => (
-                <li
-                  key={service}
-                  className="type-card flex items-center gap-1.5 font-medium uppercase text-white/70 transition-colors duration-700 group-hover:text-white"
-                >
-                  <span className="accent-dot" />
-                  {service}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div className="absolute inset-x-0 bottom-0 p-3 sm:p-6">
+          <p className="type-card font-bold uppercase tracking-wider text-white/90 transition-colors duration-700 group-hover:text-white">
+            {props.title}
+          </p>
+          {props.services && props.services.length > 0 && (
+            <>
+              <p className="type-card mt-2 font-semibold uppercase tracking-widest text-white/40 transition-colors duration-700 group-hover:text-white/65">
+                Signature Touches
+              </p>
+              <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2 sm:mt-3">
+                {props.services.map((service) => (
+                  <li
+                    key={service}
+                    className="type-card flex items-center gap-1.5 font-medium uppercase text-white/70 transition-colors duration-700 group-hover:text-white"
+                  >
+                    <span className="accent-dot" />
+                    {service}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
         {props.children}
       </article>
     );
