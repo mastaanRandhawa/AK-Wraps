@@ -6,133 +6,170 @@ export interface Service {
   description: string;
   price: string;
   image: string;
+  imageFallback?: string;
   tagline?: string;
 }
 
 export const featuredServices: Service[] = [
   {
-    id: "exterior-detailing",
-    title: "Exterior Detailing",
-    tagline: "Showroom shine, restored",
+    id: "vinyl-wraps",
+    title: "Vinyl Wraps",
+    tagline: "Bold colour, flawless finish",
     description:
-      "Hand wash, clay bar, polish, and protection for a flawless exterior finish.",
+      "Full and partial vinyl wraps in gloss, satin, matte, and specialty finishes — colour changes without repainting.",
     price: "Starting from — contact for quote",
-    image: images.exteriorDetail,
-  },
-  {
-    id: "interior-detailing",
-    title: "Interior Detailing",
-    tagline: "Refined comfort inside",
-    description:
-      "Deep cleaning, leather care, and odor elimination for a pristine cabin.",
-    price: "Starting from — contact for quote",
-    image: images.interiorDetail,
-  },
-  {
-    id: "paint-correction",
-    title: "Paint Correction",
-    tagline: "Flawless paint, restored depth",
-    description:
-      "Multi-stage polishing removes swirls and scratches for mirror-like clarity.",
-    price: "Starting from — contact for quote",
-    image: images.paintCorrection,
-  },
-  {
-    id: "ceramic-coating",
-    title: "Ceramic Coating",
-    tagline: "Lasting gloss & protection",
-    description:
-      "Hydrophobic, UV-resistant coating that delivers deep shine and easier maintenance.",
-    price: "Starting from — contact for quote",
-    image: images.ceramicCoating,
+    image: images.wrappedCar,
+    imageFallback: images.vehicleWrap,
   },
   {
     id: "ppf",
     title: "Paint Protection Film",
     tagline: "Invisible armor for your paint",
     description:
-      "Self-healing film shields against rock chips, scratches, and road debris.",
+      "Self-healing clear film shields against rock chips, scratches, and road debris on high-impact areas or full body.",
     price: "Starting from — contact for quote",
     image: images.ppfInstall,
+    imageFallback: images.exteriorDetail,
   },
   {
-    id: "headlight-restoration",
-    title: "Headlight Restoration",
-    tagline: "Clarity you can see",
+    id: "coloured-ppf",
+    title: "Coloured PPF",
+    tagline: "Colour and protection combined",
     description:
-      "Restore yellowed, oxidized headlights for improved visibility and appearance.",
+      "Premium coloured paint protection film that changes your vehicle's look while guarding against chips and UV damage.",
     price: "Starting from — contact for quote",
-    image: images.headlightRestore,
+    image: images.afterWrap,
+    imageFallback: images.wrappedCar,
+  },
+  {
+    id: "window-tints",
+    title: "Window Tints",
+    tagline: "Privacy, comfort, and UV defense",
+    description:
+      "Precision-cut ceramic and carbon window films for heat rejection, glare reduction, and a clean, factory-finished look.",
+    price: "Starting from — contact for quote",
+    image: images.interiorDetail,
+    imageFallback: images.ceramicCoating,
+  },
+  {
+    id: "ceramic-paint-correction",
+    title: "Ceramic Coating & Paint Correction",
+    tagline: "Flawless paint, lasting gloss",
+    description:
+      "Multi-stage paint correction followed by ceramic coating for deep shine, hydrophobic protection, and easier maintenance.",
+    price: "Quote required",
+    image: images.ceramicCoating,
+    imageFallback: images.paintCorrection,
+  },
+  {
+    id: "wide-body-fabrication",
+    title: "Wide Body Kits & Custom Fabrication",
+    tagline: "Aggressive stance, built in-house",
+    description:
+      "Wide body kit fitting, custom panel fabrication, and structural modifications executed entirely at our Delta studio.",
+    price: "Quote required",
+    image: images.customWheels,
+    imageFallback: images.shopExterior,
+  },
+  {
+    id: "custom-paint-matching",
+    title: "Custom Paint Matching",
+    tagline: "Seamless colour, every time",
+    description:
+      "Factory-accurate and custom colour matching for repairs, accents, and one-off finishes that blend perfectly with your vehicle.",
+    price: "Quote required",
+    image: images.paintCorrection,
+    imageFallback: images.chromeDelete,
   },
 ];
 
 export const serviceCategories = [
   {
-    title: "Exterior Detailing",
+    title: "Vinyl Wraps",
     items: [
-      "Hand Wash & Dry",
-      "Clay Bar Treatment",
-      "Paint Decontamination",
-      "Wheel & Tire Detail",
-      "Trim Restoration",
-    ],
-  },
-  {
-    title: "Interior Detailing",
-    items: [
-      "Deep Vacuum & Shampoo",
-      "Leather Conditioning",
-      "Dashboard & Trim Care",
-      "Odor Elimination",
-      "Glass & Mirror Polish",
-    ],
-  },
-  {
-    title: "Paint Correction",
-    items: [
-      "Single-Stage Polish",
-      "Multi-Stage Correction",
-      "Swirl Removal",
-      "Scratch Reduction",
-      "Gloss Enhancement",
-    ],
-  },
-  {
-    title: "Ceramic Coating",
-    items: [
-      "Paint Coating",
-      "Wheel Coating",
-      "Glass Coating",
-      "Interior Protection",
+      "Full Colour Change",
+      "Partial & Accent Wraps",
+      "Gloss, Satin & Matte Finishes",
+      "Chrome Delete",
+      "Commercial & Fleet Branding",
     ],
   },
   {
     title: "Paint Protection Film",
     items: [
       "Full Front Coverage",
-      "Partial Coverage",
-      "Track Package",
-      "Self-Healing Film",
+      "Full Body PPF",
+      "Track & High-Impact Packages",
+      "Self-Healing Clear Film",
+      "Stealth & Satin Finishes",
     ],
   },
   {
-    title: "Headlight Restoration",
+    title: "Coloured PPF",
     items: [
-      "Oxidation Removal",
-      "UV Sealant Application",
-      "Clarity Restoration",
-      "Long-Term Protection",
+      "Solid Colour Films",
+      "Colour-Shift Options",
+      "Accent & Panel Coverage",
+      "Chip & Scratch Protection",
+      "UV-Resistant Finishes",
+    ],
+  },
+  {
+    title: "Window Tints",
+    items: [
+      "Ceramic Window Film",
+      "Heat & UV Rejection",
+      "Privacy Tint Packages",
+      "Windshield Tint Strips",
+      "Precision Computer-Cut Fit",
+    ],
+  },
+  {
+    title: "Ceramic Coating & Paint Correction",
+    items: [
+      "Single & Multi-Stage Correction",
+      "Swirl & Scratch Removal",
+      "Ceramic Paint Coating",
+      "Wheel & Glass Coating",
+      "Gloss Enhancement",
+    ],
+  },
+  {
+    title: "Wide Body Kits & Custom Fabrication",
+    items: [
+      "Wide Body Kit Installation",
+      "Custom Panel Fabrication",
+      "Bumper & Fender Modification",
+      "Fitment & Alignment",
+      "Structural Reinforcement",
+    ],
+  },
+  {
+    title: "Custom Paint Matching",
+    items: [
+      "Factory Colour Matching",
+      "Custom Mix Formulas",
+      "Panel & Accent Painting",
+      "Blend & Feather Techniques",
+      "Clear Coat & Finish Work",
     ],
   },
 ];
 
 export const pricing = [
-  { service: "Exterior Detailing", price: "Starting from — contact us" },
-  { service: "Interior Detailing", price: "Starting from — contact us" },
-  { service: "Ceramic Coating", price: "Starting from — contact us" },
+  { service: "Vinyl Wraps", price: "Starting from — contact us" },
   { service: "Paint Protection Film", price: "Starting from — contact us" },
-  { service: "Paint Correction", price: "Quote required" },
-  { service: "Headlight Restoration", price: "Starting from — contact us" },
+  { service: "Coloured PPF", price: "Starting from — contact us" },
+  { service: "Window Tints", price: "Starting from — contact us" },
+  {
+    service: "Ceramic Coating & Paint Correction",
+    price: "Quote required",
+  },
+  {
+    service: "Wide Body Kits & Custom Fabrication",
+    price: "Quote required",
+  },
+  { service: "Custom Paint Matching", price: "Quote required" },
 ];
 
 export const faqs = [
@@ -142,9 +179,9 @@ export const faqs = [
       "Fill out our contact form or call us at (236) 412-5010. We'll discuss your vehicle, goals, and provide a detailed estimate based on your specific project.",
   },
   {
-    question: "How long does a detail or coating take?",
+    question: "How long does a wrap or coating take?",
     answer:
-      "Turnaround depends on the service and vehicle condition. Basic detailing takes 4–8 hours; paint correction and ceramic coating typically require 1–3 days. We'll give you a timeline with your quote.",
+      "Turnaround depends on the service and vehicle. Window tints and smaller jobs may take a day; full wraps, PPF, and wide body work typically require several days to a week. We'll give you a timeline with your quote.",
   },
   {
     question: "What products and brands do you use?",

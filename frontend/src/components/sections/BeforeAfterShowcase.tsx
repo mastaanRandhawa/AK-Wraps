@@ -1,10 +1,10 @@
 import { useCallback, useRef, useState } from "react";
-import { MotionSection } from "@/components/ui/motion-section";
+import { motion } from "framer-motion";
+import { MotionReveal } from "@/components/ui/motion-reveal";
+import { Button } from "@/components/ui/button";
 import { SafeImage } from "@/components/ui/safe-image";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { beforeAfter } from "@/content/gallery";
-import { cn } from "@/lib/utils";
-
 interface CompareSliderProps {
   before: string;
   after: string;
@@ -47,9 +47,9 @@ function CompareSlider({ before, after, label }: CompareSliderProps) {
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 sm:space-y-8">
-      <div
+      <motion.div
         ref={containerRef}
-        className="group relative aspect-[16/9] cursor-ew-resize touch-none overflow-hidden border border-white/15 bg-surface select-none"
+        className="group relative aspect-[16/9] cursor-ew-resize touch-none overflow-hidden rounded-md border border-white/15 bg-surface select-none"
         role="slider"
         aria-label={`Before and after comparison: ${label}`}
         aria-valuenow={Math.round(position)}
@@ -61,7 +61,7 @@ function CompareSlider({ before, after, label }: CompareSliderProps) {
           alt=""
           aria-hidden="true"
           draggable={false}
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover transition-[filter] duration-700 group-hover:brightness-105"
           loading="eager"
           width={1200}
           height={675}
@@ -91,26 +91,29 @@ function CompareSlider({ before, after, label }: CompareSliderProps) {
         />
 
         <div
-          className="pointer-events-none absolute inset-y-0 z-20 w-px bg-white"
+          className="pointer-events-none absolute inset-y-0 z-20 w-px bg-white transition-shadow duration-300 group-hover:shadow-[0_0_12px_rgba(255,255,255,0.5)]"
           style={{ left: `${position}%` }}
         >
-          <div className="absolute top-1/2 left-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center border border-white bg-black sm:h-10 sm:w-10">
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white bg-black sm:h-11 sm:w-11"
+          >
             <div className="flex gap-1">
               <span className="h-3 w-px bg-white/80" />
               <span className="h-3 w-px bg-white/80" />
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex justify-between p-4 sm:p-6">
-          <span className="editorial-label rounded-none bg-black/75 px-3 py-2 backdrop-blur-sm">
+          <span className="type-label rounded-pill bg-black/75 px-3 py-2 backdrop-blur-sm">
             Before
           </span>
-          <span className="editorial-label rounded-none bg-black/75 px-3 py-2 backdrop-blur-sm">
+          <span className="type-label rounded-pill bg-black/75 px-3 py-2 backdrop-blur-sm">
             After
           </span>
         </div>
-      </div>
+      </motion.div>
       <p className="type-caption text-center font-sans font-medium uppercase text-white/60">
         {label}
       </p>
@@ -130,7 +133,7 @@ export function BeforeAfterShowcase() {
         description="Drag to compare real detailing results."
         align="center"
       />
-      <MotionSection>
+      <MotionReveal>
         <CompareSlider
           key={current.id}
           before={current.before}
@@ -141,23 +144,19 @@ export function BeforeAfterShowcase() {
         {beforeAfter.length > 1 && (
           <div className="mx-auto mt-8 flex max-w-4xl flex-wrap justify-center gap-3 sm:mt-10 sm:gap-4">
             {beforeAfter.map((item, i) => (
-              <button
+              <Button
                 key={item.id}
                 type="button"
+                size="sm"
+                variant={i === activeIndex ? "default" : "secondary"}
                 onClick={() => setActiveIndex(i)}
-                className={cn(
-                  "type-caption border px-4 py-2 font-sans font-medium uppercase transition-colors sm:px-5 sm:py-2.5",
-                  i === activeIndex
-                    ? "border-white bg-white text-black"
-                    : "border-white/20 text-white/40 hover:border-white/40 hover:text-white",
-                )}
               >
                 {item.label.split("&")[0].trim()}
-              </button>
+              </Button>
             ))}
           </div>
         )}
-      </MotionSection>
+      </MotionReveal>
     </Section>
   );
 }

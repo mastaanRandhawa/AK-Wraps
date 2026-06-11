@@ -1,15 +1,174 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 import { navigation, site } from "@/config/site";
 import { routes } from "@/config/routes";
+import { images } from "@/content/images";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/brand/Logo";
 import { useSmartNavbar } from "@/hooks/use-smart-navbar";
-import { Button } from "@/components/ui/button";
 
 function isActivePath(pathname: string, href: string) {
-  if (href === routes.home) return pathname === routes.home;
+  if (href === routes.gallery) {
+    return (
+      pathname === routes.gallery || pathname.startsWith(`${routes.gallery}/`)
+    );
+  }
   return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function RedGridIcon({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn("inline-grid grid-cols-3 gap-[3px]", className)}
+      aria-hidden="true"
+    >
+      {Array.from({ length: 9 }).map((_, i) => (
+        <span
+          key={i}
+          className="h-[3px] w-[3px] rounded-full bg-accent sm:h-1 sm:w-1"
+        />
+      ))}
+    </span>
+  );
+}
+
+function MenuPillButton({
+  onClick,
+  label = "Menu",
+  className,
+  ...props
+}: {
+  onClick: () => void;
+  label?: string;
+  className?: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  const isClose = label.toLowerCase() === "close";
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      {...props}
+      className={cn(
+        "inline-flex min-h-[44px] items-center gap-3 rounded-pill border border-white/10 bg-surface-panel/80 px-4 py-2.5 backdrop-blur-sm transition-colors duration-300 hover:bg-surface-panel sm:px-5",
+        className,
+      )}
+    >
+      <span className="type-nav font-bold uppercase tracking-[0.2em] text-white">
+        {label}
+      </span>
+      {isClose ? (
+        <span className="inline-flex h-4 w-4 items-center justify-center border border-accent">
+          <X className="h-2.5 w-2.5 text-accent" strokeWidth={3} />
+        </span>
+      ) : (
+        <RedGridIcon />
+      )}
+    </button>
+  );
+}
+
+function MenuOverlay({
+  open,
+  onClose,
+  pathname,
+}: {
+  open: boolean;
+  onClose: () => void;
+  pathname: string;
+}) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className="fixed inset-0 z-[100] flex flex-col"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+        >
+          <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+            <img
+              src={images.heroSupra}
+              alt=""
+              className="h-full w-full scale-105 object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-black/55 backdrop-blur-[40px]" />
+          </div>
+
+          <div className="relative z-10 mx-auto h-[var(--navbar-offset)] w-full max-w-7xl px-5 sm:px-8 lg:px-12">
+            <div className="flex h-full items-center justify-between">
+              <Link
+                to={routes.home}
+                onClick={onClose}
+                className="transition-opacity hover:opacity-80"
+              >
+                <Logo />
+              </Link>
+              <MenuPillButton onClick={onClose} label="Close" />
+            </div>
+          </div>
+
+          <nav className="relative z-10 flex flex-1 flex-col items-center justify-center gap-6 sm:gap-8 md:gap-10">
+            {navigation.map((item, i) => {
+              const active = isActivePath(pathname, item.href);
+              return (
+                <motion.div
+                  key={item.href}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.06 + i * 0.05,
+                    duration: 0.4,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <Link
+                    to={item.href}
+                    onClick={onClose}
+                    className={cn(
+                      "block py-1 text-center font-display text-[clamp(2.5rem,7vw,4.5rem)] font-bold uppercase leading-none tracking-tight transition-colors duration-300",
+                      active ? "text-accent" : "text-white hover:text-white/80",
+                    )}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </nav>
+
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 sm:px-8 sm:pb-12 lg:px-12 lg:pb-16">
+            <p className="type-caption font-semibold uppercase tracking-[0.28em] text-white/45">
+              // Business Inquiries //
+            </p>
+            <p className="type-body-sm mt-3 font-medium text-white">
+              <a
+                href={`tel:${site.phone.replace(/\D/g, "")}`}
+                className="transition-colors hover:text-white/80"
+              >
+                {site.phone}
+              </a>
+            </p>
+            <p className="type-body-sm mt-1 font-light text-white/65">
+              <a
+                href={`mailto:${site.email}`}
+                className="transition-colors hover:text-white"
+              >
+                {site.email}
+              </a>
+            </p>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 }
 
 export function Navbar() {
@@ -34,119 +193,84 @@ export function Navbar() {
   }, [open]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header
-      data-navbar-zone
-      data-nav-background="dark"
-      className={cn(
-        "pointer-events-none fixed inset-x-0 top-0 z-50 transition-transform duration-300 ease-out will-change-transform",
-        isVisible ? "translate-y-0" : "-translate-y-full",
-      )}
-      aria-hidden={!isVisible}
-    >
-      <nav
-        aria-label="Main"
+    <>
+      <header
+        data-navbar-zone
+        data-nav-background="dark"
         className={cn(
-          "pointer-events-none relative mx-auto flex h-[var(--navbar-offset)] max-w-[100vw] items-center justify-between gap-4 border-b px-5 transition-colors duration-200 sm:gap-6 sm:px-8 lg:px-12",
-          scrolled || open
-            ? "border-white/10 bg-black/95"
-            : "border-transparent bg-transparent",
+          "pointer-events-none fixed inset-x-0 top-0 z-50 transition-[transform,opacity,visibility] duration-300 ease-out will-change-transform",
+          isVisible ? "translate-y-0" : "-translate-y-full",
+          open && "invisible opacity-0",
         )}
+        aria-hidden={!isVisible || open}
       >
-        <Link
-          to={routes.home}
-          className="type-brand pointer-events-auto shrink-0 font-serif font-medium tracking-tight text-white transition-opacity hover:opacity-70"
-          tabIndex={isVisible ? undefined : -1}
+        <nav
+          aria-label="Main"
+          className={cn(
+            "pointer-events-none relative transition-colors duration-300",
+            open
+              ? "bg-transparent"
+              : scrolled
+                ? "bg-black/80 backdrop-blur-md"
+                : "bg-transparent",
+          )}
         >
-          {site.name}
-        </Link>
-
-        <div className="hidden items-center gap-8 md:flex">
-          {navigation.map((item) => {
-            const active = isActivePath(location.pathname, item.href);
-            return (
-              <Link
-                key={item.href}
-                to={item.href}
-                tabIndex={isVisible ? undefined : -1}
-                className={cn(
-                  "type-nav pointer-events-auto font-sans font-medium uppercase transition-colors duration-200",
-                  active ? "text-white" : "text-white/45 hover:text-white",
-                )}
-                aria-current={active ? "page" : undefined}
-              >
-                {item.name}
-              </Link>
-            );
-          })}
-          <Button
-            variant="default"
-            size="sm"
-            className="pointer-events-auto"
-            asChild
-          >
-            <Link to={routes.contact} tabIndex={isVisible ? undefined : -1}>
-              Book Now
+          <div className="pointer-events-auto mx-auto grid h-[var(--navbar-offset)] w-full max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 sm:px-8 lg:px-12">
+            <Link
+              to={routes.home}
+              className="justify-self-start transition-opacity hover:opacity-80"
+              tabIndex={isVisible || open ? undefined : -1}
+              aria-label={`${site.name} home`}
+            >
+              <Logo />
             </Link>
-          </Button>
-        </div>
 
-        <button
-          type="button"
-          className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center text-white transition-colors hover:text-white/70 md:hidden"
-          onClick={() => setOpen(!open)}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          tabIndex={isVisible ? undefined : -1}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-
-        {open && (
-          <>
-            <button
-              type="button"
-              className="pointer-events-auto fixed inset-0 z-40 bg-black/80 md:hidden"
-              aria-label="Close menu"
-              onClick={() => setOpen(false)}
-            />
-            <div className="pointer-events-auto absolute inset-x-0 top-full z-50 border-b border-white/10 bg-black p-6 md:hidden">
-              <div className="flex flex-col gap-1">
-                {navigation.map((item) => {
-                  const active = isActivePath(location.pathname, item.href);
-                  return (
-                    <Link
-                      key={item.href}
-                      to={item.href}
-                      onClick={() => setOpen(false)}
-                      className={cn(
-                        "type-nav px-2 py-4 font-sans font-medium uppercase transition-colors",
-                        active
-                          ? "text-white"
-                          : "text-white/50 hover:text-white",
-                      )}
-                      aria-current={active ? "page" : undefined}
-                    >
-                      {item.name}
-                    </Link>
-                  );
-                })}
-              </div>
-              <Button variant="default" className="mt-6 w-full" asChild>
-                <Link to={routes.contact} onClick={() => setOpen(false)}>
-                  Book Appointment
-                </Link>
-              </Button>
+            <div className="hidden items-center justify-center gap-7 lg:flex xl:gap-9">
+              {navigation.map((item) => {
+                const active = isActivePath(location.pathname, item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    tabIndex={isVisible ? undefined : -1}
+                    className={cn(
+                      "type-nav relative font-bold uppercase tracking-[0.18em] transition-colors duration-300",
+                      active
+                        ? "text-white after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:bg-accent after:transition-all"
+                        : "text-white/70 hover:text-white",
+                    )}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
             </div>
-          </>
-        )}
-      </nav>
-    </header>
+
+            <MenuPillButton
+              onClick={() => setOpen(true)}
+              label="Menu"
+              className="justify-self-end"
+              aria-label="Open menu"
+              aria-expanded={open}
+              tabIndex={isVisible && !open ? undefined : -1}
+            />
+          </div>
+        </nav>
+      </header>
+
+      <MenuOverlay
+        open={open}
+        onClose={() => setOpen(false)}
+        pathname={location.pathname}
+      />
+    </>
   );
 }

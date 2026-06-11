@@ -5,13 +5,12 @@ import { routes } from "@/config/routes";
 import type { PageHeroKey } from "@/config/hero-gradients";
 
 const homeCallToActions = [
-  { text: "Book Appointment", href: routes.contact, variant: "primary" as const },
-  { text: "View Services", href: routes.services, variant: "secondary" as const },
+  { text: "Explore Services", href: routes.services, variant: "ghost" as const },
 ];
 
 const pageHeroImages: Record<PageHeroKey, string> = {
   about: images.shopExterior,
-  services: images.exteriorDetail,
+  services: images.wrappedCar,
   gallery: images.wrappedCar,
   contact: images.detailing,
 };
@@ -20,50 +19,45 @@ interface HomeHeroProps {
   page?: "home";
   title?: string;
   description?: string;
+  badge?: string;
 }
 
 interface PageHeroProps {
   page: PageHeroKey;
   title: string;
   description: string;
+  badge?: string;
 }
 
 type HeroSectionProps = HomeHeroProps | PageHeroProps;
 
 function isPageHero(props: HeroSectionProps): props is PageHeroProps {
-  return (
-    "page" in props &&
-    props.page !== undefined &&
-    props.page !== "home"
-  );
+  return "page" in props && props.page !== undefined && props.page !== "home";
 }
+
+const videoSrc = `${import.meta.env.BASE_URL}videos/DarkenedAkwraps.mp4`;
 
 export function HeroSection(props: HeroSectionProps) {
   const isPage = isPageHero(props);
   const title =
-    props.title ??
-    (isPage ? "" : "The Finish Your Vehicle Deserves");
+    props.title ?? (isPage ? "" : site.heroTitle);
   const description =
-    props.description ??
-    (isPage ? "" : site.tagline);
+    props.description ?? (isPage ? "" : site.heroSubtitle);
+  const badge = props.badge ?? (isPage ? undefined : site.heroBadge);
 
   return (
     <HeroLanding
       title={title}
       description={description}
-      backgroundImage={
-        isPage ? pageHeroImages[props.page] : images.heroSupra
-      }
-      backgroundImageFallback={
-        isPage ? undefined : images.heroSupraFallback
-      }
-      backgroundImageClassName={
-        isPage ? undefined : "object-[70%_center] opacity-70 grayscale"
-      }
+      badge={badge}
+      backgroundImage={isPage ? pageHeroImages[props.page] : images.heroSupra}
+      backgroundImageFallback={isPage ? undefined : images.heroSupraFallback}
+      backgroundVideo={isPage ? undefined : videoSrc}
+      videoPoster={images.heroSupra}
       callToActions={isPage ? undefined : homeCallToActions}
       titleSize={isPage ? "medium" : "large"}
       compact={isPage}
-      showScrollIndicator={!isPage}
+      align={isPage ? "center" : "bottom"}
     />
   );
 }

@@ -5,7 +5,7 @@ interface SectionProps {
   children: ReactNode;
   className?: string;
   id?: string;
-  variant?: "default" | "elevated" | "muted";
+  variant?: "default" | "elevated" | "muted" | "cinematic";
   containerClassName?: string;
   fullWidth?: boolean;
 }
@@ -23,16 +23,17 @@ export function Section({
       id={id}
       data-nav-background="dark"
       className={cn(
-        "relative py-16 sm:py-24 md:py-32 lg:py-40 [content-visibility:auto] [contain-intrinsic-size:auto_500px]",
+        "relative section-padding [content-visibility:auto] [contain-intrinsic-size:auto_500px]",
         variant === "default" && "bg-black",
         variant === "elevated" && "bg-surface",
         variant === "muted" && "bg-surface-elevated",
+        variant === "cinematic" && "bg-black",
         className,
       )}
     >
       <div
         className={cn(
-          fullWidth ? "w-full" : "mx-auto max-w-6xl px-5 sm:px-8 lg:px-12",
+          fullWidth ? "w-full" : "mx-auto max-w-7xl container-padding",
           containerClassName,
         )}
       >
@@ -45,39 +46,56 @@ export function Section({
 export function SectionHeading({
   eyebrow,
   title,
+  titleMuted,
+  titleBold,
   description,
   align = "left",
+  className,
 }: {
   eyebrow?: string;
-  title: string;
+  title?: string;
+  titleMuted?: string;
+  titleBold?: string;
   description?: string;
   align?: "left" | "center";
+  className?: string;
 }) {
+  const hasSplitTitle = titleMuted && titleBold;
+
   return (
     <div
       className={cn(
-        "mb-12 sm:mb-16 md:mb-24 lg:mb-28",
+        "mb-[var(--spacing-heading-gap)] sm:mb-16 md:mb-20 lg:mb-28",
         align === "center" && "text-center",
+        className,
       )}
     >
-      {eyebrow && (
-        <p className="editorial-label mb-6">{eyebrow}</p>
-      )}
-      <h2
-        className={cn(
-          "type-section max-w-3xl font-medium",
-          align === "center" && "mx-auto",
-          "text-white",
-        )}
-      >
-        {title}
-      </h2>
+      {eyebrow && <p className="type-label mb-6">{eyebrow}</p>}
+      {hasSplitTitle ? (
+        <h2 className={cn("max-w-3xl", align === "center" && "mx-auto")}>
+          <span className="type-section heading-split-muted block">
+            {titleMuted}
+          </span>
+          <span className="type-section heading-split-bold mt-1 block">
+            {titleBold}
+          </span>
+        </h2>
+      ) : title ? (
+        <h2
+          className={cn(
+            "type-section max-w-3xl font-bold text-white",
+            align === "center" && "mx-auto",
+          )}
+        >
+          {title}
+        </h2>
+      ) : null}
       {description && (
         <p
           className={cn(
-            "type-body-sm mt-5 max-w-md tracking-wide sm:mt-6",
+            "type-small mt-5 max-w-lg sm:mt-6",
             align === "center" && "mx-auto",
-            "text-white/45",
+            "text-muted-foreground",
           )}
         >
           {description}
