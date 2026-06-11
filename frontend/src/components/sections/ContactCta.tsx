@@ -39,7 +39,7 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
       {!isContactPage && (
         <div className="absolute inset-0" aria-hidden="true">
           <SafeImage
-            src={images.shopExterior}
+            src={images.contactCtaBg}
             alt=""
             className="h-full w-full object-cover"
           />

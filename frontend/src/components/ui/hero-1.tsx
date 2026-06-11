@@ -87,7 +87,7 @@ export function HeroLanding({
         {showVideo ? (
           <video
             ref={videoRef}
-            className="absolute top-1/2 left-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-center scale-[1.15]"
+            className="absolute top-1/2 left-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-center scale-105 sm:scale-[1.1] md:scale-[1.15]"
             autoPlay
             muted
             loop
@@ -101,7 +101,7 @@ export function HeroLanding({
             src={backgroundImage}
             fallback={backgroundImageFallback}
             alt=""
-            className="absolute top-1/2 left-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-center scale-[1.15]"
+            className="absolute top-1/2 left-1/2 h-full min-h-full w-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover object-center scale-105 sm:scale-[1.1] md:scale-[1.15]"
             loading="eager"
             fetchPriority="high"
           />
@@ -117,7 +117,7 @@ export function HeroLanding({
           align === "bottom"
             ? compact
               ? "min-h-[calc(45vh-var(--navbar-offset))] justify-end pb-12 sm:min-h-[calc(50vh-var(--navbar-offset))] sm:pb-16"
-              : "min-h-[calc(100vh-var(--navbar-offset))] justify-end pb-14 sm:pb-20 md:pb-24"
+              : "min-h-[calc(100dvh-var(--navbar-offset))] justify-end pb-10 sm:min-h-[calc(100vh-var(--navbar-offset))] sm:pb-20 md:pb-24"
             : "min-h-[calc(45vh-var(--navbar-offset))] justify-center py-16",
         )}
       >
@@ -131,7 +131,7 @@ export function HeroLanding({
               )}
             </div>
           ) : (
-            <div className="grid gap-5 sm:gap-6 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-5 xl:gap-x-10">
+            <div className="grid gap-4 sm:gap-6 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-5 xl:gap-x-10">
               {badge && (
                 <p className="type-label font-bold text-white lg:col-span-7">
                   {badge}
@@ -154,7 +154,7 @@ export function HeroLanding({
                   </p>
                 )}
 
-                <div className="flex flex-nowrap items-center gap-4 sm:gap-5 lg:justify-end">
+                <div className="flex flex-wrap items-center gap-3 sm:flex-nowrap sm:gap-5 lg:justify-end">
                   {primaryCta && (
                     <Button
                       variant={

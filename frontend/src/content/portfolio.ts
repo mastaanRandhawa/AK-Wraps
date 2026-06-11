@@ -15,7 +15,7 @@ export const portfolioBuilds: PortfolioBuild[] = [
     title: "Aventador",
     brand: "Lamborghini",
     brandLogo: "/brands/lamborghini.svg",
-    image: images.wrappedCar,
+    image: images.portfolioLamborghini,
     services: ["Full Clear PPF", "Ceramic Coating", "Tint"],
   },
   {
@@ -23,7 +23,7 @@ export const portfolioBuilds: PortfolioBuild[] = [
     title: "M4 Competition",
     brand: "BMW",
     brandLogo: "/brands/bmw.svg",
-    image: images.exteriorDetail,
+    image: images.portfolioBmw,
     services: ["PPF", "Paint Correction", "Ceramic"],
   },
   {
@@ -31,7 +31,7 @@ export const portfolioBuilds: PortfolioBuild[] = [
     title: "911 GT3",
     brand: "Porsche",
     brandLogo: "/brands/porsche.svg",
-    image: images.ceramicCoating,
+    image: images.portfolioPorsche,
     services: ["Full Vinyl Color Change", "PPF", "Ceramic"],
   },
   {
@@ -39,7 +39,7 @@ export const portfolioBuilds: PortfolioBuild[] = [
     title: "AMG GT",
     brand: "Mercedes",
     brandLogo: "/brands/bmw.svg",
-    image: images.ppfInstall,
+    image: images.portfolioMercedes,
     services: ["Track Package PPF", "Ceramic Coating"],
   },
   {
@@ -47,7 +47,7 @@ export const portfolioBuilds: PortfolioBuild[] = [
     title: "Mustang GT",
     brand: "Ford",
     brandLogo: "/brands/ford.svg",
-    image: images.customWheels,
+    image: images.portfolioMustang,
     services: ["Full Wrap", "Chrome Delete", "Tint"],
   },
   {
@@ -55,7 +55,7 @@ export const portfolioBuilds: PortfolioBuild[] = [
     title: "GR Supra",
     brand: "Toyota",
     brandLogo: "/brands/toyota.svg",
-    image: images.heroSupra,
+    image: images.portfolioSupra,
     services: ["PPF", "Ceramic Coating", "Detail"],
   },
 ];

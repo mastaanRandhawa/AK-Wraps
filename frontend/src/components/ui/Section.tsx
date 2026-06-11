@@ -65,7 +65,7 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "mb-[var(--spacing-heading-gap)] sm:mb-16 md:mb-20 lg:mb-28",
+        "mb-[var(--spacing-heading-gap)] sm:mb-14 md:mb-20 lg:mb-28",
         align === "center" && "text-center",
         className,
       )}

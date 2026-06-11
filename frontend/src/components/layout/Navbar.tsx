@@ -9,7 +9,15 @@ import { cn } from "@/lib/utils";
 import { Logo } from "@/components/brand/Logo";
 import { useSmartNavbar } from "@/hooks/use-smart-navbar";
 
+const menuNavigation = [
+  { name: "Home", href: routes.home },
+  ...navigation,
+];
+
 function isActivePath(pathname: string, href: string) {
+  if (href === routes.home) {
+    return pathname === routes.home;
+  }
   if (href === routes.gallery) {
     return (
       pathname === routes.gallery || pathname.startsWith(`${routes.gallery}/`)
@@ -52,7 +60,7 @@ function MenuPillButton({
       onClick={onClick}
       {...props}
       className={cn(
-        "inline-flex min-h-[44px] items-center gap-3 rounded-pill border border-white/10 bg-surface-panel/80 px-4 py-2.5 backdrop-blur-sm transition-colors duration-300 hover:bg-surface-panel sm:px-5",
+        "inline-flex min-h-[44px] items-center gap-2 rounded-pill border border-white/10 bg-surface-panel/80 px-3 py-2 backdrop-blur-sm transition-colors duration-300 hover:bg-surface-panel sm:gap-3 sm:px-5 sm:py-2.5",
         className,
       )}
     >
@@ -94,7 +102,7 @@ function MenuOverlay({
         >
           <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
             <img
-              src={images.heroSupra}
+              src={images.menuOverlayBg}
               alt=""
               className="h-full w-full scale-105 object-cover object-center"
             />
@@ -115,7 +123,7 @@ function MenuOverlay({
           </div>
 
           <nav className="relative z-10 flex flex-1 flex-col items-center justify-center gap-6 sm:gap-8 md:gap-10">
-            {navigation.map((item, i) => {
+            {menuNavigation.map((item, i) => {
               const active = isActivePath(pathname, item.href);
               return (
                 <motion.div
@@ -222,17 +230,17 @@ export function Navbar() {
                 : "bg-transparent",
           )}
         >
-          <div className="pointer-events-auto mx-auto grid h-[var(--navbar-offset)] w-full max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 sm:px-8 lg:px-12">
+          <div className="pointer-events-auto relative mx-auto flex h-[var(--navbar-offset)] w-full max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
             <Link
               to={routes.home}
-              className="justify-self-start transition-opacity hover:opacity-80"
+              className="shrink-0 transition-opacity hover:opacity-80"
               tabIndex={isVisible || open ? undefined : -1}
               aria-label={`${site.name} home`}
             >
               <Logo />
             </Link>
 
-            <div className="hidden items-center justify-center gap-7 lg:flex xl:gap-9">
+            <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 lg:flex xl:gap-9">
               {navigation.map((item) => {
                 const active = isActivePath(location.pathname, item.href);
                 return (
@@ -257,7 +265,7 @@ export function Navbar() {
             <MenuPillButton
               onClick={() => setOpen(true)}
               label="Menu"
-              className="justify-self-end"
+              className="ml-auto shrink-0"
               aria-label="Open menu"
               aria-expanded={open}
               tabIndex={isVisible && !open ? undefined : -1}

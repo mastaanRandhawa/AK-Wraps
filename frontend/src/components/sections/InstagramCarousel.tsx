@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink, Instagram } from "lucide-react";
 import { MotionReveal } from "@/components/ui/motion-reveal";
@@ -8,6 +8,7 @@ import { Section, SectionHeading } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
 import { useInstagramFeed } from "@/hooks/use-instagram-feed";
 import { usePageVisible } from "@/hooks/use-page-visible";
+import { useSwipe } from "@/hooks/use-swipe";
 import { site } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -35,7 +36,6 @@ export function InstagramCarousel({
   const { posts, loading } = useInstagramFeed(limit);
   const [index, setIndex] = useState(0);
   const pageVisible = usePageVisible();
-  const touchStartX = useRef<number | null>(null);
 
   const count = posts.length;
   const current = posts[index];
@@ -60,21 +60,10 @@ export function InstagramCarousel({
     return () => clearInterval(timer);
   }, [next, pageVisible, count]);
 
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0]?.clientX ?? null;
-  };
-
-  const onTouchEnd = (e: React.TouchEvent) => {
-    const start = touchStartX.current;
-    const end = e.changedTouches[0]?.clientX;
-    touchStartX.current = null;
-    if (start == null || end == null) return;
-
-    const delta = end - start;
-    if (Math.abs(delta) < 40) return;
-    if (delta < 0) next();
-    else prev();
-  };
+  const swipeHandlers = useSwipe({
+    onSwipeLeft: next,
+    onSwipeRight: prev,
+  });
 
   return (
     <Section
@@ -120,15 +109,14 @@ export function InstagramCarousel({
         ) : (
           <>
             <div
-              className="mx-auto max-w-4xl touch-pan-y"
-              onTouchStart={onTouchStart}
-              onTouchEnd={onTouchEnd}
+              className="mx-auto max-w-xs touch-pan-y sm:max-w-2xl md:max-w-4xl"
+              {...swipeHandlers}
             >
               <a
                 href={current.permalink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative block aspect-[4/5] overflow-hidden rounded-md border border-white/15 bg-black sm:aspect-[16/10]"
+                className="group relative block aspect-[3/4] overflow-hidden rounded-md border border-white/15 bg-black sm:aspect-[16/10]"
                 aria-label="Open Instagram post"
               >
                 <AnimatePresence mode="wait">
@@ -166,7 +154,13 @@ export function InstagramCarousel({
             </div>
 
             {count > 1 && (
-              <div className="mx-auto mt-8 flex max-w-4xl items-center justify-center gap-6 sm:mt-10 sm:gap-8">
+              <p className="type-caption mt-4 text-center text-white/35 sm:hidden">
+                Swipe to browse posts
+              </p>
+            )}
+
+            {count > 1 && (
+              <div className="mx-auto mt-6 flex max-w-4xl items-center justify-center gap-4 sm:mt-10 sm:gap-8">
                 <IconCircleButton icon={ChevronLeft} label="Previous post" onClick={prev} />
                 <div className="flex gap-3">
                   {posts.map((post, i) => (

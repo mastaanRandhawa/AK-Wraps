@@ -7,6 +7,7 @@ import { DURATION, EASE_PREMIUM } from "@/lib/motion";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { SafeImage } from "@/components/ui/safe-image";
 import { usePageVisible } from "@/hooks/use-page-visible";
+import { useSwipe } from "@/hooks/use-swipe";
 import { images } from "@/content/images";
 import { cn } from "@/lib/utils";
 import type { Testimonial } from "@/content/testimonials";
@@ -70,11 +71,16 @@ export function Testimonials({ items }: TestimonialsProps) {
 
   const current = items[index];
 
+  const swipeHandlers = useSwipe({
+    onSwipeLeft: next,
+    onSwipeRight: prev,
+  });
+
   return (
     <Section variant="default" id="testimonials" className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden="true">
         <SafeImage
-          src={images.ceramicCoating}
+          src={images.testimonialsBg}
           alt=""
           className="h-full w-full object-cover blur-3xl"
         />
@@ -87,9 +93,12 @@ export function Testimonials({ items }: TestimonialsProps) {
           align="center"
         />
         <MotionReveal variant="fade">
-          <div className="mx-auto max-w-4xl text-center">
+          <div
+            className="mx-auto max-w-4xl touch-pan-y text-center"
+            {...swipeHandlers}
+          >
             <StarRating rating={current.rating} />
-            <div className="relative mt-10 min-h-[12rem] sm:mt-12 sm:min-h-[14rem]">
+            <div className="relative mt-8 min-h-[10rem] sm:mt-12 sm:min-h-[14rem]">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.blockquote
                   key={current.id}
@@ -121,7 +130,11 @@ export function Testimonials({ items }: TestimonialsProps) {
             </AnimatePresence>
           </div>
 
-          <div className="mt-14 flex items-center justify-center gap-8">
+          <p className="type-caption mt-8 text-center text-white/35 sm:hidden">
+            Swipe to read more
+          </p>
+
+          <div className="mt-8 flex items-center justify-center gap-6 sm:mt-14 sm:gap-8">
             <IconCircleButton icon={ChevronLeft} label="Previous testimonial" onClick={prev} />
             <div className="flex gap-2.5">
               {items.map((_, i) => (

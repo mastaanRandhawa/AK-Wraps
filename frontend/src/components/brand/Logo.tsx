@@ -24,7 +24,7 @@ export function Logo({ className, size = "default" }: LogoProps) {
       <span
         className={cn(
           "mt-1.5 block h-[1.5px] bg-accent",
-          size === "default" ? "w-[min(100%,6.75rem)]" : "w-[min(100%,8.5rem)]",
+          size === "default" ? "w-[min(100%,5.5rem)] sm:w-[min(100%,6.75rem)]" : "w-[min(100%,8.5rem)]",
         )}
         aria-hidden="true"
       />

@@ -83,13 +83,13 @@ const ServiceMediaCard = forwardRef<HTMLElement, ServiceCardProps>(
         onFocus={onHover}
         onBlur={onLeave}
         className={cn(
-          "group w-[min(82vw,300px)] shrink-0 cursor-pointer snap-center overflow-hidden rounded-md border bg-black touch-manipulation sm:w-[300px] lg:w-[320px]",
+          "group w-[min(72vw,240px)] shrink-0 cursor-pointer snap-center overflow-hidden rounded-md border bg-black touch-manipulation sm:w-[280px] md:w-[300px] lg:w-[320px]",
           "headlight-border transition-opacity duration-500",
           isActive ? "headlight-on opacity-100" : "opacity-80",
           className,
         )}
       >
-        <div className="relative aspect-[3/4] overflow-hidden">
+        <div className="relative aspect-[4/5] overflow-hidden sm:aspect-[3/4]">
           <SafeImage
             src={image}
             fallback={imageFallback}
@@ -199,7 +199,7 @@ export const MediaCard = forwardRef<HTMLElement, MediaCardProps>(
         </div>
 
         {props.services && props.services.length > 0 && (
-          <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+          <div className="absolute inset-x-0 bottom-0 p-3 sm:p-6">
             <p className="type-card font-semibold uppercase tracking-widest text-white/40 transition-colors duration-700 group-hover:text-white/65">
               Signature Touches
             </p>

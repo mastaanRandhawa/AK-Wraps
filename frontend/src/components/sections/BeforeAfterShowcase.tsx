@@ -46,10 +46,10 @@ function CompareSlider({ before, after, label }: CompareSliderProps) {
   };
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 sm:space-y-8">
+    <div className="mx-auto max-w-lg space-y-4 sm:max-w-4xl sm:space-y-8">
       <motion.div
         ref={containerRef}
-        className="group relative aspect-[16/9] cursor-ew-resize touch-none overflow-hidden rounded-md border border-white/15 bg-surface select-none"
+        className="group relative aspect-[4/3] cursor-ew-resize touch-none overflow-hidden rounded-md border border-white/15 bg-surface select-none sm:aspect-[16/9]"
         role="slider"
         aria-label={`Before and after comparison: ${label}`}
         aria-valuenow={Math.round(position)}

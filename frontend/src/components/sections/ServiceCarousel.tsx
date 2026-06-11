@@ -110,7 +110,7 @@ export function ServiceCarousel({
         aria-hidden="true"
       >
         <SafeImage
-          src={images.shopExterior}
+          src={images.serviceCarouselBg}
           alt=""
           className="h-full w-full object-cover blur-2xl"
         />
@@ -122,8 +122,9 @@ export function ServiceCarousel({
             eyebrow="AK Wraps & Customs"
             title="Our Services"
             description="Wraps, protection, tint, coatings, and custom fabrication — all performed in-house at our Delta studio."
+            className="flex-1 min-w-0"
           />
-          <div className="mb-[var(--spacing-heading-gap)] flex shrink-0 gap-3">
+          <div className="mb-[var(--spacing-heading-gap)] hidden shrink-0 gap-3 sm:flex">
             <IconCircleButton
               icon={ChevronLeft}
               label="Previous services"
@@ -164,7 +165,11 @@ export function ServiceCarousel({
           </div>
         </div>
 
-        <div className="mt-6 flex items-center justify-center gap-2 sm:mt-8">
+        <p className="type-caption mt-4 text-center text-white/35 sm:hidden">
+          Swipe to browse services
+        </p>
+
+        <div className="mt-4 flex items-center justify-center gap-2 sm:mt-8">
           {featured.map((service, index) => (
             <button
               key={service.id}

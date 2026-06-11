@@ -18,8 +18,8 @@ export const featuredServices: Service[] = [
     description:
       "Full and partial vinyl wraps in gloss, satin, matte, and specialty finishes — colour changes without repainting.",
     price: "Starting from — contact for quote",
-    image: images.wrappedCar,
-    imageFallback: images.vehicleWrap,
+    image: images.serviceVinylWrap,
+    imageFallback: images.serviceVinylWrapFallback,
   },
   {
     id: "ppf",
@@ -28,8 +28,8 @@ export const featuredServices: Service[] = [
     description:
       "Self-healing clear film shields against rock chips, scratches, and road debris on high-impact areas or full body.",
     price: "Starting from — contact for quote",
-    image: images.ppfInstall,
-    imageFallback: images.exteriorDetail,
+    image: images.servicePpf,
+    imageFallback: images.servicePpfFallback,
   },
   {
     id: "coloured-ppf",
@@ -38,8 +38,8 @@ export const featuredServices: Service[] = [
     description:
       "Premium coloured paint protection film that changes your vehicle's look while guarding against chips and UV damage.",
     price: "Starting from — contact for quote",
-    image: images.afterWrap,
-    imageFallback: images.wrappedCar,
+    image: images.serviceColouredPpf,
+    imageFallback: images.serviceColouredPpfFallback,
   },
   {
     id: "window-tints",
@@ -48,8 +48,8 @@ export const featuredServices: Service[] = [
     description:
       "Precision-cut ceramic and carbon window films for heat rejection, glare reduction, and a clean, factory-finished look.",
     price: "Starting from — contact for quote",
-    image: images.interiorDetail,
-    imageFallback: images.ceramicCoating,
+    image: images.serviceTint,
+    imageFallback: images.serviceTintFallback,
   },
   {
     id: "ceramic-paint-correction",
@@ -58,8 +58,8 @@ export const featuredServices: Service[] = [
     description:
       "Multi-stage paint correction followed by ceramic coating for deep shine, hydrophobic protection, and easier maintenance.",
     price: "Quote required",
-    image: images.ceramicCoating,
-    imageFallback: images.paintCorrection,
+    image: images.serviceCeramic,
+    imageFallback: images.serviceCeramicFallback,
   },
   {
     id: "wide-body-fabrication",
@@ -68,8 +68,8 @@ export const featuredServices: Service[] = [
     description:
       "Wide body kit fitting, custom panel fabrication, and structural modifications executed entirely at our Delta studio.",
     price: "Quote required",
-    image: images.customWheels,
-    imageFallback: images.shopExterior,
+    image: images.serviceWideBody,
+    imageFallback: images.serviceWideBodyFallback,
   },
   {
     id: "custom-paint-matching",
@@ -78,8 +78,8 @@ export const featuredServices: Service[] = [
     description:
       "Factory-accurate and custom colour matching for repairs, accents, and one-off finishes that blend perfectly with your vehicle.",
     price: "Quote required",
-    image: images.paintCorrection,
-    imageFallback: images.chromeDelete,
+    image: images.servicePaintMatch,
+    imageFallback: images.servicePaintMatchFallback,
   },
 ];
 

@@ -14,7 +14,7 @@ export function PartnerMarquee({
   partners,
   title = "Partners",
   className,
-  speed = 40,
+  speed = 28,
 }: PartnerMarqueeProps) {
   return (
     <div className={cn("relative", className)}>
@@ -24,13 +24,13 @@ export function PartnerMarquee({
         {partners.map((partner) => (
           <div
             key={partner.id}
-            className="group flex shrink-0 items-center px-8 sm:px-12"
+            className="group flex shrink-0 items-center px-3 sm:px-5"
           >
             <BrandLogo
               src={partner.logo}
               name={partner.name}
               interactive
-              className="h-7 sm:h-9 md:h-10"
+              className="h-10 max-w-[160px] sm:h-12 sm:max-w-[180px] md:h-14 md:max-w-[200px]"
             />
           </div>
         ))}

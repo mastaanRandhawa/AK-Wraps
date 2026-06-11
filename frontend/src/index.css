@@ -53,11 +53,11 @@
   :root {
     --navbar-offset: clamp(4.25rem, 3.75rem + 1vw, 5rem);
 
-    --spacing-section-y: clamp(4.5rem, 4rem + 3vw, 12rem);
-    --spacing-container-x: clamp(1.25rem, 1rem + 1vw, 3rem);
-    --spacing-heading-gap: clamp(1.25rem, 1rem + 0.5vw, 2rem);
-    --spacing-card-padding: clamp(1.25rem, 1rem + 0.5vw, 2rem);
-    --spacing-grid-gap: clamp(1.25rem, 1rem + 0.5vw, 1.5rem);
+    --spacing-section-y: clamp(3.5rem, 3rem + 3vw, 12rem);
+    --spacing-container-x: clamp(1rem, 0.85rem + 1vw, 3rem);
+    --spacing-heading-gap: clamp(1rem, 0.85rem + 0.5vw, 2rem);
+    --spacing-card-padding: clamp(1rem, 0.85rem + 0.5vw, 2rem);
+    --spacing-grid-gap: clamp(0.875rem, 0.75rem + 0.5vw, 1.5rem);
 
     --text-fluid-xs: clamp(0.625rem, 0.58rem + 0.22vw, 0.75rem);
     --text-fluid-sm: clamp(0.8125rem, 0.78rem + 0.18vw, 0.9375rem);
@@ -394,7 +394,13 @@
   }
 
   .carousel-snap>* {
-    scroll-snap-align: start;
+    scroll-snap-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .carousel-snap:not(.carousel-snap-always-center)>* {
+      scroll-snap-align: start;
+    }
   }
 
   .process-line {

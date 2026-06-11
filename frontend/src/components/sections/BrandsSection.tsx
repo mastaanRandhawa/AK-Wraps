@@ -9,7 +9,7 @@ import { routes } from "@/config/routes";
 export function BrandsSection() {
   return (
     <Section variant="default">
-      <div className="flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
+      <div className="flex flex-col gap-8 sm:gap-12 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading
           titleMuted="Your Trusted"
           titleBold="Vehicle Specialists"
@@ -22,20 +22,20 @@ export function BrandsSection() {
       </div>
 
       <MotionReveal delay={200} variant="fade">
-        <div className="fade-edge-x mt-16">
+        <div className="fade-edge-x mt-10 sm:mt-16">
           <div className="grid grid-cols-2 gap-px bg-white/[0.08] sm:grid-cols-4">
             {vehicleBrands.map((brand, i) => (
               <MotionReveal
                 key={brand.id}
                 delay={i * 50}
                 variant="fade"
-                className="group flex items-center justify-center bg-black p-[var(--spacing-card-padding)] transition-colors duration-300 hover:bg-white/[0.03]"
+                className="group flex items-center justify-center bg-black p-4 transition-colors duration-300 hover:bg-white/[0.03] sm:p-[var(--spacing-card-padding)]"
               >
                 <BrandLogo
                   src={brand.logo}
                   name={brand.name}
                   interactive
-                  className="opacity-70 transition-opacity duration-700 group-hover:opacity-100"
+                  className="h-6 opacity-70 transition-opacity duration-700 group-hover:opacity-100 sm:h-8 md:h-10"
                 />
               </MotionReveal>
             ))}
