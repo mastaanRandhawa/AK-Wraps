@@ -1,61 +1,26 @@
-import { images } from "./images";
+import baCeramicBefore from "@/assets/optimized/ba-ceramic-before.webp";
+import baCeramicAfter from "@/assets/optimized/ba-ceramic-after.webp";
+import baWrapBefore from "@/assets/optimized/ba-wrap-before.webp";
+import baWrapAfter from "@/assets/optimized/ba-wrap-after.webp";
 
-export const galleryImages = [
-  {
-    id: "1",
-    src: images.galleryWrap,
-    alt: "Full vehicle wrap color change",
-    category: "Vehicle Wraps",
-    span: "large" as const,
-  },
-  {
-    id: "2",
-    src: images.galleryPpf,
-    alt: "Paint protection film installation",
-    category: "Paint Protection Film",
-    span: "small" as const,
-  },
-  {
-    id: "3",
-    src: images.galleryCeramic,
-    alt: "Ceramic coating gloss finish",
-    category: "Ceramic Coating",
-    span: "small" as const,
-  },
-  {
-    id: "4",
-    src: images.galleryChromeDelete,
-    alt: "Chrome delete blackout trim",
-    category: "Chrome Delete",
-    span: "medium" as const,
-  },
-  {
-    id: "5",
-    src: images.galleryInterior,
-    alt: "Interior ambient lighting upgrade",
-    category: "Interior Customization",
-    span: "small" as const,
-  },
-  {
-    id: "6",
-    src: images.galleryWheels,
-    alt: "Custom wheels and trim detail",
-    category: "Wheels and Trim",
-    span: "large" as const,
-  },
-];
+export interface BeforeAfterItem {
+  id: string;
+  before: string;
+  after: string;
+  label: string;
+}
 
-export const beforeAfter = [
+export const beforeAfter: BeforeAfterItem[] = [
   {
-    id: "ba1",
-    before: images.beforeDetail,
-    after: images.afterDetail,
+    id: "ceramic-coating",
+    before: baCeramicBefore,
+    after: baCeramicAfter,
     label: "Paint Correction & Ceramic Coating",
   },
   {
-    id: "ba2",
-    before: images.beforeWrap,
-    after: images.afterWrap,
+    id: "colour-wrap",
+    before: baWrapBefore,
+    after: baWrapAfter,
     label: "Full Vehicle Wrap Transformation",
   },
 ];

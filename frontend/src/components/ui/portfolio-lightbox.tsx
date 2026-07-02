@@ -67,7 +67,7 @@ export function PortfolioLightbox({
           transition={{ duration: 0.25 }}
           role="dialog"
           aria-modal="true"
-          aria-label={`${build.brand} ${build.title} project details`}
+          aria-label={`${[build.brand, build.title].filter(Boolean).join(" ")} project details`}
         >
           <button
             type="button"
@@ -127,7 +127,7 @@ export function PortfolioLightbox({
                 key={build.id}
                 src={build.image}
                 fallback={build.imageFallback}
-                alt={`${build.brand} ${build.title}`}
+                alt={[build.brand, build.title].filter(Boolean).join(" ")}
                 className="absolute inset-0 h-full w-full object-cover object-center"
                 loading="eager"
               />
@@ -139,12 +139,12 @@ export function PortfolioLightbox({
                   {build.brandLogo && (
                     <BrandLogo
                       src={build.brandLogo}
-                      name={build.brand}
+                      name={build.brand ?? build.title}
                       className="mb-3 h-5 sm:h-6"
                     />
                   )}
                   <h2 className="type-section font-display font-medium text-white">
-                    {build.brand} {build.title}
+                    {[build.brand, build.title].filter(Boolean).join(" ")}
                   </h2>
                 </div>
                 <span className="type-label rounded-pill border border-white/20 bg-white/5 px-3 py-1.5 text-white/70">

@@ -1,1 +1,1 @@
-export type PageHeroKey = "about" | "services" | "gallery" | "contact";
+export type PageHeroKey = "about" | "services" | "gallery" | "contact" | "legal";

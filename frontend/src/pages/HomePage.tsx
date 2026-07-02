@@ -7,8 +7,16 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { ContactCta } from "@/components/sections/ContactCta";
 import { featuredServices } from "@/content/services";
 import { testimonials } from "@/content/testimonials";
+import { usePageMeta } from "@/hooks/use-page-meta";
+import { site } from "@/config/site";
 
 export function HomePage() {
+  usePageMeta({
+    title: site.name,
+    description:
+      "Premier auto protection, paint protection film, ceramic coating, vinyl wraps, and automotive customization in Delta & Greater Vancouver, BC.",
+  });
+
   return (
     <>
       <HeroSection />

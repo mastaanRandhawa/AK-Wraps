@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useId, useState, type FormEvent, type ReactNode } from "react";
 import { Clock, MapPin, Phone, Mail } from "lucide-react";
 import { MotionReveal } from "@/components/ui/motion-reveal";
 import { Button } from "@/components/ui/button";
@@ -16,13 +16,66 @@ interface ContactCtaProps {
   variant?: "home" | "contact";
 }
 
-export function ContactCta({ variant = "home" }: ContactCtaProps) {
-  const [submitted, setSubmitted] = useState(false);
-  const isContactPage = variant === "contact";
+type FormStatus = "idle" | "submitting" | "success" | "error";
 
-  const handleSubmit = (e: FormEvent) => {
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+
+export function ContactCta({ variant = "home" }: ContactCtaProps) {
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const fieldId = useId();
+  const isContactPage = variant === "contact";
+  const submitted = status === "success";
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    // Honeypot: silently succeed for bots that fill the hidden field.
+    if (data.get("botcheck")) {
+      setStatus("success");
+      return;
+    }
+
+    // No service key configured → open the visitor's mail client as a fallback.
+    if (!WEB3FORMS_KEY) {
+      const body = [
+        `Name: ${data.get("name") ?? ""}`,
+        `Email: ${data.get("email") ?? ""}`,
+        `Phone: ${data.get("phone") ?? ""}`,
+        `Vehicle: ${data.get("vehicle") ?? ""}`,
+        `Service: ${data.get("service") ?? ""}`,
+        "",
+        `${data.get("message") ?? ""}`,
+      ].join("\n");
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
+        `Quote request — ${data.get("name") ?? "Website"}`,
+      )}&body=${encodeURIComponent(body)}`;
+      setStatus("success");
+      return;
+    }
+
+    setStatus("submitting");
+    data.append("access_key", WEB3FORMS_KEY);
+    data.append("subject", `New quote request — ${site.name}`);
+    data.append("from_name", String(data.get("name") ?? "Website visitor"));
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const json = (await res.json()) as { success?: boolean };
+      if (res.ok && json.success) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -194,31 +247,47 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-4 sm:space-y-5"
+                noValidate
+              >
+                {/* Honeypot — hidden from users, catches bots */}
+                <input
+                  type="text"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="hidden"
+                />
                 <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
-                  <FormField label="Name" className="sm:col-span-2">
-                    <Input placeholder="Your name" required name="name" />
+                  <FormField label="Name" htmlFor={`${fieldId}-name`} className="sm:col-span-2">
+                    <Input id={`${fieldId}-name`} placeholder="Your name" required name="name" autoComplete="name" />
                   </FormField>
-                  <FormField label="Email">
+                  <FormField label="Email" htmlFor={`${fieldId}-email`}>
                     <Input
+                      id={`${fieldId}-email`}
                       type="email"
                       placeholder="you@email.com"
                       required
                       name="email"
+                      autoComplete="email"
                     />
                   </FormField>
-                  <FormField label="Phone">
-                    <Input type="tel" placeholder="(000) 000-0000" name="phone" />
+                  <FormField label="Phone" htmlFor={`${fieldId}-phone`}>
+                    <Input id={`${fieldId}-phone`} type="tel" placeholder="(000) 000-0000" name="phone" autoComplete="tel" />
                   </FormField>
-                  <FormField label="Vehicle" className="sm:col-span-2">
+                  <FormField label="Vehicle" htmlFor={`${fieldId}-vehicle`} className="sm:col-span-2">
                     <Input
+                      id={`${fieldId}-vehicle`}
                       placeholder="Make, model, and year"
                       required
                       name="vehicle"
                     />
                   </FormField>
-                  <FormField label="Service" className="sm:col-span-2">
-                    <Select name="service" required defaultValue="">
+                  <FormField label="Service" htmlFor={`${fieldId}-service`} className="sm:col-span-2">
+                    <Select id={`${fieldId}-service`} name="service" required defaultValue="">
                       <option value="" disabled>
                         Select a service
                       </option>
@@ -229,16 +298,39 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                       ))}
                     </Select>
                   </FormField>
-                  <FormField label="Message" className="sm:col-span-2">
+                  <FormField label="Message" htmlFor={`${fieldId}-message`} className="sm:col-span-2">
                     <Textarea
+                      id={`${fieldId}-message`}
                       placeholder="Tell us about your project goals..."
                       name="message"
                       rows={4}
                     />
                   </FormField>
                 </div>
-                <Button type="submit" size="lg" className="mt-2 w-full">
-                  {isContactPage ? "Send Message" : "Start My Signature Build"}
+                {status === "error" && (
+                  <p
+                    role="alert"
+                    className="type-small text-accent"
+                  >
+                    Something went wrong sending your message. Please try again, or
+                    email us directly at{" "}
+                    <a href={`mailto:${site.email}`} className="underline">
+                      {site.email}
+                    </a>
+                    .
+                  </p>
+                )}
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="mt-2 w-full"
+                  disabled={status === "submitting"}
+                >
+                  {status === "submitting"
+                    ? "Sending…"
+                    : isContactPage
+                      ? "Send Message"
+                      : "Start My Signature Build"}
                 </Button>
               </form>
             )}

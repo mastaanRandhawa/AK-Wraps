@@ -2,7 +2,15 @@ import { HeroSection } from "@/components/hero/HeroSection";
 import { BeforeAfterShowcase } from "@/components/sections/BeforeAfterShowcase";
 import { PortfolioGrid } from "@/components/sections/PortfolioGrid";
 import { InstagramCarousel } from "@/components/sections/InstagramCarousel";
+import { usePageMeta } from "@/hooks/use-page-meta";
+
 export function GalleryPage() {
+  usePageMeta({
+    title: "Portfolio",
+    description:
+      "Browse detailing transformations, paint protection, vinyl wraps, and premium finishes completed at AK Wraps & Customs.",
+  });
+
   return (
     <>
       <HeroSection

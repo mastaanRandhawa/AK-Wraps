@@ -26,7 +26,7 @@ export const testimonials: Testimonial[] = [
   {
     id: "3",
     quote:
-      "Chrome delete and starlight headliner transformed my car completely. Attention to detail is unmatched — worth every penny.",
+      "Chrome delete and interior upgrades transformed my car completely. Attention to detail is unmatched — worth every penny.",
     author: "David Okonkwo",
     role: "Customization Client",
     rating: 5,

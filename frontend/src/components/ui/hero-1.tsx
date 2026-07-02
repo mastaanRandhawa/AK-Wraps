@@ -24,6 +24,7 @@ interface HeroLandingProps {
   backgroundImage?: string;
   backgroundImageFallback?: string;
   backgroundVideo?: string;
+  backgroundVideoWebm?: string;
   videoPoster?: string;
   compact?: boolean;
   className?: string;
@@ -39,6 +40,7 @@ export function HeroLanding({
   backgroundImage,
   backgroundImageFallback,
   backgroundVideo,
+  backgroundVideoWebm,
   videoPoster,
   compact = false,
   className,
@@ -92,8 +94,12 @@ export function HeroLanding({
             muted
             loop
             playsInline
+            preload="metadata"
             poster={videoPoster}
           >
+            {backgroundVideoWebm && (
+              <source src={backgroundVideoWebm} type="video/webm" />
+            )}
             <source src={backgroundVideo} type="video/mp4" />
           </video>
         ) : backgroundImage ? (

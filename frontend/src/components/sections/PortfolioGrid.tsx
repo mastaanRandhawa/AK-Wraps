@@ -74,8 +74,8 @@ export function PortfolioGrid({
                   variant="portfolio"
                   image={build.image}
                   imageFallback={build.imageFallback}
-                  alt={`${build.brand} ${build.title}`}
-                  title={`${build.brand} ${build.title}`}
+                  alt={[build.brand, build.title].filter(Boolean).join(" ")}
+                  title={[build.brand, build.title].filter(Boolean).join(" ")}
                   onClick={() => openLightbox(i)}
                   brandLogo={build.brandLogo}
                   brandName={build.brand}

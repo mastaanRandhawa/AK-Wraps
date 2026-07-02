@@ -1,22 +1,22 @@
 export const statMetrics = [
   {
-    value: "500+",
-    label: "Vehicles Detailed",
+    value: "Hundreds",
+    label: "Vehicles Completed",
     description: "Trusted by enthusiasts across Greater Vancouver",
   },
   {
     value: "5-Star",
-    label: "Reviews",
-    description: "Consistently rated for quality and craftsmanship",
+    label: "Client Reviews",
+    description: "Rated for quality, communication, and craftsmanship",
   },
   {
-    value: "10+",
-    label: "Years of Experience",
-    description: "Dedicated expertise in protection and detailing",
+    value: "In-House",
+    label: "Every Service",
+    description: "Wraps, PPF, tint, ceramic, and custom work under one roof",
   },
   {
     value: "100%",
-    label: "Satisfaction Guarantee",
+    label: "Satisfaction Focus",
     description: "We stand behind every finish we deliver",
   },
 ] as const;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { InstagramFeed, InstagramPost } from "@/types/instagram";
+import { instagramFallbackPosts } from "@/content/instagram-fallback";
 
 const FEED_URL = `${import.meta.env.BASE_URL}instagram-feed.json`;
 
@@ -12,11 +13,12 @@ async function loadFeed(): Promise<InstagramPost[]> {
   if (!cachePromise) {
     cachePromise = fetch(FEED_URL)
       .then(async (res) => {
-        if (!res.ok) return [];
+        if (!res.ok) return instagramFallbackPosts;
         const data = (await res.json()) as InstagramFeed;
-        return data.posts ?? [];
+        const posts = data.posts ?? [];
+        return posts.length > 0 ? posts : instagramFallbackPosts;
       })
-      .catch(() => [])
+      .catch(() => instagramFallbackPosts)
       .then((posts) => {
         cachedFeed = posts;
         return posts;

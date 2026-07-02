@@ -18,6 +18,15 @@ const GalleryPage = lazy(() =>
 const ContactPage = lazy(() =>
   import("@/pages/ContactPage").then((m) => ({ default: m.ContactPage })),
 );
+const PrivacyPage = lazy(() =>
+  import("@/pages/LegalPage").then((m) => ({ default: m.PrivacyPage })),
+);
+const TermsPage = lazy(() =>
+  import("@/pages/LegalPage").then((m) => ({ default: m.TermsPage })),
+);
+const NotFoundPage = lazy(() =>
+  import("@/pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })),
+);
 
 export function AppRouter() {
   return (
@@ -29,6 +38,9 @@ export function AppRouter() {
           <Route path="services" element={<ServicesPage />} />
           <Route path="gallery" element={<GalleryPage />} />
           <Route path="contact" element={<ContactPage />} />
+          <Route path="privacy" element={<PrivacyPage />} />
+          <Route path="terms" element={<TermsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </Suspense>

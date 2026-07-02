@@ -4,6 +4,8 @@ export const routes = {
   services: "/services",
   gallery: "/gallery",
   contact: "/contact",
+  privacy: "/privacy",
+  terms: "/terms",
 } as const;
 
 /** Router basename for GitHub Pages (`/AK-Wraps`) or undefined on localhost. */

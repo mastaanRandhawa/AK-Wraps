@@ -11,9 +11,11 @@ export const site = {
   email: "ak.wraps.customs@gmail.com",
   address: "6165 BC-17A, Delta, BC V4K 0B2",
   hours: "Mon–Sat 1 PM – 2 AM · Sun 1 PM – 12 AM",
-  instagram: "#",
+  // Social profiles. Any entry left as "#" is automatically hidden in the UI
+  // (see isLiveUrl). Replace with the real profile URLs before launch.
+  instagram: "https://www.instagram.com/akwrapscustoms/",
   facebook: "#",
-  tiktok: "#",
+  tiktok: "https://www.tiktok.com/@akwrapscustoms",
   serviceAreas: [
     "Surrey",
     "Delta",

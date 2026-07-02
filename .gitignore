@@ -17,6 +17,15 @@ dist-ssr
 frontend/node_modules
 frontend/dist
 
+# Environment files (keep .env.example)
+.env
+.env.*
+!.env.example
+
+# Tooling scratch output
+.playwright-mcp/
+frontend/scripts/*.png
+
 # Editor
 .vscode/*
 !.vscode/extensions.json

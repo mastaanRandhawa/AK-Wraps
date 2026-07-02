@@ -15,8 +15,15 @@ import {
   pricing,
   faqs,
 } from "@/content/services";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 export function ServicesPage() {
+  usePageMeta({
+    title: "Services",
+    description:
+      "Vinyl wraps, paint protection film, window tint, ceramic coating, wide body kits, and custom paint matching in Delta, BC.",
+  });
+
   return (
     <>
       <HeroSection

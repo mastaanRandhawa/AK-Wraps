@@ -92,9 +92,8 @@ export function InstagramCarousel({
               @{site.socialHandle}
             </h3>
             <p className="type-body-sm mt-4 max-w-sm font-light text-white/45">
-              Connect your Instagram account to show live posts here. See{" "}
-              <code className="text-white/60">docs/INSTAGRAM_SETUP.md</code> in
-              the repo for setup steps.
+              Follow us on Instagram for the latest builds, transformations, and
+              behind-the-scenes from the shop.
             </p>
             <Button variant="secondary" size="lg" className="mt-10" asChild>
               <a
@@ -102,7 +101,8 @@ export function InstagramCarousel({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                View on Instagram
+                <Instagram className="h-4 w-4" strokeWidth={1.5} />
+                Follow @{site.socialHandle}
               </a>
             </Button>
           </div>

@@ -13,6 +13,7 @@ const pageHeroImages: Record<PageHeroKey, string> = {
   services: images.pageHeroServices,
   gallery: images.pageHeroGallery,
   contact: images.pageHeroContact,
+  legal: images.pageHeroLegal,
 };
 
 interface HomeHeroProps {
@@ -35,7 +36,10 @@ function isPageHero(props: HeroSectionProps): props is PageHeroProps {
   return "page" in props && props.page !== undefined && props.page !== "home";
 }
 
-const videoSrc = `${import.meta.env.BASE_URL}videos/DarkenedAkwraps.mp4`;
+const videoSrc =
+  import.meta.env.VITE_HERO_VIDEO_URL ??
+  `${import.meta.env.BASE_URL}videos/hero.mp4`;
+const videoSrcWebm = `${import.meta.env.BASE_URL}videos/hero.webm`;
 
 export function HeroSection(props: HeroSectionProps) {
   const isPage = isPageHero(props);
@@ -53,6 +57,7 @@ export function HeroSection(props: HeroSectionProps) {
       backgroundImage={isPage ? pageHeroImages[props.page] : images.heroSupra}
       backgroundImageFallback={isPage ? undefined : images.heroSupraFallback}
       backgroundVideo={isPage ? undefined : videoSrc}
+      backgroundVideoWebm={isPage ? undefined : videoSrcWebm}
       videoPoster={images.heroSupra}
       callToActions={isPage ? undefined : homeCallToActions}
       titleSize={isPage ? "medium" : "large"}

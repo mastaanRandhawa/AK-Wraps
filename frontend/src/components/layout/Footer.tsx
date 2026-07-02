@@ -3,7 +3,7 @@ import { Instagram, Facebook } from "lucide-react";
 import { navigation, site } from "@/config/site";
 import { routes } from "@/config/routes";
 import { Logo } from "@/components/brand/Logo";
-import { cn } from "@/lib/utils";
+import { cn, isLiveUrl } from "@/lib/utils";
 
 function TikTokIcon({ className }: { className?: string }) {
   return (
@@ -114,20 +114,30 @@ export function Footer() {
               </div>
             </div>
 
-            <div className="lg:col-span-2 lg:justify-self-end">
-              <p className="type-label mb-5">Follow</p>
-              <div className="flex gap-2.5">
-                <SocialLink href={site.instagram} label="Instagram">
-                  <Instagram className="h-4 w-4" strokeWidth={1.5} />
-                </SocialLink>
-                <SocialLink href={site.facebook} label="Facebook">
-                  <Facebook className="h-4 w-4" strokeWidth={1.5} />
-                </SocialLink>
-                <SocialLink href={site.tiktok} label="TikTok">
-                  <TikTokIcon className="h-4 w-4" />
-                </SocialLink>
+            {(isLiveUrl(site.instagram) ||
+              isLiveUrl(site.facebook) ||
+              isLiveUrl(site.tiktok)) && (
+              <div className="lg:col-span-2 lg:justify-self-end">
+                <p className="type-label mb-5">Follow</p>
+                <div className="flex gap-2.5">
+                  {isLiveUrl(site.instagram) && (
+                    <SocialLink href={site.instagram} label="Instagram">
+                      <Instagram className="h-4 w-4" strokeWidth={1.5} />
+                    </SocialLink>
+                  )}
+                  {isLiveUrl(site.facebook) && (
+                    <SocialLink href={site.facebook} label="Facebook">
+                      <Facebook className="h-4 w-4" strokeWidth={1.5} />
+                    </SocialLink>
+                  )}
+                  {isLiveUrl(site.tiktok) && (
+                    <SocialLink href={site.tiktok} label="TikTok">
+                      <TikTokIcon className="h-4 w-4" />
+                    </SocialLink>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="fade-divider mt-12 sm:mt-14" />
@@ -137,18 +147,18 @@ export function Footer() {
               © {new Date().getFullYear()} {site.name}
             </p>
             <div className="flex gap-6 sm:gap-8">
-              <a
-                href="#"
+              <Link
+                to={routes.privacy}
                 className="transition-colors duration-300 hover:text-white/55"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to={routes.terms}
                 className="transition-colors duration-300 hover:text-white/55"
               >
                 Terms & Conditions
-              </a>
+              </Link>
             </div>
           </div>
         </div>

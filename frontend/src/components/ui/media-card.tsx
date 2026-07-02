@@ -96,6 +96,7 @@ const ServiceMediaCard = forwardRef<HTMLElement, ServiceCardProps>(
             fallback={imageFallback}
             alt={alt}
             className="headlight-image h-full w-full object-cover"
+            loading="eager"
           />
           <div className="headlight-overlay" aria-hidden="true" />
           <div className="absolute left-5 top-5 flex items-center gap-2">

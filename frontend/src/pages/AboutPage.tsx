@@ -6,9 +6,16 @@ import { StatsSection } from "@/components/sections/StatsSection";
 import { MapEmbed } from "@/components/ui/map-embed";
 import { values } from "@/content/team";
 import { site } from "@/config/site";
+import { usePageMeta } from "@/hooks/use-page-meta";
 import { MapPin } from "lucide-react";
 
 export function AboutPage() {
+  usePageMeta({
+    title: "About Us",
+    description:
+      "Learn about AK Wraps & Customs — premium vehicle protection and customization from our Delta, BC studio serving Greater Vancouver.",
+  });
+
   return (
     <>
       <HeroSection
