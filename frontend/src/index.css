@@ -487,6 +487,78 @@
   will-change: transform;
 }
 
+/* ---------------------------------------------------------------------------
+   Cinematic backdrop motion — slow push-in on load, then an ambient drift so
+   hero/band imagery never sits perfectly still.
+   --------------------------------------------------------------------------- */
+@keyframes ken-burns {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.09);
+  }
+}
+
+@keyframes glow-drift {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translate3d(3%, -2%, 0) scale(1.12);
+  }
+}
+
+@utility animate-ken-burns {
+  /* Delayed so it picks up where the mount push-in finishes. */
+  animation: ken-burns 24s ease-in-out var(--ken-burns-delay, 2.4s) infinite alternate;
+  will-change: transform;
+}
+
+@utility animate-glow-drift {
+  animation: glow-drift 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@layer utilities {
+
+  /* Fine film grain over cinematic media — keeps flat black gradients from banding. */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.11;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Named without a `text-` prefix on purpose: tailwind-merge would classify
+     `text-glow-accent` as a text-colour utility and strip the `text-accent`
+     sitting beside it in the same cn() call. */
+  .glow-accent {
+    text-shadow:
+      0 0 16px rgba(227, 6, 19, 0.4),
+      0 0 44px rgba(227, 6, 19, 0.16);
+  }
+
+  /* Mask wrapper for a line/word sliding up from behind an edge. The padding
+     keeps descenders (g, y, p) from being clipped by overflow-hidden. */
+  .reveal-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.16em;
+    margin-bottom: -0.16em;
+  }
+}
+
 @keyframes accordion-down {
   from {
     height: 0;
@@ -519,6 +591,8 @@
 
   .animate-marquee,
   .animate-marquee-reverse,
+  .animate-ken-burns,
+  .animate-glow-drift,
   [data-marquee-track] {
     animation: none !important;
   }

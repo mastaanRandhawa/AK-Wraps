@@ -52,6 +52,8 @@ export function HeroSection(props: HeroSectionProps) {
   return (
     <HeroLanding
       title={title}
+      titleLines={isPage ? undefined : site.heroTitleLines}
+      accentLine={isPage ? undefined : site.heroTitleAccentLine}
       description={description}
       badge={badge}
       backgroundImage={isPage ? pageHeroImages[props.page] : images.heroSupra}
@@ -61,6 +63,7 @@ export function HeroSection(props: HeroSectionProps) {
       videoPoster={images.heroSupra}
       callToActions={isPage ? undefined : homeCallToActions}
       titleSize={isPage ? "medium" : "large"}
+      showSocialProof={!isPage}
       compact={isPage}
       align={isPage ? "center" : "bottom"}
     />
