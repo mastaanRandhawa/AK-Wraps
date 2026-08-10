@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { RevealFade, RevealText } from "@/components/ui/reveal-text";
 import { cn } from "@/lib/utils";
 
 interface SectionProps {
@@ -70,36 +71,52 @@ export function SectionHeading({
         className,
       )}
     >
-      {eyebrow && <p className="type-label mb-6">{eyebrow}</p>}
+      {eyebrow && (
+        <RevealFade
+          className={cn(
+            "mb-6 flex items-center gap-4",
+            align === "center" && "justify-center",
+          )}
+        >
+          <span className="h-px w-8 bg-accent" />
+          <span className="type-label">{eyebrow}</span>
+        </RevealFade>
+      )}
       {hasSplitTitle ? (
+        // Two rows with distinct weights, so each gets its own reveal pass.
         <h2 className={cn("max-w-3xl", align === "center" && "mx-auto")}>
-          <span className="type-section heading-split-muted block">
-            {titleMuted}
-          </span>
-          <span className="type-section heading-split-bold mt-1 block">
-            {titleBold}
-          </span>
+          <RevealText
+            text={titleMuted}
+            delay={0.05}
+            className="type-section heading-split-muted block"
+          />
+          <RevealText
+            text={titleBold}
+            delay={0.18}
+            className="type-section heading-split-bold mt-1 block"
+          />
         </h2>
       ) : title ? (
-        <h2
+        <RevealText
+          as="h2"
+          text={title}
+          delay={0.05}
           className={cn(
             "type-section max-w-3xl font-bold text-white",
             align === "center" && "mx-auto",
           )}
-        >
-          {title}
-        </h2>
+        />
       ) : null}
       {description && (
-        <p
+        <RevealFade
+          delay={0.3}
           className={cn(
-            "type-small mt-5 max-w-lg sm:mt-6",
+            "mt-5 max-w-lg sm:mt-6",
             align === "center" && "mx-auto",
-            "text-muted-foreground",
           )}
         >
-          {description}
-        </p>
+          <p className="type-small text-muted-foreground">{description}</p>
+        </RevealFade>
       )}
     </div>
   );

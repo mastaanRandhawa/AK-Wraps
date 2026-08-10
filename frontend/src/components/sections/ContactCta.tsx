@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { FormField } from "@/components/ui/form-field";
-import { SafeImage } from "@/components/ui/safe-image";
+import { CinematicMedia } from "@/components/ui/cinematic-media";
+import { RevealFade, RevealText } from "@/components/ui/reveal-text";
 import { site } from "@/config/site";
 import { images } from "@/content/images";
 import { serviceOptions } from "@/content/services";
@@ -90,14 +91,14 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
       )}
     >
       {!isContactPage && (
-        <div className="absolute inset-0" aria-hidden="true">
-          <SafeImage
-            src={images.contactCtaBg}
-            alt=""
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" />
-        </div>
+        <CinematicMedia
+          image={images.contactCtaBg}
+          imageFallback={images.heroSupraFallback}
+          zoom
+          parallax
+          parallaxAmount="8%"
+          intensity="band"
+        />
       )}
 
       {isContactPage && (
@@ -174,24 +175,29 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
           ) : (
             <>
               <h2>
-                <span className="type-section heading-split-muted block">
-                  Your Signature Build
-                </span>
-                <span className="type-section heading-split-bold mt-1 block">
-                  Starts Here
-                </span>
+                <RevealText
+                  text="Your Signature Build"
+                  className="type-section heading-split-muted block"
+                />
+                <RevealText
+                  text="Starts Here"
+                  delay={0.18}
+                  className="type-section heading-split-bold mt-1 block"
+                />
               </h2>
-              <p className="type-small mt-8 max-w-md font-light leading-relaxed text-white/55">
-                At AK Wraps & Customs,{" "}
-                <strong className="font-semibold text-white">
-                  every vehicle is treated as an investment
-                </strong>
-                . We combine meticulous craftsmanship with{" "}
-                <strong className="font-semibold text-white">
-                  premium materials
-                </strong>{" "}
-                to deliver protection and finishes built to last.
-              </p>
+              <RevealFade delay={0.4} className="mt-8 max-w-md">
+                <p className="type-small font-light leading-relaxed text-white/55">
+                  At AK Wraps & Customs,{" "}
+                  <strong className="font-semibold text-white">
+                    every vehicle is treated as an investment
+                  </strong>
+                  . We combine meticulous craftsmanship with{" "}
+                  <strong className="font-semibold text-white">
+                    premium materials
+                  </strong>{" "}
+                  to deliver protection and finishes built to last.
+                </p>
+              </RevealFade>
 
               <div className="mt-12 space-y-8">
                 <ContactRow
