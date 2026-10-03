@@ -45,7 +45,7 @@ export function CinematicBand({
   accentLine,
   description,
   stats = defaultStats,
-  cta = { text: "Book Appointment", href: routes.contact },
+  cta = { text: "Book Appointment", href: routes.booking },
   image = images.pageHeroAbout,
   imageFallback = images.heroSupraFallback,
   showRating = true,

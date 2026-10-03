@@ -44,7 +44,7 @@ export function CtaBand({
 
           <div className="mt-10 flex w-full flex-col items-stretch gap-3 sm:mt-12 sm:w-auto sm:flex-row sm:items-center sm:justify-center sm:gap-4">
             <Button variant="default" size="lg" asChild>
-              <Link to={routes.contact}>Book Appointment</Link>
+              <Link to={routes.booking}>Book Appointment</Link>
             </Button>
             <Button variant="secondary" size="lg" asChild>
               <a href={`tel:${site.phone.replace(/\D/g, "")}`}>
@@ -63,7 +63,7 @@ export function CtaBand({
               {site.email}
             </a>
             <Link
-              to={routes.contact}
+              to={routes.booking}
               className="inline-flex min-h-[44px] items-center uppercase tracking-[0.15em] transition-colors hover:text-white/60"
             >
               Send a message

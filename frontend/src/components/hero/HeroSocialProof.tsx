@@ -37,7 +37,7 @@ export function GoogleRatingBadge({ className }: { className?: string }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`Rated ${score} out of 5 from ${count} Google reviews`}
+      aria-label={`Rated ${score} out of 5 from ${count} Google reviews · checked Sep 27, 2026`}
       className={cn("group inline-flex items-center gap-3", className)}
     >
       <span className="font-display text-lg leading-none font-semibold text-white">
@@ -63,7 +63,7 @@ export function GoogleRatingBadge({ className }: { className?: string }) {
       </span>
 
       <span className="type-label text-white/55 transition-colors duration-300 group-hover:text-white">
-        {count} Google reviews
+        {count} Google reviews · checked Sep 27, 2026
       </span>
     </a>
   );
@@ -104,7 +104,7 @@ export function HeroTestimonial({ className }: { className?: string }) {
             &ldquo;{current.quote}&rdquo;
           </blockquote>
           <figcaption className="type-label mt-3 text-white/45">
-            {current.author} · {current.role}
+            <a href={current.url} target="_blank" rel="noopener noreferrer" className="hover:text-accent">{current.author} · {current.role}</a>
           </figcaption>
         </motion.figure>
       </AnimatePresence>

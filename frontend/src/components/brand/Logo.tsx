@@ -11,20 +11,30 @@ export function Logo({ className, size = "default" }: LogoProps) {
   return (
     <div
       className={cn("inline-flex flex-col", className)}
+      style={{ zoom: 1.5 }}
       aria-label={site.name}
     >
       <span
         className={cn(
-          "type-brand-main uppercase text-white",
-          size === "lg" && "text-[clamp(1.75rem,1.4rem+1.2vw,2.5rem)] tracking-[0.28em]",
+          "relative block overflow-hidden aspect-[1248/104]",
+          size === "lg" ? "w-[240px] sm:w-[280px]" : "w-[180px] sm:w-[220px]",
         )}
+        aria-hidden="true"
       >
-        {site.nameShort}
+        <span
+          className="absolute inset-0 block bg-white"
+          style={{
+            maskImage: 'url("/ak-wraps-original.png")',
+            maskMode: "luminance",
+            maskSize: "100% auto",
+            maskPosition: "left top",
+            maskRepeat: "no-repeat",
+          }}
+        />
       </span>
       <span
         className={cn(
-          "mt-1.5 block h-[1.5px] bg-accent",
-          size === "default" ? "w-[min(100%,5.5rem)] sm:w-[min(100%,6.75rem)]" : "w-[min(100%,8.5rem)]",
+          "mt-0.5 block h-[1.5px] w-full bg-accent",
         )}
         aria-hidden="true"
       />

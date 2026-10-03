@@ -9,9 +9,10 @@ interface CompareSliderProps {
   before: string;
   after: string;
   label: string;
+  imagePosition?: string;
 }
 
-function CompareSlider({ before, after, label }: CompareSliderProps) {
+function CompareSlider({ before, after, label, imagePosition = "center" }: CompareSliderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(50);
   const dragging = useRef(false);
@@ -51,6 +52,12 @@ function CompareSlider({ before, after, label }: CompareSliderProps) {
         ref={containerRef}
         className="group relative aspect-[4/3] cursor-ew-resize touch-none overflow-hidden rounded-md border border-white/15 bg-surface select-none sm:aspect-[16/9]"
         role="slider"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
+          e.preventDefault();
+          setPosition(p => e.key === "Home" ? 0 : e.key === "End" ? 100 : Math.max(0, Math.min(100, p + (e.key === "ArrowLeft" ? -5 : 5))));
+        }}
         aria-label={`Before and after comparison: ${label}`}
         aria-valuenow={Math.round(position)}
         aria-valuemin={0}
@@ -58,10 +65,11 @@ function CompareSlider({ before, after, label }: CompareSliderProps) {
       >
         <SafeImage
           src={after}
+          style={{ objectPosition: imagePosition }}
           alt=""
           aria-hidden="true"
           draggable={false}
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover transition-[filter] duration-700 group-hover:brightness-105"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
           loading="eager"
           width={1200}
           height={675}
@@ -72,10 +80,11 @@ function CompareSlider({ before, after, label }: CompareSliderProps) {
         >
           <SafeImage
             src={before}
+            style={{ objectPosition: imagePosition }}
             alt=""
             aria-hidden="true"
             draggable={false}
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover brightness-90 saturate-75"
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
             loading="eager"
             width={1200}
             height={675}
@@ -130,7 +139,7 @@ export function BeforeAfterShowcase() {
       <SectionHeading
         eyebrow="Transformations"
         title="Before & after"
-        description="Drag to compare real detailing results."
+        description="Drag the slider to explore the transformation."
         align="center"
       />
       <MotionReveal>
@@ -139,6 +148,7 @@ export function BeforeAfterShowcase() {
           before={current.before}
           after={current.after}
           label={current.label}
+          imagePosition={current.imagePosition}
         />
 
         {beforeAfter.length > 1 && (

@@ -1,4 +1,6 @@
-import { useId, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useId, useState, type FormEvent, type ReactNode } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { routes } from "@/config/routes";
 import { Clock, MapPin, Phone, Mail } from "lucide-react";
 import { MotionReveal } from "@/components/ui/motion-reveal";
 import { Button } from "@/components/ui/button";
@@ -26,6 +28,16 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
   const fieldId = useId();
   const isContactPage = variant === "contact";
   const submitted = status === "success";
+  const location = useLocation();
+  useEffect(() => {
+    if (!isContactPage || location.hash !== "#booking-form") return;
+    const frame = requestAnimationFrame(() => {
+      const target = document.getElementById("booking-form");
+      target?.scrollIntoView({ block: "start" });
+      target?.querySelector<HTMLInputElement>('input[name="name"]')?.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [isContactPage, location.key, location.hash]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -124,7 +136,7 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
             <>
               <p className="type-label mb-4">Studio</p>
               <h2 className="type-section font-bold text-white">
-                Book your appointment
+                <Link to={routes.booking}>Book your appointment</Link>
               </h2>
               <p className="type-small mt-6 max-w-md font-light leading-relaxed text-white/50">
                 Tell us about your vehicle and goals. We typically respond within
@@ -238,6 +250,8 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
 
         <MotionReveal delay={150} variant="slideIn">
           <div
+            id="booking-form"
+            style={{ scrollMarginTop: "calc(var(--navbar-offset) + 1.5rem)" }}
             className={cn(
               "rounded-lg border border-white/10 bg-surface-glass p-6 backdrop-blur-md sm:p-8",
               isContactPage && "lg:sticky lg:top-[calc(var(--navbar-offset)+1.5rem)]",

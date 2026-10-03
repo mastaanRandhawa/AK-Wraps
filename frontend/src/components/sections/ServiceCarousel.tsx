@@ -178,7 +178,7 @@ export function ServiceCarousel({
               className={cn(
                 "h-1 rounded-full transition-all duration-300",
                 getIsActive(index)
-                  ? "w-7 bg-accent shadow-[0_0_8px_rgba(227,6,19,0.6)]"
+                  ? "w-7 bg-accent shadow-[0_0_8px_rgba(1,200,249,0.6)]"
                   : "w-2 bg-white/20 hover:bg-white/35",
               )}
               aria-label={`Go to ${service.title}`}
@@ -187,8 +187,8 @@ export function ServiceCarousel({
         </div>
 
         {showPartners && (
-          <div className="mt-20 pt-16 sm:mt-28 sm:pt-20">
-            <div className="fade-divider mx-auto mb-16 max-w-5xl sm:mb-20" />
+          <div className="mt-10 pt-6 sm:mt-14 sm:pt-8">
+            <div className="fade-divider mx-auto mb-6 max-w-5xl sm:mb-8" />
             <PartnerMarquee partners={partnerBrands} />
           </div>
         )}
@@ -196,3 +196,4 @@ export function ServiceCarousel({
     </Section>
   );
 }
+

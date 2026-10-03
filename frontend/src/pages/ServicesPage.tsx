@@ -1,3 +1,4 @@
+import { ServicePageLinks } from "@/pages/SearchPage";
 import { HeroSection } from "@/components/hero/HeroSection";
 import { MotionReveal } from "@/components/ui/motion-reveal";
 import { Section, SectionHeading } from "@/components/ui/Section";
@@ -33,6 +34,7 @@ export function ServicesPage() {
         badge="What We Do"
       />
 
+      <div className="container-padding mx-auto max-w-7xl pb-10"><ServicePageLinks /></div>
       <ServiceCarousel services={featuredServices} showPartners={false} />
 
       <Section variant="default">
@@ -92,3 +94,4 @@ export function ServicesPage() {
     </>
   );
 }
+

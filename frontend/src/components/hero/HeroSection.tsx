@@ -38,8 +38,7 @@ function isPageHero(props: HeroSectionProps): props is PageHeroProps {
 
 const videoSrc =
   import.meta.env.VITE_HERO_VIDEO_URL ??
-  `${import.meta.env.BASE_URL}videos/hero.mp4`;
-const videoSrcWebm = `${import.meta.env.BASE_URL}videos/hero.webm`;
+  `${import.meta.env.BASE_URL}videos/ak-wraps-meet.mp4`;
 
 export function HeroSection(props: HeroSectionProps) {
   const isPage = isPageHero(props);
@@ -52,6 +51,7 @@ export function HeroSection(props: HeroSectionProps) {
   return (
     <HeroLanding
       title={title}
+      titleHref={isPage && props.page === "contact" ? routes.booking : undefined}
       titleLines={isPage ? undefined : site.heroTitleLines}
       accentLine={isPage ? undefined : site.heroTitleAccentLine}
       description={description}
@@ -59,7 +59,6 @@ export function HeroSection(props: HeroSectionProps) {
       backgroundImage={isPage ? pageHeroImages[props.page] : images.heroSupra}
       backgroundImageFallback={isPage ? undefined : images.heroSupraFallback}
       backgroundVideo={isPage ? undefined : videoSrc}
-      backgroundVideoWebm={isPage ? undefined : videoSrcWebm}
       videoPoster={images.heroSupra}
       callToActions={isPage ? undefined : homeCallToActions}
       titleSize={isPage ? "medium" : "large"}

@@ -4,6 +4,7 @@ export const routes = {
   services: "/services",
   gallery: "/gallery",
   contact: "/contact",
+  booking: "/contact#booking-form",
   privacy: "/privacy",
   terms: "/terms",
 } as const;

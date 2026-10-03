@@ -27,7 +27,7 @@ export function PortfolioGrid({
 
   const visibleBuilds = useMemo(() => {
     if (!enableFilter || filterCategory === "All") return sourceBuilds;
-    return sourceBuilds.filter((b) => b.category === filterCategory);
+    return sourceBuilds.filter((b) => b.categories.includes(filterCategory));
   }, [sourceBuilds, enableFilter, filterCategory]);
 
   const openLightbox = (index: number) => {
@@ -40,7 +40,7 @@ export function PortfolioGrid({
       <SectionHeading
         eyebrow="AK Builds"
         title="Our Work"
-        description="A selection of vehicles completed in-house."
+        description={limit ? "Two signature builds. Explore the full gallery for more of our work." : "Our projects from July 3, 2024 onward, with services documented in the original Instagram posts."}
         align="center"
       />
 
@@ -62,11 +62,11 @@ export function PortfolioGrid({
 
       <div className="-mx-[var(--spacing-container-x)] sm:mx-0">
         <div className="fade-edge-x sm:[mask-image:none] sm:[-webkit-mask-image:none]">
-          <div className="carousel-snap flex flex-nowrap items-stretch gap-[var(--spacing-grid-gap)] overflow-x-auto scroll-smooth px-[var(--spacing-container-x)] pb-2 pt-1 overscroll-x-contain [-webkit-overflow-scrolling:touch] sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 sm:pt-0 lg:grid-cols-3">
+          <div className={`carousel-snap flex flex-nowrap items-stretch gap-[var(--spacing-grid-gap)] overflow-x-auto scroll-smooth px-[var(--spacing-container-x)] pb-2 pt-1 overscroll-x-contain [-webkit-overflow-scrolling:touch] sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 sm:pt-0 ${limit === 2 ? "lg:grid-cols-2" : "lg:grid-cols-3"}`}>
             {visibleBuilds.map((build, i) => (
               <MotionReveal
                 key={build.id}
-                delay={i * 80}
+                delay={(i % 3) * 80}
                 variant="fadeUp"
                 className="w-[min(78vw,260px)] shrink-0 snap-center sm:w-full sm:min-w-0"
               >
@@ -79,7 +79,7 @@ export function PortfolioGrid({
                   onClick={() => openLightbox(i)}
                   brandLogo={build.brandLogo}
                   brandName={build.brand}
-                  services={build.services}
+                  services={build.services.slice(0, 3)}
                 />
               </MotionReveal>
             ))}

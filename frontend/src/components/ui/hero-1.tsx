@@ -1,3 +1,4 @@
+import { JarvisBooking } from "@/components/hero/JarvisBooking";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Phone } from "lucide-react";
@@ -21,6 +22,7 @@ interface CallToAction {
 }
 
 interface HeroLandingProps {
+  titleHref?: string;
   title: string;
   /** Explicit display lines for the reveal. Falls back to `title` as one line. */
   titleLines?: readonly string[];
@@ -58,6 +60,7 @@ const T = {
 } as const;
 
 export function HeroLanding({
+  titleHref,
   title,
   titleLines,
   accentLine,
@@ -138,13 +141,13 @@ export function HeroLanding({
                   {badge}
                 </RevealFade>
               )}
-              <RevealText
+              {titleHref ? <Link to={titleHref} className="block rounded focus-visible:outline-2 focus-visible:outline-accent"><RevealText as="h1" immediate text={lines} delay={T.title} className={cn(titleClass, "font-bold text-white")} /></Link> : <RevealText
                 as="h1"
                 immediate
                 text={lines}
                 delay={T.title}
                 className={cn(titleClass, "font-bold text-white")}
-              />
+              />}
               {description && (
                 <RevealFade immediate delay={T.description} className="mt-4 max-w-lg">
                   <p className="type-small text-muted-foreground">{description}</p>
@@ -153,7 +156,8 @@ export function HeroLanding({
             </div>
           ) : (
             <>
-              <div className="grid gap-4 sm:gap-6 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-5 xl:gap-x-10">
+              <JarvisBooking />
+                <div className="grid gap-4 sm:gap-6 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-5 xl:gap-x-10">
                 {badge && (
                   <RevealFade
                     immediate
@@ -215,7 +219,7 @@ export function HeroLanding({
                         className="type-small group/phone inline-flex min-h-[44px] shrink-0 items-center gap-2.5 font-medium whitespace-nowrap text-white transition-opacity hover:opacity-80"
                       >
                         <Phone
-                          className="h-4 w-4 shrink-0 text-white/35 transition-all duration-700 group-hover/phone:text-accent group-hover/phone:drop-shadow-[0_0_6px_rgba(227,6,19,0.85)]"
+                          className="h-4 w-4 shrink-0 text-white/35 transition-all duration-700 group-hover/phone:text-accent group-hover/phone:drop-shadow-[0_0_6px_rgba(1,200,249,0.85)]"
                           strokeWidth={2}
                           fill="currentColor"
                         />
@@ -277,3 +281,5 @@ export function HeroLanding({
     </div>
   );
 }
+
+

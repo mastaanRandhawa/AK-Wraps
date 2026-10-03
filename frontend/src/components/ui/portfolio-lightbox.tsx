@@ -175,6 +175,8 @@ export function PortfolioLightbox({
                 </ul>
               )}
 
+              {build.sourceUrl && <a href={build.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block text-sm text-accent underline underline-offset-4">View original Instagram post ↗</a>}
+
               {hasMultiple && (
                 <p className="type-caption mt-4 text-center text-white/35 sm:mt-5">
                   {activeIndex + 1} of {builds.length}

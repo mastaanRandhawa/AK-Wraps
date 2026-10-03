@@ -67,8 +67,28 @@ export function CinematicMedia({
   useEffect(() => {
     const el = videoRef.current;
     if (!el || !showVideo) return;
-    el.play().catch(() => setVideoFailed(true));
-  }, [showVideo]);
+    const resume = () => {
+      if (document.hidden || !el.paused) return;
+      el.muted = true;
+      // A temporary autoplay interruption is not a broken media file.
+      void el.play().catch(() => {});
+    };
+    resume();
+    document.addEventListener("visibilitychange", resume);
+    window.addEventListener("pageshow", resume);
+    window.addEventListener("focus", resume);
+    window.addEventListener("pointerdown", resume, { passive: true });
+    window.addEventListener("scroll", resume, { passive: true });
+    el.addEventListener("canplay", resume);
+    return () => {
+      document.removeEventListener("visibilitychange", resume);
+      window.removeEventListener("pageshow", resume);
+      window.removeEventListener("focus", resume);
+      window.removeEventListener("pointerdown", resume);
+      window.removeEventListener("scroll", resume);
+      el.removeEventListener("canplay", resume);
+    };
+  }, [showVideo, video, videoWebm]);
 
   // object-cover already fills the box; the extra scale hides the edges the
   // Ken Burns drift and parallax would otherwise expose.
@@ -103,7 +123,7 @@ export function CinematicMedia({
               onError={() => setVideoFailed(true)}
             >
               {videoWebm && <source src={videoWebm} type="video/webm" />}
-              <source src={video} type="video/mp4" />
+              <source src={video} />
             </video>
           ) : image ? (
             <SafeImage
@@ -154,3 +174,4 @@ function Overlays({ intensity }: { intensity: Intensity }) {
     </>
   );
 }
+

@@ -29,7 +29,7 @@ function StarRating({ rating }: { rating: number }) {
           <Star
             className={cn(
               "h-4 w-4",
-              i < rating ? "fill-accent text-accent drop-shadow-[0_0_6px_rgba(227,6,19,0.8)]" : "fill-none text-white/20",
+              i < rating ? "fill-accent text-accent drop-shadow-[0_0_6px_rgba(1,200,249,0.8)]" : "fill-none text-white/20",
             )}
             strokeWidth={1.5}
           />
@@ -61,7 +61,7 @@ export function Testimonials({ items }: TestimonialsProps) {
   }, [goTo, index, items.length]);
 
   useEffect(() => {
-    if (!pageVisible) return;
+    if (!pageVisible || items.length < 2) return;
     const timer = setInterval(() => {
       setDirection(1);
       setIndex((i) => (i + 1) % items.length);
@@ -76,8 +76,10 @@ export function Testimonials({ items }: TestimonialsProps) {
     onSwipeRight: prev,
   });
 
+  if (!current) return null;
+
   return (
-    <Section variant="default" id="testimonials" className="relative overflow-hidden">
+    <Section variant="default" id="testimonials" className="relative overflow-hidden !py-12 sm:!py-16">
       <div className="pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden="true">
         <SafeImage
           src={images.testimonialsBg}
@@ -90,6 +92,7 @@ export function Testimonials({ items }: TestimonialsProps) {
         <SectionHeading
           eyebrow="Testimonials"
           title="Trusted by owners"
+          className="mb-6 sm:mb-8 md:mb-8 lg:mb-10"
           align="center"
         />
         <MotionReveal variant="fade">
@@ -98,7 +101,7 @@ export function Testimonials({ items }: TestimonialsProps) {
             {...swipeHandlers}
           >
             <StarRating rating={current.rating} />
-            <div className="relative mt-8 min-h-[10rem] sm:mt-12 sm:min-h-[14rem]">
+            <div className="relative mt-5 min-h-[7rem] sm:mt-6 sm:min-h-[8rem]">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.blockquote
                   key={current.id}
@@ -120,21 +123,21 @@ export function Testimonials({ items }: TestimonialsProps) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
-                className="mt-10 sm:mt-12"
+                className="mt-5 sm:mt-6"
               >
                 <p className="type-caption font-bold uppercase tracking-widest text-white">
-                  {current.author}
+                  <a href={current.url} target="_blank" rel="noopener noreferrer" className="hover:text-accent">{current.author}</a>
                 </p>
                 <p className="type-body-sm mt-2 font-light text-white/40">{current.role}</p>
               </motion.footer>
             </AnimatePresence>
           </div>
 
-          <p className="type-caption mt-8 text-center text-white/35 sm:hidden">
+          <p className="type-caption mt-5 text-center text-white/35 sm:hidden">
             Swipe to read more
           </p>
 
-          <div className="mt-8 flex items-center justify-center gap-6 sm:mt-14 sm:gap-8">
+          <div className="mt-5 flex items-center justify-center gap-5 sm:mt-7 sm:gap-6">
             <IconCircleButton icon={ChevronLeft} label="Previous testimonial" onClick={prev} />
             <div className="flex gap-2.5">
               {items.map((_, i) => (
@@ -145,7 +148,7 @@ export function Testimonials({ items }: TestimonialsProps) {
                   className={cn(
                     "h-2 rounded-full transition-all duration-300",
                     i === index
-                      ? "w-8 bg-accent shadow-[0_0_10px_rgba(227,6,19,0.7)]"
+                      ? "w-8 bg-accent shadow-[0_0_10px_rgba(1,200,249,0.7)]"
                       : "w-2 bg-white/20 hover:bg-white/35",
                   )}
                   aria-label={`Go to testimonial ${i + 1}`}
@@ -159,4 +162,5 @@ export function Testimonials({ items }: TestimonialsProps) {
     </Section>
   );
 }
+
 

@@ -6,7 +6,7 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 
 export function NotFoundPage() {
   usePageMeta({
-    title: "Page Not Found",
+    title: "Page Not Found", noIndex: true,
     description: "The page you are looking for does not exist on AK Wraps & Customs.",
   });
 
@@ -32,3 +32,4 @@ export function NotFoundPage() {
     </section>
   );
 }
+

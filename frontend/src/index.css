@@ -8,9 +8,9 @@
   --color-surface-glass: rgba(10, 10, 10, 0.85);
 
   --color-white: #ffffff;
-  --color-accent: #e30613;
-  --color-accent-hover: #c40511;
-  --color-accent-glow: rgba(227, 6, 19, 0.15);
+  --color-accent: #01c8f9;
+  --color-accent-hover: #00a9d6;
+  --color-accent-glow: rgba(1, 200, 249, 0.15);
 
   --color-background: var(--color-black);
   --color-foreground: var(--color-white);
@@ -22,7 +22,7 @@
   --color-card-foreground: var(--color-white);
   --color-border: rgba(255, 255, 255, 0.1);
   --color-ring: rgba(255, 255, 255, 0.3);
-  --color-accent-foreground: var(--color-white);
+  --color-accent-foreground: #001820;
 
   /* Legacy aliases kept for Tailwind class compatibility during migration */
   --color-accent-red: var(--color-accent);
@@ -51,7 +51,7 @@
   }
 
   :root {
-    --navbar-offset: clamp(4.25rem, 3.75rem + 1vw, 5rem);
+    --navbar-offset: clamp(5.5rem, 4.875rem + 1.5vw, 6.5rem);
 
     --spacing-section-y: clamp(3.5rem, 3rem + 3vw, 12rem);
     --spacing-container-x: clamp(1rem, 0.85rem + 1vw, 3rem);
@@ -305,8 +305,8 @@
   .group.headlight-on .accent-dot {
     @apply bg-accent;
     box-shadow:
-      0 0 6px rgba(227, 6, 19, 0.9),
-      0 0 14px rgba(227, 6, 19, 0.45);
+      0 0 6px rgba(1, 200, 249, 0.9),
+      0 0 14px rgba(1, 200, 249, 0.45);
   }
 
   .headlight-bar {
@@ -320,8 +320,8 @@
   .group.headlight-on .headlight-bar {
     @apply bg-accent;
     box-shadow:
-      0 0 8px rgba(227, 6, 19, 0.75),
-      0 0 16px rgba(227, 6, 19, 0.35);
+      0 0 8px rgba(1, 200, 249, 0.75),
+      0 0 16px rgba(1, 200, 249, 0.35);
   }
 
   .headlight-border {
@@ -333,7 +333,7 @@
   .headlight-on.headlight-border,
   .group.headlight-on.headlight-border {
     @apply border-accent/85;
-    box-shadow: 0 0 28px rgba(227, 6, 19, 0.14);
+    box-shadow: 0 0 28px rgba(1, 200, 249, 0.14);
   }
 
   .headlight-image {
@@ -406,7 +406,7 @@
   .group:hover .headlight-icon,
   .group.headlight-on .headlight-icon {
     @apply text-accent;
-    filter: drop-shadow(0 0 6px rgba(227, 6, 19, 0.85));
+    filter: drop-shadow(0 0 6px rgba(1, 200, 249, 0.85));
   }
 
   .headlight-pill {
@@ -544,8 +544,8 @@
      sitting beside it in the same cn() call. */
   .glow-accent {
     text-shadow:
-      0 0 16px rgba(227, 6, 19, 0.4),
-      0 0 44px rgba(227, 6, 19, 0.16);
+      0 0 16px rgba(1, 200, 249, 0.4),
+      0 0 44px rgba(1, 200, 249, 0.16);
   }
 
   /* Mask wrapper for a line/word sliding up from behind an edge. The padding
@@ -596,4 +596,23 @@
   [data-marquee-track] {
     animation: none !important;
   }
+}
+
+@keyframes jarvis-book-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 20px #01c8f933; }
+  50% { transform: scale(1.045); box-shadow: 0 0 38px #01c8f977; }
+}
+.jarvis-book-pulse { animation: jarvis-book-pulse 2.4s ease-in-out infinite; }
+.jarvis-book-pulse:hover, .jarvis-book-pulse:focus-visible { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .jarvis-book-pulse { animation: none; }
+}
+
+@keyframes merchandise-scroll { to { transform: translateX(-50%); } }
+.merchandise-track { display: flex; width: max-content; animation: merchandise-scroll 32s linear infinite; }
+.merchandise-window:hover .merchandise-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .merchandise-track { animation: none; }
+  .merchandise-window { overflow-x: auto; }
+  .merchandise-track > [aria-hidden="true"] { display: none; }
 }
