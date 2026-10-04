@@ -1,8 +1,8 @@
-import { CartPage } from "@/pages/CartPage";
-import { CollectionPage } from "@/pages/CollectionPage";
-import { ShirtOrderPage } from "@/pages/ShirtOrderPage";
-import { MerchandisePage } from "@/pages/MerchandisePage";
-import { SearchPage } from "@/pages/SearchPage";
+const CartPage = lazy(() => import("@/pages/CartPage").then(m => ({default: m.CartPage})));
+const CollectionPage = lazy(() => import("@/pages/CollectionPage").then(m => ({default: m.CollectionPage})));
+const ShirtOrderPage = lazy(() => import("@/pages/ShirtOrderPage").then(m => ({default: m.ShirtOrderPage})));
+const MerchandisePage = lazy(() => import("@/pages/MerchandisePage").then(m => ({default: m.MerchandisePage})));
+const SearchPage = lazy(() => import("@/pages/SearchPage").then(m => ({default: m.SearchPage})));
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";

@@ -19,7 +19,7 @@ interface ContactCtaProps {
   variant?: "home" | "contact";
 }
 
-type FormStatus = "idle" | "submitting" | "success" | "error";
+type FormStatus = "idle" | "email-draft" | "submitting" | "success" | "error";
 
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
@@ -64,7 +64,7 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
       window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
         `Quote request — ${data.get("name") ?? "Website"}`,
       )}&body=${encodeURIComponent(body)}`;
-      setStatus("success");
+      setStatus("email-draft");
       return;
     }
 
@@ -327,6 +327,7 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                     />
                   </FormField>
                 </div>
+                {status === "email-draft" && <p role="status" className="type-small text-accent">Please send the prepared message in your email app to complete your enquiry. If it did not open, email ak.wraps.customs@gmail.com or call (236) 412-5010.</p>}
                 {status === "error" && (
                   <p
                     role="alert"

@@ -67,25 +67,29 @@ export function CinematicMedia({
   useEffect(() => {
     const el = videoRef.current;
     if (!el || !showVideo) return;
+    let visible = true;
     const resume = () => {
-      if (document.hidden || !el.paused) return;
+      if (document.hidden || !visible) { el.pause(); return; }
+      if (!el.paused) return;
       el.muted = true;
       // A temporary autoplay interruption is not a broken media file.
       void el.play().catch(() => {});
     };
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; resume(); });
+    observer.observe(el);
     resume();
     document.addEventListener("visibilitychange", resume);
     window.addEventListener("pageshow", resume);
     window.addEventListener("focus", resume);
     window.addEventListener("pointerdown", resume, { passive: true });
-    window.addEventListener("scroll", resume, { passive: true });
+
     el.addEventListener("canplay", resume);
     return () => {
       document.removeEventListener("visibilitychange", resume);
       window.removeEventListener("pageshow", resume);
       window.removeEventListener("focus", resume);
       window.removeEventListener("pointerdown", resume);
-      window.removeEventListener("scroll", resume);
+      observer.disconnect();
       el.removeEventListener("canplay", resume);
     };
   }, [showVideo, video, videoWebm]);

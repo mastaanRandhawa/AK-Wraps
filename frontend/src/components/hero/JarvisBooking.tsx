@@ -72,7 +72,7 @@ export function JarvisBooking() {
   }
   const emailHref = `mailto:${site.email}?subject=${encodeURIComponent("Jarvis — Appointment enquiry")}&body=${encodeURIComponent(answers.map((answer, i) => `${labels[i]}: ${answer}`).join("\n\n"))}`;
   return <>
-    {<div className={`relative z-20 mb-10 flex h-12 -translate-y-6 items-center justify-center transition-opacity duration-300 sm:h-[3.25rem] ${visible && !scrollPrompt ? "opacity-100" : "invisible opacity-0"}`}><Button size="lg" onClick={openBooking} style={{ zoom: 1.15 }} className="jarvis-book-pulse shadow-[0_0_35px_#01c8f944]">Book Now</Button></div>}
+    {<div className={`relative z-20 mb-10 flex h-12 translate-y-0 sm:-translate-y-6 items-center justify-center transition-opacity duration-300 sm:h-[3.25rem] ${visible && !scrollPrompt ? "opacity-100" : "invisible opacity-0"}`}><Button size="lg" onClick={openBooking} style={{ zoom: 1.15 }} className="jarvis-book-pulse shadow-[0_0_35px_#01c8f944]">Book Now</Button></div>}
     {scrollPrompt && createPortal(
       <div className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center">
         <div className="pointer-events-auto relative">

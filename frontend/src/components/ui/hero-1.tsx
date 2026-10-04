@@ -129,7 +129,7 @@ export function HeroLanding({
           align === "bottom"
             ? compact
               ? "min-h-[calc(45vh-var(--navbar-offset))] justify-end pb-12 sm:min-h-[calc(50vh-var(--navbar-offset))] sm:pb-16"
-              : "min-h-[calc(100svh-var(--navbar-offset))] justify-end pb-14 sm:pb-20 md:pb-24"
+              : "min-h-[calc(100svh-var(--navbar-offset))] justify-end pt-16 pb-14 sm:pt-0 sm:pb-20 md:pb-24"
             : "min-h-[calc(45vh-var(--navbar-offset))] justify-center py-16",
         )}
       >

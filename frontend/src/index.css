@@ -608,11 +608,14 @@
   .jarvis-book-pulse { animation: none; }
 }
 
-@keyframes merchandise-scroll { to { transform: translateX(-50%); } }
-.merchandise-track { display: flex; width: max-content; animation: merchandise-scroll 32s linear infinite; }
-.merchandise-window:hover .merchandise-track { animation-play-state: paused; }
-@media (prefers-reduced-motion: reduce) {
-  .merchandise-track { animation: none; }
-  .merchandise-window { overflow-x: auto; }
-  .merchandise-track > [aria-hidden="true"] { display: none; }
-}
+
+.merchandise-window { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.merchandise-window::-webkit-scrollbar { display: none; }
+.merchandise-track { display: flex; width: max-content; }
+.merchandise-track > div > a { width: 178px; padding: 10px; }
+.merchandise-track > div > a > div { height: 159px; }
+.merchandise-track h3 { font-size: 13px; margin-top: 12px; }
+.merchandise-track p { font-size: 11px; }
+.merchandise-track del { font-size: 12px; }
+.merchandise-track span.text-xl { font-size: 15px; }
+@media (max-width: 639px) { .animate-ken-burns { animation: none; } .grain { display: none; } }
