@@ -90,6 +90,7 @@ export function Footer() {
                     {item.name}
                   </FooterLink>
                 ))}
+                <FooterLink to="/service-areas">Greater Vancouver service areas</FooterLink>
               </nav>
             </div>
 
