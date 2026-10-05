@@ -1,10 +1,11 @@
-import { CartPage } from "@/pages/CartPage";
-import { CollectionPage } from "@/pages/CollectionPage";
-import { ShirtOrderPage } from "@/pages/ShirtOrderPage";
-import { MerchandisePage } from "@/pages/MerchandisePage";
-import { SearchPage } from "@/pages/SearchPage";
 import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+const CartPage = lazy(() => import("@/pages/CartPage").then(m => ({default: m.CartPage})));
+const CollectionPage = lazy(() => import("@/pages/CollectionPage").then(m => ({default: m.CollectionPage})));
+const ShirtOrderPage = lazy(() => import("@/pages/ShirtOrderPage").then(m => ({default: m.ShirtOrderPage})));
+const MerchandisePage = lazy(() => import("@/pages/MerchandisePage").then(m => ({default: m.MerchandisePage})));
+const SearchPage = lazy(() => import("@/pages/SearchPage").then(m => ({default: m.SearchPage})));
+
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { PageLoader } from "@/components/layout/PageLoader";
 
@@ -34,15 +35,19 @@ const NotFoundPage = lazy(() =>
   import("@/pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })),
 );
 
+const ProjectPage = lazy(() => import("@/pages/ProjectPage").then(m => ({default:m.ProjectPage})));
+
 export function AppRouter() {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path="landingPage" element={<Navigate to="/" replace />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="services" element={<ServicesPage />} />
 <Route path="services/:serviceSlug" element={<SearchPage />} /><Route path="service-areas" element={<SearchPage />} />
+          <Route path="projects/:projectSlug" element={<ProjectPage />} />
           <Route path="gallery" element={<GalleryPage />} />
           <Route path="gallery/brands/:brandId" element={<BrandAlbumPage />} />
           <Route path="merchandise" element={<MerchandisePage />} />

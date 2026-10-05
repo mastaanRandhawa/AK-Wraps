@@ -19,12 +19,12 @@ function ShirtOrder({number}: {number:number}) {
   const gallery = useRef<HTMLDivElement>(null);
   const slides = ["Back", "Front", "Side angle", "Front & back", "Front artwork", "Back artwork"];
   const galleryFiles = number === 1
-    ? ["", "lamborghini-front-render.png", "lamborghini-side-render.png", "lamborghini-pair-render.png", "lamborghini-front-artwork.png", "lamborghini-back-artwork.png"]
+    ? ["", "lamborghini-front-render.webp", "lamborghini-side-render.webp", "lamborghini-pair-render.webp", "lamborghini-front-artwork.webp", "lamborghini-back-artwork.webp"]
     : number === 4
-    ? ["", "porsche-front-render.png", "porsche-side-render.png", "porsche-pair-render.png", "porsche-front-artwork.png", "porsche-back-artwork.png"]
+    ? ["", "porsche-front-render.webp", "porsche-side-render.webp", "porsche-pair-render.webp", "porsche-front-artwork.webp", "porsche-back-artwork.webp"]
     : number === 3
-    ? ["", "amg-front-render.png", "amg-side-render.png", "amg-pair-render.png", "amg-front-artwork.png", "amg-back-artwork.png"]
-    : ["", "ferrari-front-render.png", "ferrari-side-render-v2.png", "ferrari-pair-render.png", "ferrari-f12-front.png", "ferrari-f12-back.png"];
+    ? ["", "amg-front-render.webp", "amg-side-render.webp", "amg-pair-render.webp", "amg-front-artwork.webp", "amg-back-artwork.webp"]
+    : ["", "ferrari-front-render.webp", "ferrari-side-render-v2.webp", "ferrari-pair-render.webp", "ferrari-f12-front.webp", "ferrari-f12-back.webp"];
   usePageMeta({title:`${design.name} T-shirt`,description:`Explore the AK Wraps ${design.name} limited edition T-shirt. Sizes XS through XXXL.`, noIndex:true});
   function go(index:number) {
     const next = (index + slides.length) % slides.length;
@@ -36,7 +36,7 @@ function ShirtOrder({number}: {number:number}) {
       <section aria-label="Shirt image gallery" className="min-w-0">
         <div ref={gallery} tabIndex={0} onKeyDown={e=>{if(e.key === "ArrowRight" || e.key === "ArrowLeft"){e.preventDefault();go(active + (e.key === "ArrowRight" ? 1 : -1));}}} onScroll={e=>setActive(Math.round(e.currentTarget.scrollLeft/e.currentTarget.clientWidth))} className="flex snap-x snap-mandatory overflow-x-auto rounded-xl border border-white/10 bg-black" style={{scrollbarWidth:"none"}}>
           {slides.map((slide,index)=><figure key={slide} className="w-full shrink-0 snap-start p-4"><div className={`flex aspect-[4/5] items-center justify-center overflow-hidden rounded-lg ${index === 0 || index >= 4 ? "bg-black" : "bg-[#ededed]"}`}>
-            {index===0 ? <div className="relative w-full overflow-hidden" style={{aspectRatio:`${design.width}/${design.height}`}}><img className="absolute max-w-none" src={`${import.meta.env.BASE_URL}merchandise/${number === 1 || number === 3 ? "shirt-collection-clean.png" : "shirt-collection.png"}`} alt={`${design.name} T-shirt back`} style={{width:`${941/design.width*100}%`,left:`${-design.x/design.width*100}%`,top:`${-design.y/design.height*100}%`}}/></div> : <img className={`h-full w-full object-contain ${index > 0 && index < 4 ? "mix-blend-multiply" : ""}`} src={`${import.meta.env.BASE_URL}merchandise/${galleryFiles[index]}`} alt={`${design.name} ${slide.toLowerCase()}`}/>}
+            {index===0 ? <img className="h-full w-full object-contain" src={`${import.meta.env.BASE_URL}merchandise/shirt-${number}-back.webp`} width={design.width} height={design.height} alt={`${design.name} T-shirt back`} /> : <img loading="lazy" decoding="async" className={`h-full w-full object-contain ${index > 0 && index < 4 ? "mix-blend-multiply" : ""}`} src={`${import.meta.env.BASE_URL}merchandise/${galleryFiles[index]}`} alt={`${design.name} ${slide.toLowerCase()}`}/>}
           </div><figcaption className="mt-3 text-center text-sm text-white/60">{slide}</figcaption></figure>)}
         </div>
         {slides.length>1 && <div className="mt-4 flex items-center justify-between"><button className="h-11 px-4" aria-label="Previous shirt image" onClick={()=>go(active-1)}>←</button><p className="text-sm text-white/60">Swipe to explore · {active+1} / {slides.length}</p><button className="h-11 px-4" aria-label="Next shirt image" onClick={()=>go(active+1)}>→</button></div>}

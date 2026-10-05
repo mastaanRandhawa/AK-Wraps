@@ -1,3 +1,4 @@
+import { WarrantySummary } from "@/components/sections/WarrantySummary";
 import { ServicePageLinks } from "@/pages/SearchPage";
 import { HeroSection } from "@/components/hero/HeroSection";
 import { MotionReveal } from "@/components/ui/motion-reveal";
@@ -70,14 +71,15 @@ export function ServicesPage() {
         <div className="mx-auto max-w-7xl container-padding">
           <SectionHeading
             eyebrow="Pricing"
-            title="Starting prices"
-            description="Final pricing depends on vehicle size, condition, and complexity."
+            title="A quote built around your vehicle"
+            description="Your chosen material, covered panels, paint condition and installation details shape the estimate. Confirm preparation, timing and product-specific warranty terms before booking."
             align="center"
           />
           <PricingStrip items={pricing} />
         </div>
       </Section>
 
+      <WarrantySummary />
       <Section>
         <SectionHeading eyebrow="FAQ" title="Common questions" align="center" />
         <MotionReveal>

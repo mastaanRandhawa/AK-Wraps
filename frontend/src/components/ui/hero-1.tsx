@@ -36,6 +36,7 @@ interface HeroLandingProps {
   backgroundImageFallback?: string;
   backgroundVideo?: string;
   backgroundVideoWebm?: string;
+  backgroundVideoMobile?: string;
   videoPoster?: string;
   /** Google rating + rotating testimonial over the media. */
   showSocialProof?: boolean;
@@ -72,6 +73,7 @@ export function HeroLanding({
   backgroundImageFallback,
   backgroundVideo,
   backgroundVideoWebm,
+  backgroundVideoMobile,
   videoPoster,
   showSocialProof = false,
   compact = false,
@@ -98,6 +100,7 @@ export function HeroLanding({
         imageFallback={backgroundImageFallback}
         video={backgroundVideo}
         videoWebm={backgroundVideoWebm}
+        videoMobile={backgroundVideoMobile}
         poster={videoPoster}
         zoom={!compact}
         parallax={!compact}
@@ -129,7 +132,7 @@ export function HeroLanding({
           align === "bottom"
             ? compact
               ? "min-h-[calc(45vh-var(--navbar-offset))] justify-end pb-12 sm:min-h-[calc(50vh-var(--navbar-offset))] sm:pb-16"
-              : "min-h-[calc(100svh-var(--navbar-offset))] justify-end pb-14 sm:pb-20 md:pb-24"
+              : "home-hero-content min-h-[calc(100svh-var(--navbar-offset))] justify-end pt-16 pb-14 sm:pt-0 sm:pb-20 md:pb-24"
             : "min-h-[calc(45vh-var(--navbar-offset))] justify-center py-16",
         )}
       >
@@ -281,5 +284,6 @@ export function HeroLanding({
     </div>
   );
 }
+
 
 

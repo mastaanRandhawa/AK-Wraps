@@ -13,6 +13,7 @@ interface CinematicMediaProps {
   /** When present (and playable) the video wins over `image`. */
   video?: string;
   videoWebm?: string;
+  videoMobile?: string;
   poster?: string;
   /** Slow push-in on mount, then a continuous Ken Burns drift. */
   zoom?: boolean;
@@ -38,6 +39,7 @@ export function CinematicMedia({
   imageFallback,
   video,
   videoWebm,
+  videoMobile,
   poster,
   zoom = true,
   parallax = false,
@@ -50,6 +52,9 @@ export function CinematicMedia({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoFailed, setVideoFailed] = useState(false);
   const prefersMotion = usePrefersMotion();
+  const [playing, setPlaying] = useState(false);
+  const [blocked, setBlocked] = useState(false);
+  const mobile = window.matchMedia("(max-width: 639px)").matches;
 
   const { scrollYProgress } = useScroll({
     target: layerRef,
@@ -58,34 +63,40 @@ export function CinematicMedia({
   const y = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", parallax && prefersMotion ? parallaxAmount : "0%"],
+    ["0%", parallax && prefersMotion && !mobile ? parallaxAmount : "0%"],
   );
 
-  const showVideo = Boolean(video) && !videoFailed;
-  const animateZoom = zoom && prefersMotion;
+  const showVideo = Boolean(video) && !videoFailed && prefersMotion;
+  const animateZoom = zoom && prefersMotion && !mobile;
 
   useEffect(() => {
     const el = videoRef.current;
     if (!el || !showVideo) return;
+    let visible = true;
     const resume = () => {
-      if (document.hidden || !el.paused) return;
-      el.muted = true;
+      if (document.hidden || !visible) { el.pause(); return; }
+      if (!el.paused) return;
+      el.muted = true; el.defaultMuted = true; el.playsInline = true;
       // A temporary autoplay interruption is not a broken media file.
-      void el.play().catch(() => {});
+      void el.play().catch(() => { if (visible && !document.hidden) setBlocked(true); });
     };
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; resume(); });
+    observer.observe(el);
     resume();
     document.addEventListener("visibilitychange", resume);
     window.addEventListener("pageshow", resume);
     window.addEventListener("focus", resume);
     window.addEventListener("pointerdown", resume, { passive: true });
-    window.addEventListener("scroll", resume, { passive: true });
+
+    window.addEventListener("touchend", resume, { passive: true });
     el.addEventListener("canplay", resume);
     return () => {
       document.removeEventListener("visibilitychange", resume);
       window.removeEventListener("pageshow", resume);
       window.removeEventListener("focus", resume);
       window.removeEventListener("pointerdown", resume);
-      window.removeEventListener("scroll", resume);
+      window.removeEventListener("touchend", resume);
+      observer.disconnect();
       el.removeEventListener("canplay", resume);
     };
   }, [showVideo, video, videoWebm]);
@@ -101,7 +112,7 @@ export function CinematicMedia({
     <div
       ref={layerRef}
       className={cn("pointer-events-none absolute inset-0 z-0 overflow-hidden", className)}
-      aria-hidden="true"
+
     >
       <motion.div className="absolute inset-0" style={{ y }}>
         <motion.div
@@ -110,35 +121,31 @@ export function CinematicMedia({
           animate={animateZoom ? { scale: 1 } : undefined}
           transition={{ duration: 2.4, ease: EASE_EXPO }}
         >
+          {image && <SafeImage src={video ? poster || image : image} fallback={imageFallback} alt="" className={mediaClass} loading={intensity === "hero" ? "eager" : "lazy"} fetchPriority={intensity === "hero" ? "high" : "auto"} decoding="async" />}
           {showVideo ? (
             <video
               ref={videoRef}
-              className={mediaClass}
+              aria-hidden="true"
+              className={cn(mediaClass, !playing && "opacity-0")}
               autoPlay
               muted
               loop
               playsInline
               preload="metadata"
               poster={poster}
-              onError={() => setVideoFailed(true)}
+              onPlaying={() => { setPlaying(true); setBlocked(false); }}
+              onError={() => { setVideoFailed(true); setPlaying(false); }}
             >
+              {videoMobile && <source src={videoMobile} type="video/mp4" media="(max-width: 639px)" />}
               {videoWebm && <source src={videoWebm} type="video/webm" />}
-              <source src={video} />
+              <source src={video} type="video/mp4" />
             </video>
-          ) : image ? (
-            <SafeImage
-              src={image}
-              fallback={imageFallback}
-              alt=""
-              className={mediaClass}
-              loading="eager"
-              fetchPriority="high"
-            />
           ) : null}
         </motion.div>
       </motion.div>
 
       <Overlays intensity={intensity} />
+      {blocked && showVideo && <button type="button" onClick={() => { void videoRef.current?.play().catch(() => setBlocked(true)); }} className="pointer-events-auto absolute bottom-4 right-4 z-30 min-h-11 rounded-full border border-white/30 bg-black/70 px-4 text-sm text-white">Play background video</button>}
 
       {glow && prefersMotion && (
         <div className="animate-glow-drift absolute top-1/3 -left-40 hidden h-[38rem] w-[38rem] rounded-full bg-accent/10 blur-[140px] sm:block" />

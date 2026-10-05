@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useCallback, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
@@ -175,6 +176,7 @@ export function PortfolioLightbox({
                 </ul>
               )}
 
+              {build.projectPath && <Link to={build.projectPath} onClick={onClose} className="mr-6 mt-6 inline-flex min-h-11 items-center text-accent underline">Explore this build →</Link>}
               {build.sourceUrl && <a href={build.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block text-sm text-accent underline underline-offset-4">View original Instagram post ↗</a>}
 
               {hasMultiple && (

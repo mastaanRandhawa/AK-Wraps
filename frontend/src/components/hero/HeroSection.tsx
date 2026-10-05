@@ -38,7 +38,7 @@ function isPageHero(props: HeroSectionProps): props is PageHeroProps {
 
 const videoSrc =
   import.meta.env.VITE_HERO_VIDEO_URL ??
-  `${import.meta.env.BASE_URL}videos/ak-wraps-meet.mp4`;
+  `${import.meta.env.BASE_URL}videos/ak-wraps-meet-mobile.mp4`;
 
 export function HeroSection(props: HeroSectionProps) {
   const isPage = isPageHero(props);
@@ -56,10 +56,11 @@ export function HeroSection(props: HeroSectionProps) {
       accentLine={isPage ? undefined : site.heroTitleAccentLine}
       description={description}
       badge={badge}
-      backgroundImage={isPage ? pageHeroImages[props.page] : images.heroSupra}
+      backgroundImage={isPage ? pageHeroImages[props.page] : `${import.meta.env.BASE_URL}videos/ak-wraps-meet-poster.webp`}
       backgroundImageFallback={isPage ? undefined : images.heroSupraFallback}
       backgroundVideo={isPage ? undefined : videoSrc}
-      videoPoster={images.heroSupra}
+      backgroundVideoMobile={isPage || import.meta.env.VITE_HERO_VIDEO_URL ? undefined : `${import.meta.env.BASE_URL}videos/ak-wraps-meet-phone.mp4`}
+      videoPoster={`${import.meta.env.BASE_URL}videos/ak-wraps-meet-poster.webp`}
       callToActions={isPage ? undefined : homeCallToActions}
       titleSize={isPage ? "medium" : "large"}
       showSocialProof={!isPage}

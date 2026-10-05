@@ -17,7 +17,7 @@ export const site = {
     "From daily drivers to exotics, every vehicle leaves with our signature.",
   phone: "(236) 412-5010",
   email: "ak.wraps.customs@gmail.com",
-  address: "6165 BC-17A, Delta, BC V4K 0B2",
+  address: "6165 BC-17A, Delta, BC V4K 5B8",
   hours: "Monday–Sunday · 12 PM – 10 PM",
   // Social profiles. Any entry left as "#" is automatically hidden in the UI
   // (see isLiveUrl). Replace with the real profile URLs before launch.
@@ -27,17 +27,31 @@ export const site = {
   serviceAreas: [
   "Delta",
   "Surrey",
-  "Richmond",
   "White Rock",
-  "Burnaby",
   "Vancouver",
-  "Langley",
-  "Abbotsford",
+  "Richmond",
+  "UBC / Electoral Area A",
+  "Burnaby",
   "New Westminster",
-  "Coquitlam"
+  "Coquitlam",
+  "Port Coquitlam",
+  "Port Moody",
+  "Anmore",
+  "Belcarra",
+  "North Vancouver City",
+  "North Vancouver District",
+  "West Vancouver",
+  "Lions Bay",
+  "Bowen Island",
+  "Langley City",
+  "Langley Township",
+  "Maple Ridge",
+  "Pitt Meadows",
+  "Tsawwassen First Nation",
+  "Abbotsford"
 ],
   mapEmbedUrl:
-    "https://www.google.com/maps?q=6165+BC-17A,+Delta,+BC+V4K+0B2&hl=en&z=14&output=embed",
+    "https://www.google.com/maps?q=6165+BC-17A,+Delta,+BC+V4K+5B8&hl=en&z=14&output=embed",
   socialHandle: "akwrapscustoms",
 
   // Verified snapshot, not an automatic feed.

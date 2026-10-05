@@ -1,3 +1,4 @@
+import { WarrantySummary } from "@/components/sections/WarrantySummary";
 import { MerchandiseSection } from "@/components/sections/MerchandiseSection";
 import { ServicePageLinks } from "@/pages/SearchPage";
 import { HeroSection } from "@/components/hero/HeroSection";
@@ -27,7 +28,7 @@ export function HomePage() {
       <HeroSection />
       <MerchandiseSection />
       <BrandsSection />
-      <section className="container-padding mx-auto max-w-7xl py-10"><h2 className="text-2xl font-semibold text-white">Car wraps, PPF, window tint and ceramic coating in Delta</h2><p className="mt-4 max-w-3xl leading-relaxed text-white/65">Visit AK Wraps &amp; Customs at 6165 BC-17A, Delta, BC. We welcome drivers from Delta, Surrey, Richmond, White Rock, Burnaby, Vancouver, Langley, Abbotsford, New Westminster and Coquitlam. All work takes place at our Delta studio.</p><ServicePageLinks /></section>
+      <section className="container-padding mx-auto max-w-7xl py-10"><h2 className="text-2xl font-semibold text-white">Premium wrapping &amp; protection. One Delta studio.</h2><p className="mt-4 max-w-3xl leading-relaxed text-white/65">Visit AK Wraps &amp; Customs at 6165 BC-17A, Delta, BC. We welcome drivers from Delta, Surrey, Richmond, White Rock, Burnaby, Vancouver, Langley, Abbotsford, New Westminster and Coquitlam. All work takes place at our Delta studio.</p><WarrantySummary compact /><ServicePageLinks /></section>
       <ServiceCarousel services={featuredServices} />
       <PortfolioGrid limit={2} />
       <CinematicBand
@@ -36,7 +37,7 @@ export function HomePage() {
         accentLine={1}
         description="AK Wraps & Customs is a workshop, not a franchise. Every wrap, paint protection film, tint and ceramic job is handled in-house — no outsourcing, no shortcuts, and no vehicle leaves until it meets our standard."
         image={images.pageHeroServices}
-        cta={{ text: "Book Appointment", href: routes.booking }}
+        cta={{ text: "Inside the studio", href: routes.about }}
       />
       <InstagramCarousel id="gallery-preview" limit={6} showHeading />
       <Testimonials items={testimonials} />
