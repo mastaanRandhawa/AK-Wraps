@@ -1,3 +1,4 @@
+import stories from "./project-stories.json";
 import projects from "./vehicle-projects.json";
 import captionServices from "./project-services.json";
 import { vehicleBrands, additionalBrands } from "./brands";
@@ -14,11 +15,13 @@ export interface PortfolioBuild {
   description?: string;
   services: string[];
   sourceUrl?: string;
+  projectPath?: string;
 }
 
 const serviceMap: Record<string, string[]> = captionServices;
 export const featuredProjectIds = ["DZqr-WAmsiw", "DJ-i4Cjvz3B"];
 const serviceCategories: [string, RegExp][] = [
+  ["Commercial & Fleet", /commercial|fleet/i],
   ["Vehicle Wraps", /wrap|livery|decal|pinstrip|banner/i],
   ["Paint Protection Film", /\bPPF\b/i],
   ["Ceramic Coating", /coating/i],
@@ -37,12 +40,13 @@ export const portfolioBuilds: PortfolioBuild[] = projects
   .filter(project => project.id !== "DcZKQQkj_fP")
   .map(project => {
     const services = serviceMap[project.id] ?? [];
-    const categories = serviceCategories.filter(([,pattern]) => services.some(s => pattern.test(s))).map(([name]) => name);
+    const categories = serviceCategories.filter(([name,pattern]) => services.some(s => pattern.test(s)) && !(name === "Vehicle Wraps" && services.some(s => /commercial|fleet/i.test(s)))).map(([name]) => name);
     if (!categories.length) categories.push("Custom Projects");
     const brand = [...vehicleBrands, ...additionalBrands].find(b => b.id === project.brand);
     const title = project.id === "DJ-i4Cjvz3B" ? "300 Hellcat" : project.title;
     return {
       id: project.id, title,
+      projectPath: stories.find(s => s.id === project.id) ? `/projects/${stories.find(s => s.id === project.id)!.slug}` : undefined,
       brand: project.id === "DJ-i4Cjvz3B" ? "Chrysler" : brand?.name,
       image: project.image, categories, category: categories[0],
       description: project.id === "DZqr-WAmsiw" ? "2015 Ferrari F12 Berlinetta, prepared for Goldrush Rally."

@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Delta, Surrey and White Rock",
+    "cities": [
+      "Delta",
+      "Surrey",
+      "White Rock"
+    ],
+    "note": "Arrange an assessment for the vehicle and film finish before confirming the installation date. For a multi-day project, plan separate drop-off and collection."
+  },
+  {
+    "title": "Vancouver, Richmond and UBC",
+    "cities": [
+      "Vancouver",
+      "Richmond",
+      "UBC / Electoral Area A"
+    ],
+    "note": "Share vehicle photos and the desired coverage before your visit so the team can discuss preparation and whether an in-person assessment is needed."
+  },
+  {
+    "title": "Burnaby and New Westminster",
+    "cities": [
+      "Burnaby",
+      "New Westminster"
+    ],
+    "note": "Compare quotes by product and coverage before arranging travel. Confirm whether existing film removal or paint preparation is included."
+  },
+  {
+    "title": "Tri-Cities and nearby villages",
+    "cities": [
+      "Coquitlam",
+      "Port Coquitlam",
+      "Port Moody",
+      "Anmore",
+      "Belcarra"
+    ],
+    "note": "For wraps or full-body PPF, confirm the expected installation window and collection arrangements before booking your trip to Delta."
+  },
+  {
+    "title": "North Shore and Howe Sound",
+    "cities": [
+      "North Vancouver City",
+      "North Vancouver District",
+      "West Vancouver",
+      "Lions Bay",
+      "Bowen Island"
+    ],
+    "note": "Allow for your own travel connections when arranging drop-off and collection. If your journey includes a ferry, confirm the project timing before making reservations."
+  },
+  {
+    "title": "Langley and northeast communities",
+    "cities": [
+      "Langley City",
+      "Langley Township",
+      "Maple Ridge",
+      "Pitt Meadows"
+    ],
+    "note": "Send your vehicle details and project goals first. Ask whether assessment and installation require separate visits, especially for paint correction or existing film removal."
+  },
+  {
+    "title": "Tsawwassen and neighbouring communities",
+    "cities": [
+      "Tsawwassen First Nation"
+    ],
+    "note": "Discuss your preferred finish and the vehicle’s condition with our Delta team. Confirm the appointment before bringing the vehicle to the studio."
+  },
+  {
+    "title": "Beyond Greater Vancouver",
+    "cities": [
+      "Abbotsford"
+    ],
+    "note": "We also welcome enquiries from Abbotsford. Confirm the full project scope and estimated collection date before arranging a longer trip."
+  }
+]
