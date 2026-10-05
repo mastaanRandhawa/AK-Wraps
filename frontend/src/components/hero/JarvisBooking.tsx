@@ -12,7 +12,7 @@ const questions = [
   "And what is your phone number?",
 ];
 const labels = ["Services", "Vehicle year, make and model", "Name", "Email", "Phone"];
-const deliveryKey = import.meta.env.VITE_WEB3FORMS_KEY;
+const deliveryKey = import.meta.env.VITE_WEB3FORMS_KEY?.trim();
 
 export function JarvisBooking() {
   const [visible, setVisible] = useState(false);
@@ -65,14 +65,14 @@ export function JarvisBooking() {
         signal: AbortSignal.timeout(20000),
       });
       const result = await response.json();
-      if (!response.ok || !result.success) throw new Error("Delivery failed");
+      if (!response.ok || result.success !== true) throw new Error("Delivery failed");
       setStatus("sent");
     } catch { setStatus("error"); }
     finally { sending.current = false; }
   }
   const emailHref = `mailto:${site.email}?subject=${encodeURIComponent("Jarvis — Appointment enquiry")}&body=${encodeURIComponent(answers.map((answer, i) => `${labels[i]}: ${answer}`).join("\n\n"))}`;
   return <>
-    {<div className={`relative z-20 mb-10 flex h-12 -translate-y-6 items-center justify-center transition-opacity duration-300 sm:h-[3.25rem] ${visible && !scrollPrompt ? "opacity-100" : "invisible opacity-0"}`}><Button size="lg" onClick={openBooking} style={{ zoom: 1.15 }} className="jarvis-book-pulse shadow-[0_0_35px_#01c8f944]">Book Now</Button></div>}
+    {<div className={`relative z-20 mb-10 flex h-12 translate-y-0 sm:-translate-y-6 items-center justify-center transition-opacity duration-300 sm:h-[3.25rem] ${visible && !scrollPrompt ? "opacity-100" : "invisible opacity-0"}`}><Button size="lg" onClick={openBooking} style={{ zoom: 1.15 }} className="jarvis-book-pulse shadow-[0_0_35px_#01c8f944]">Book Now</Button></div>}
     {scrollPrompt && createPortal(
       <div className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center">
         <div className="pointer-events-auto relative">
