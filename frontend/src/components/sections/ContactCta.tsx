@@ -1,4 +1,4 @@
-import { useEffect, useId, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { routes } from "@/config/routes";
 import { Clock, MapPin, Phone, Mail } from "lucide-react";
@@ -19,16 +19,18 @@ interface ContactCtaProps {
   variant?: "home" | "contact";
 }
 
-type FormStatus = "idle" | "submitting" | "success" | "error";
+type FormStatus = "idle" | "email-draft" | "submitting" | "success" | "error";
 
-const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY?.trim();
 
 export function ContactCta({ variant = "home" }: ContactCtaProps) {
   const [status, setStatus] = useState<FormStatus>("idle");
+  const sending = useRef(false);
   const fieldId = useId();
   const isContactPage = variant === "contact";
   const submitted = status === "success";
   const location = useLocation();
+  const requestedProject = new URLSearchParams(location.search).get("project")?.slice(0, 200) ?? "";
   useEffect(() => {
     if (!isContactPage || location.hash !== "#booking-form") return;
     const frame = requestAnimationFrame(() => {
@@ -42,11 +44,14 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
+    if (sending.current || !form.reportValidity()) return;
     const data = new FormData(form);
+    for (const [name, value] of data.entries()) {
+      if (typeof value === "string") data.set(name, value.trim());
+    }
 
-    // Honeypot: silently succeed for bots that fill the hidden field.
-    if (data.get("botcheck")) {
-      setStatus("success");
+    // Do not submit automated entries.
+    if (data.get("botcheck")) { setStatus("error");
       return;
     }
 
@@ -58,16 +63,18 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
         `Phone: ${data.get("phone") ?? ""}`,
         `Vehicle: ${data.get("vehicle") ?? ""}`,
         `Service: ${data.get("service") ?? ""}`,
+        `Paint / existing film: ${data.get("condition") ?? ""}`,
         "",
         `${data.get("message") ?? ""}`,
       ].join("\n");
       window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
         `Quote request — ${data.get("name") ?? "Website"}`,
       )}&body=${encodeURIComponent(body)}`;
-      setStatus("success");
+      setStatus("email-draft");
       return;
     }
 
+    sending.current = true;
     setStatus("submitting");
     data.append("access_key", WEB3FORMS_KEY);
     data.append("subject", `New quote request — ${site.name}`);
@@ -78,17 +85,16 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
         method: "POST",
         headers: { Accept: "application/json" },
         body: data,
+        signal: AbortSignal.timeout(20000),
       });
       const json = (await res.json()) as { success?: boolean };
-      if (res.ok && json.success) {
+      if (res.ok && json.success === true) {
         setStatus("success");
         form.reset();
       } else {
         setStatus("error");
       }
-    } catch {
-      setStatus("error");
-    }
+    } catch { setStatus("error"); } finally { sending.current = false; }
   };
 
   return (
@@ -258,20 +264,21 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
             )}
           >
             {submitted ? (
-              <div className="flex min-h-[20rem] flex-col items-center justify-center px-4 text-center">
+              <div role="status" className="flex min-h-[20rem] flex-col items-center justify-center px-4 text-center">
                 <p className="type-card font-semibold uppercase tracking-widest text-accent">
                   Message sent
                 </p>
                 <p className="type-body mt-4 text-white/80">
-                  Thank you. We&apos;ll be in touch shortly to start your build.
+                  Thank you. We will review your vehicle and goals and contact you about the next steps. Your appointment is confirmed only after we agree on the scope and availability.
                 </p>
               </div>
             ) : (
               <form
                 onSubmit={handleSubmit}
                 className="space-y-4 sm:space-y-5"
-                noValidate
+
               >
+                {!WEB3FORMS_KEY && <p className="type-small text-white/70">This form prepares an email. Please send it from your email app to complete your enquiry.</p>}
                 {/* Honeypot — hidden from users, catches bots */}
                 <input
                   type="text"
@@ -283,7 +290,7 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                 />
                 <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
                   <FormField label="Name" htmlFor={`${fieldId}-name`} className="sm:col-span-2">
-                    <Input id={`${fieldId}-name`} placeholder="Your name" required name="name" autoComplete="name" />
+                    <Input id={`${fieldId}-name`} placeholder="Your name" required pattern=".*\S.*" maxLength={100} name="name" autoComplete="name" />
                   </FormField>
                   <FormField label="Email" htmlFor={`${fieldId}-email`}>
                     <Input
@@ -303,6 +310,8 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                       id={`${fieldId}-vehicle`}
                       placeholder="Make, model, and year"
                       required
+                      pattern=".*\S.*"
+                      maxLength={200}
                       name="vehicle"
                     />
                   </FormField>
@@ -322,11 +331,15 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                     <Textarea
                       id={`${fieldId}-message`}
                       placeholder="Tell us about your project goals..."
+                      defaultValue={requestedProject ? `I would like to discuss a project similar to: ${requestedProject}` : ""}
                       name="message"
                       rows={4}
                     />
                   </FormField>
                 </div>
+                <details className="rounded border border-white/10 p-3"><summary className="cursor-pointer text-sm text-white/70">Paint condition or existing film (optional)</summary><FormField label="Anything we should assess?" htmlFor={`${fieldId}-condition`} className="mt-4"><Textarea id={`${fieldId}-condition`} name="condition" maxLength={2000} rows={3} placeholder="Previous repainting, chips, peeling clear coat, existing wrap or tint…" /></FormField></details>
+                <p className="text-xs leading-relaxed text-white/50">Your enquiry helps us prepare a tailored consultation. Scope, price and availability are confirmed with you before booking. <Link to="/privacy" className="underline">Privacy policy</Link></p>
+                {status === "email-draft" && <p role="status" className="type-small text-accent">Please send the prepared message in your email app to complete your enquiry. If it did not open, email ak.wraps.customs@gmail.com or call (236) 412-5010.</p>}
                 {status === "error" && (
                   <p
                     role="alert"
@@ -348,6 +361,8 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                 >
                   {status === "submitting"
                     ? "Sending…"
+                    : !WEB3FORMS_KEY
+                      ? "Prepare enquiry email"
                     : isContactPage
                       ? "Send Message"
                       : "Start My Signature Build"}

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { IconCircleButton } from "@/components/ui/icon-circle-button";
@@ -185,6 +186,8 @@ export function ServiceCarousel({
             />
           ))}
         </div>
+
+        <div className="mt-5 text-center"><Link className="inline-flex min-h-11 items-center text-sm text-accent underline underline-offset-4" to="/services">Compare coverage, finishes &amp; care →</Link></div>
 
         {showPartners && (
           <div className="mt-10 pt-6 sm:mt-14 sm:pt-8">
