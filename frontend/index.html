@@ -2,6 +2,12 @@
 <html lang="en">
 
 <head>
+  <script>document.documentElement.dataset.js = "true";</script>
+  <style>
+    html { background: #000; }
+    /* Keep the no-JavaScript summary from flashing before the designed page mounts. */
+    html[data-js="true"] #root > main { display: none; }
+  </style>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
