@@ -1,3 +1,6 @@
+import { WarrantySummary } from "@/components/sections/WarrantySummary";
+import { RelatedServiceProjects } from "@/components/sections/RelatedServiceProjects";
+import { RegionalVisits } from "@/components/sections/RegionalVisits";
 import { Link, useParams } from "react-router-dom";
 import pages from "@/content/search-pages.json";
 import { HeroSection } from "@/components/hero/HeroSection";
@@ -14,8 +17,11 @@ function SearchContent({page}: {page: typeof pages[number]}) {
   return <><HeroSection page="services" title={page.title} description={page.intro} />
     <section className="container-padding mx-auto max-w-5xl py-16 text-white"><Link to="/services" className="text-accent">Explore all services</Link>
       <div className="mt-10 grid gap-10 sm:grid-cols-2">{page.sections.map(s => <article key={s.title}><h2 className="text-2xl font-semibold">{s.title}</h2><p className="mt-4 leading-relaxed text-white/65">{s.text}</p></article>)}</div>
+      {(page.slug === "car-wraps" || page.slug === "paint-protection-film") && <WarrantySummary compact />}
+      <RelatedServiceProjects slug={page.slug} />
       <h2 className="mt-14 text-2xl font-semibold">Your questions answered</h2>{page.faq.map(f => <article className="mt-6" key={f.question}><h3 className="text-lg font-semibold">{f.question}</h3><p className="mt-2 leading-relaxed text-white/65">{f.answer}</p></article>)}
       <div className="mt-10 flex flex-wrap gap-4"><Button asChild><Link to="/contact#booking-form">Book an appointment</Link></Button><Button asChild variant="secondary"><Link to="/gallery">See our work</Link></Button></div>
+      {page.slug === "service-areas" && <RegionalVisits />}
       <ServicePageLinks />
     </section></>;
 }
