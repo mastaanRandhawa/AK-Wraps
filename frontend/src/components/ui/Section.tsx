@@ -24,7 +24,7 @@ export function Section({
       id={id}
       data-nav-background="dark"
       className={cn(
-        "relative section-padding [content-visibility:auto] [contain-intrinsic-size:auto_500px]",
+        "relative section-padding",
         variant === "default" && "bg-black",
         variant === "elevated" && "bg-surface",
         variant === "muted" && "bg-surface-elevated",
