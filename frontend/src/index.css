@@ -621,9 +621,10 @@
 @media (max-width: 639px) { .animate-ken-burns { animation: none; } .grain { display: none; } }
 
 /* Keep decorative transforms and horizontal rails inside the mobile viewport. */
-html { overflow-x: hidden; overscroll-behavior-x: none; }
+html { width: 100%; max-width: 100%; overflow-x: hidden; overscroll-behavior-x: none; }
 body, #root { width: 100%; min-width: 0; max-width: 100%; overflow-x: hidden; }
-@supports (overflow: clip) { body, #root { overflow-x: clip; } }
+body { position: relative; touch-action: pan-y pinch-zoom; }
+#root { position: relative; isolation: isolate; }
 .merchandise-window { contain: inline-size; }
 
 /* Keep a generous header-to-booking gap on short mobile Safari viewports.
