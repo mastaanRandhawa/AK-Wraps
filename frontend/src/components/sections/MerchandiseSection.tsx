@@ -16,9 +16,7 @@ function ShirtPreview({number, duplicate = false}: {number: number; duplicate?: 
   const design = shirtDesigns[number - 1];
   return <Link to={`/merchandise/${number}`} tabIndex={duplicate ? -1 : undefined} className="block focus-visible:outline-2 focus-visible:outline-accent w-64 shrink-0 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-center sm:w-72">
     <div className="flex h-64 items-center justify-center overflow-hidden rounded-lg bg-black">
-      <div className="relative w-full overflow-hidden" style={{ paddingTop: `${design.height / design.width * 100}%`, flexShrink: 0, transform: number === 1 || number === 3 ? "scale(1.184)" : undefined }}>
-        <img src={`${import.meta.env.BASE_URL}merchandise/${number === 1 || number === 3 ? "shirt-collection-clean.webp" : "shirt-collection.webp"}`} alt={`${design.name} black T-shirt, back view with printed AK Wraps design`} loading="lazy" className="absolute max-w-none" style={{width: `${941 / design.width * 100}%`, left: `${-design.x / design.width * 100}%`, top: `${-design.y / design.height * 100}%`}} />
-      </div>
+      <img src={`${import.meta.env.BASE_URL}merchandise/shirt-${number}-back.webp`} alt={`${design.name} black T-shirt, back view with printed AK Wraps design`} width={design.width} height={design.height} loading="lazy" decoding="async" className="h-full w-full object-contain" />
     </div>
     <h3 className="mt-5 text-lg font-semibold text-white">{design.name}</h3>
         <p className="mt-2 text-sm text-white/45">Shirt {number.toString().padStart(2, "0")}</p>
@@ -37,7 +35,7 @@ export function MerchandiseSection({full = false}: {full?: boolean}) {
   useEffect(() => {
     const el = viewport.current;
     if (!el || paused || full || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let frame = 0, previous = performance.now(), visible = false;
+    let frame = 0, previous = performance.now(), visible = false, position = el.scrollLeft;
     const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; });
     observer.observe(el);
     const tick = (now: number) => {
@@ -45,8 +43,9 @@ export function MerchandiseSection({full = false}: {full?: boolean}) {
       if (visible && !document.hidden && !touching.current && now > resumeAt.current && !el.matches(":focus-visible") && !el.querySelector(":focus-visible")) {
         const group = el.firstElementChild?.firstElementChild as HTMLElement | null;
         const width = group?.offsetWidth ?? 0;
-        if (width) { el.scrollLeft += elapsed * 0.035; if (el.scrollLeft >= width) el.scrollLeft -= width; }
+        if (width) { position = (position + elapsed * 0.035) % width; el.scrollLeft = position; }
       }
+      else { position = el.scrollLeft; }
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);

@@ -8,8 +8,8 @@ export function ProcessSection() {
     <Section variant="default" id="process">
       <SectionHeading
         eyebrow="Our Process"
-        title="Five steps to perfection"
-        description="From inspection to final delivery — no detail overlooked."
+        title="From consultation to collection"
+        description="Preparation, installation and care planned around your vehicle."
         align="center"
       />
       <div className="mx-auto max-w-3xl">

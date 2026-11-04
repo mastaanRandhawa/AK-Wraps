@@ -6,7 +6,7 @@ export function usePageMeta({ title, description, noIndex = false }: PageMeta) {
   const { pathname } = useLocation();
   useEffect(() => {
     const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
-    const url = `https://akwraps.ca${pathname === "/" ? "/" : pathname.replace(/\/$/, "")}`;
+    const url = `https://akwraps.ca${pathname === "/" ? "/" : `${pathname.replace(/\/+$/, "")}/`}`;
     document.title = fullTitle;
     function meta(key: string, content: string, property = false) {
       const attr = property ? "property" : "name";

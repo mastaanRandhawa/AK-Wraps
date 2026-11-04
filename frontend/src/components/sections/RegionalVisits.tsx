@@ -1,0 +1,5 @@
+import regions from "@/content/service-regions.json";
+import { site } from "@/config/site";
+export function RegionalVisits() {
+  return <section className="mt-12" aria-labelledby="regional-visits"><h2 id="regional-visits" className="text-2xl font-semibold">Plan your visit from Greater Vancouver</h2><p className="mt-4 text-white/65">All services are performed at {site.address}. Choose your community for directions, then contact us to confirm your appointment.</p><div className="mt-8 grid gap-6 sm:grid-cols-2">{regions.map(region => <article key={region.title} className="rounded-lg border border-white/15 p-5"><h3 className="text-lg font-semibold">{region.title}</h3><p className="mt-3 text-sm leading-relaxed text-white/65">{region.note}</p><ul className="mt-4 flex flex-wrap gap-3">{region.cities.map(city => <li key={city}><a className="inline-flex min-h-11 items-center text-sm text-accent underline" href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(city + ', BC')}&destination=${encodeURIComponent(site.address)}`}>{city} to our Delta studio</a></li>)}</ul></article>)}</div></section>;
+}

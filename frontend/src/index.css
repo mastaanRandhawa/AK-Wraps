@@ -619,3 +619,18 @@
 .merchandise-track del { font-size: 12px; }
 .merchandise-track span.text-xl { font-size: 15px; }
 @media (max-width: 639px) { .animate-ken-burns { animation: none; } .grain { display: none; } }
+
+/* Keep decorative transforms and horizontal rails inside the mobile viewport. */
+html { width: 100%; max-width: 100%; overflow-x: hidden; overscroll-behavior-x: none; }
+body, #root { width: 100%; min-width: 0; max-width: 100%; overflow-x: hidden; }
+body { position: relative; touch-action: pan-y pinch-zoom; }
+#root { position: relative; isolation: isolate; }
+.merchandise-window { contain: inline-size; }
+
+/* Keep a generous header-to-booking gap on short mobile Safari viewports.
+   The hero may grow beyond one screen instead of compressing its content. */
+@media (max-width: 639px) {
+  .home-hero-content {
+    padding-top: calc(clamp(6rem, 14svh, 8rem) + env(safe-area-inset-top, 0px));
+  }
+}

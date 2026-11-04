@@ -81,6 +81,7 @@ export function PortfolioGrid({
                   brandName={build.brand}
                   services={build.services.slice(0, 3)}
                 />
+                {build.projectPath && <Link to={build.projectPath} className="mt-3 inline-flex min-h-11 items-center text-sm text-accent underline underline-offset-4">Explore this build →</Link>}
               </MotionReveal>
             ))}
           </div>

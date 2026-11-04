@@ -37,7 +37,7 @@ export function GoogleRatingBadge({ className }: { className?: string }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`Rated ${score} out of 5 from ${count} Google reviews · checked Sep 27, 2026`}
+      aria-label={`Rated ${score} out of 5 from ${count} Google reviews · checked Nov 3, 2026`}
       className={cn("group inline-flex items-center gap-3", className)}
     >
       <span className="font-display text-lg leading-none font-semibold text-white">
@@ -63,7 +63,7 @@ export function GoogleRatingBadge({ className }: { className?: string }) {
       </span>
 
       <span className="type-label text-white/55 transition-colors duration-300 group-hover:text-white">
-        {count} Google reviews · checked Sep 27, 2026
+        {count} Google reviews · checked Nov 3, 2026
       </span>
     </a>
   );

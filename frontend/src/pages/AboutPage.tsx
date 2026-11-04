@@ -1,3 +1,5 @@
+import about from "@/content/about.json";
+import { Link } from "react-router-dom";
 import { HeroSection } from "@/components/hero/HeroSection";
 import { MotionReveal } from "@/components/ui/motion-reveal";
 import { Section, SectionHeading } from "@/components/ui/Section";
@@ -21,31 +23,31 @@ export function AboutPage() {
       <HeroSection
         page="about"
         title="Our Story"
-        description="Passion for automotive excellence and an uncompromising commitment to quality."
+        description="Vinyl wraps, paint protection and custom finishing at one Delta studio, serving drivers across Greater Vancouver."
         badge="About Us"
       />
 
       <Section>
         <SectionHeading
           eyebrow="Company Story"
-          title="Born from a passion for vehicles"
+          title={about.heading}
           align="center"
         />
         <MotionReveal variant="fade">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="type-small font-light text-muted-foreground">
-              AK Wraps & Customs started with a simple vision: bring premium
-              vehicle detailing and protection to drivers across Greater Vancouver.
-              From our shop in Delta, BC, we specialize in paint correction,
-              ceramic coating, and enhancements that make every vehicle stand out.
-            </p>
-            <p className="type-small mt-8 font-light text-muted-foreground">
-              We believe great work is a collaboration. Our team listens to your
-              goals, recommends the right solutions, and delivers results built
-              to last.
-            </p>
+            {about.paragraphs.map(text => <p key={text} className="type-small mt-6 font-light text-muted-foreground">{text}</p>)}<p className="mt-6"><Link className="text-accent underline" to="/gallery">Explore our vehicle projects</Link> · <Link className="text-accent underline" to="/contact#booking-form">Discuss your vehicle</Link></p>
           </div>
         </MotionReveal>
+      </Section>
+
+      <Section variant="elevated">
+        <div className="mx-auto max-w-3xl rounded-xl border border-accent/30 bg-black/30 p-6 text-center sm:p-10">
+          <p className="type-label text-accent">2026 Quality Business Awards</p>
+          <h2 className="type-section mt-4 text-white">{about.award.heading}</h2>
+          <p className="mt-6 leading-relaxed text-white/70">{about.award.text}</p>
+          <a className="mt-6 inline-flex min-h-11 items-center text-accent underline underline-offset-4" href={about.award.source} target="_blank" rel="noopener noreferrer">{about.award.label}</a>
+          <div className="mt-8 border-t border-white/15 pt-6"><h3 className="text-lg font-semibold text-white">{about.ownerRecognition.heading}</h3><p className="mt-3 text-sm leading-relaxed text-white/65">{about.ownerRecognition.text}</p></div>
+        </div>
       </Section>
 
       <Section variant="elevated">

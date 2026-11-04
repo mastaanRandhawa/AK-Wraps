@@ -2,6 +2,12 @@
 <html lang="en">
 
 <head>
+  <script>document.documentElement.dataset.js = "true";</script>
+  <style>
+    html { background: #000; }
+    /* Keep the no-JavaScript summary from flashing before the designed page mounts. */
+    html[data-js="true"] #root > main { display: none; }
+  </style>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -59,26 +65,39 @@
     "streetAddress": "6165 BC-17A",
     "addressLocality": "Delta",
     "addressRegion": "BC",
-    "postalCode": "V4K 0B2",
+    "postalCode": "V4K 4E2",
     "addressCountry": "CA"
   },
   "areaServed": [
-    "Delta",
-    "Surrey",
-    "Richmond",
-    "White Rock",
-    "Burnaby",
-    "Vancouver",
-    "Langley",
-    "Abbotsford",
-    "New Westminster",
-    "Coquitlam"
-  ],
+  "Delta",
+  "Surrey",
+  "White Rock",
+  "Vancouver",
+  "Richmond",
+  "UBC / Electoral Area A",
+  "Burnaby",
+  "New Westminster",
+  "Coquitlam",
+  "Port Coquitlam",
+  "Port Moody",
+  "Anmore",
+  "Belcarra",
+  "North Vancouver City",
+  "North Vancouver District",
+  "West Vancouver",
+  "Lions Bay",
+  "Bowen Island",
+  "Langley City",
+  "Langley Township",
+  "Maple Ridge",
+  "Pitt Meadows",
+  "Tsawwassen First Nation",
+  "Abbotsford"
+],
   "sameAs": [
     "https://www.instagram.com/akwrapscustoms/",
     "https://www.tiktok.com/@akwrapscustoms"
   ],
-  "@id": "https://akwraps.ca/#business",
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",

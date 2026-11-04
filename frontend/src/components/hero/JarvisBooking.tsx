@@ -12,7 +12,7 @@ const questions = [
   "And what is your phone number?",
 ];
 const labels = ["Services", "Vehicle year, make and model", "Name", "Email", "Phone"];
-const deliveryKey = import.meta.env.VITE_WEB3FORMS_KEY;
+const deliveryKey = import.meta.env.VITE_WEB3FORMS_KEY?.trim();
 
 export function JarvisBooking() {
   const [visible, setVisible] = useState(false);
@@ -65,7 +65,7 @@ export function JarvisBooking() {
         signal: AbortSignal.timeout(20000),
       });
       const result = await response.json();
-      if (!response.ok || !result.success) throw new Error("Delivery failed");
+      if (!response.ok || result.success !== true) throw new Error("Delivery failed");
       setStatus("sent");
     } catch { setStatus("error"); }
     finally { sending.current = false; }

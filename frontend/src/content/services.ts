@@ -17,7 +17,7 @@ export const featuredServices: Service[] = [
     tagline: "Bold colour, flawless finish",
     description:
       "Full and partial vinyl wraps in gloss, satin, matte, and specialty finishes — colour changes without repainting.",
-    price: "Starting from — contact for quote",
+    price: "Tailored to your vehicle",
     image: images.serviceVinylWrap,
     imageFallback: images.serviceVinylWrapFallback,
   },
@@ -27,7 +27,7 @@ export const featuredServices: Service[] = [
     tagline: "Invisible armor for your paint",
     description:
       "Self-healing clear film shields against rock chips, scratches, and road debris on high-impact areas or full body.",
-    price: "Starting from — contact for quote",
+    price: "Tailored to your vehicle",
     image: images.servicePpf,
     imageFallback: images.servicePpfFallback,
   },
@@ -37,7 +37,7 @@ export const featuredServices: Service[] = [
     tagline: "Colour and protection combined",
     description:
       "Premium coloured paint protection film that changes your vehicle's look while guarding against chips and UV damage.",
-    price: "Starting from — contact for quote",
+    price: "Tailored to your vehicle",
     image: images.serviceColouredPpf,
     imageFallback: images.serviceColouredPpfFallback,
   },
@@ -47,7 +47,7 @@ export const featuredServices: Service[] = [
     tagline: "Privacy, comfort, and UV defense",
     description:
       "Precision-cut ceramic and carbon window films for heat rejection, glare reduction, and a clean, factory-finished look.",
-    price: "Starting from — contact for quote",
+    price: "Tailored to your vehicle",
     image: images.serviceTint,
     imageFallback: images.serviceTintFallback,
   },
@@ -157,10 +157,10 @@ export const serviceCategories = [
 ];
 
 export const pricing = [
-  { service: "Vinyl Wraps", price: "Starting from — contact us" },
-  { service: "Paint Protection Film", price: "Starting from — contact us" },
-  { service: "Coloured PPF", price: "Starting from — contact us" },
-  { service: "Window Tints", price: "Starting from — contact us" },
+  { service: "Vinyl Wraps", price: "Vehicle-specific quote" },
+  { service: "Paint Protection Film", price: "Vehicle-specific quote" },
+  { service: "Coloured PPF", price: "Vehicle-specific quote" },
+  { service: "Window Tints", price: "Vehicle-specific quote" },
   {
     service: "Ceramic Coating & Paint Correction",
     price: "Quote required",
@@ -173,6 +173,7 @@ export const pricing = [
 ];
 
 export const faqs = [
+  { question: "What warranty comes with wraps and PPF?", answer: "Vinyl wraps include a two-year installation warranty. PPF includes a ten-year warranty covering the film and installation. Contact us for written terms, exclusions and care requirements before booking." },
   {
     question: "How do I book an appointment?",
     answer:

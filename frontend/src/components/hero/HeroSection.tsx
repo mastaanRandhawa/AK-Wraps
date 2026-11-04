@@ -59,6 +59,7 @@ export function HeroSection(props: HeroSectionProps) {
       backgroundImage={isPage ? pageHeroImages[props.page] : `${import.meta.env.BASE_URL}videos/ak-wraps-meet-poster.webp`}
       backgroundImageFallback={isPage ? undefined : images.heroSupraFallback}
       backgroundVideo={isPage ? undefined : videoSrc}
+      backgroundVideoMobile={isPage || import.meta.env.VITE_HERO_VIDEO_URL ? undefined : `${import.meta.env.BASE_URL}videos/ak-wraps-meet-phone.mp4`}
       videoPoster={`${import.meta.env.BASE_URL}videos/ak-wraps-meet-poster.webp`}
       callToActions={isPage ? undefined : homeCallToActions}
       titleSize={isPage ? "medium" : "large"}

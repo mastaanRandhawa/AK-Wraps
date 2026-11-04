@@ -17,37 +17,37 @@ export interface ProcessStep {
 export const processSteps: ProcessStep[] = [
   {
     id: "inspection",
-    title: "Inspection",
+    title: "Consultation & inspection",
     description:
-      "We assess paint condition, surface defects, and your goals to build a tailored treatment plan.",
+      "We discuss your goals, assess paint condition and agree on materials, covered areas and a vehicle-specific scope.",
     icon: ClipboardCheck,
   },
   {
     id: "preparation",
     title: "Preparation",
     description:
-      "Thorough wash, decontamination, and masking ensure every surface is ready for precision work.",
+      "Cleaning and surface preparation are planned for the chosen service. Existing film, repairs and paint condition inform the work required.",
     icon: Droplets,
   },
   {
     id: "correction",
-    title: "Correction",
+    title: "Finish preparation",
     description:
-      "Swirls, scratches, and imperfections are carefully removed to restore depth and clarity.",
+      "Where paint correction is included, we assess which defects can be improved safely. Film and coating do not repair damaged paint.",
     icon: Sparkles,
   },
   {
     id: "protection",
-    title: "Protection",
+    title: "Installation",
     description:
-      "Ceramic coating, PPF, or sealants lock in the finish with long-lasting defense.",
+      "Your chosen wrap, film or coating is applied to the agreed areas, with attention to the finish and details of your vehicle.",
     icon: Shield,
   },
   {
     id: "delivery",
     title: "Final Delivery",
     description:
-      "A final inspection and walkthrough — your vehicle leaves with a showroom-worthy finish.",
+      "We inspect the completed work and discuss product-specific care at collection. Ask us about curing, maintenance and the warranty for your installation.",
     icon: Truck,
   },
 ];
