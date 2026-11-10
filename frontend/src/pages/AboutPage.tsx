@@ -1,3 +1,4 @@
+import areaServices from "@/content/area-service-links.json";
 import about from "@/content/about.json";
 import { Link } from "react-router-dom";
 import { HeroSection } from "@/components/hero/HeroSection";
@@ -23,7 +24,7 @@ export function AboutPage() {
       <HeroSection
         page="about"
         title="Our Story"
-        description="Vinyl wraps, paint protection and custom finishing at one Delta studio, serving drivers across Greater Vancouver."
+        description="Vinyl wraps, paint protection and custom finishing at our Delta studio and by mobile appointment across Greater Vancouver."
         badge="About Us"
       />
 
@@ -83,7 +84,7 @@ export function AboutPage() {
         <SectionHeading
           eyebrow="Service Area"
           title="Where we serve"
-          description="Greater Vancouver and the Fraser Valley."
+          description="Visit our main studio in Delta or request mobile service in any of the communities below."
           align="center"
         />
         <MotionReveal>
@@ -91,10 +92,11 @@ export function AboutPage() {
             {site.serviceAreas.map((area) => (
               <div
                 key={area}
-                className="flex min-h-[44px] items-center gap-3 bg-black px-6 py-4"
+                className="bg-black px-5 py-4"
               >
-                <MapPin className="h-3.5 w-3.5 shrink-0 text-white/30" strokeWidth={1.5} />
-                <span className="type-card font-light uppercase text-white/60">{area}</span>
+                <h3 className="flex items-center gap-2"><MapPin aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-white/30" strokeWidth={1.5} />
+                <span className="type-card font-light uppercase text-white/60">{area}</span></h3>
+                <ul className="mt-1 flex flex-wrap gap-x-3">{areaServices.map(service => <li key={service.path}><Link className="inline-flex min-h-11 items-center text-sm text-accent underline underline-offset-4" to={service.path}>{service.label}<span className="sr-only"> for {area} drivers</span></Link></li>)}</ul>
               </div>
             ))}
           </div>

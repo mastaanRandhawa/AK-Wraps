@@ -18,9 +18,9 @@ export function PartnerMarquee({
 }: PartnerMarqueeProps) {
   return (
     <div className={cn("relative", className)}>
-      <p className="type-label mb-3 text-center sm:mb-4">{title}</p>
+      <p className="type-label mb-1 text-center sm:mb-2">{title}</p>
 
-      <Marquee duration={speed} className="py-2 fade-edge-x">
+      <Marquee duration={speed} className="fade-edge-x">
         {partners.map((partner) => (
           <div
             key={partner.id}

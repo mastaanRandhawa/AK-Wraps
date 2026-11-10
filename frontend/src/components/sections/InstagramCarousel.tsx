@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 interface InstagramCarouselProps {
   /** Max posts to show (default: all fetched posts) */
   limit?: number;
+  compact?: boolean;
   /** Hide section heading when embedded on gallery page */
   showHeading?: boolean;
   className?: string;
@@ -30,6 +31,7 @@ function truncateCaption(caption: string, max = 140) {
 export function InstagramCarousel({
   limit,
   showHeading = true,
+  compact = false,
   className,
   id,
 }: InstagramCarouselProps) {
@@ -69,10 +71,11 @@ export function InstagramCarousel({
     <Section
       id={id}
       variant={showHeading ? "elevated" : "default"}
-      className={className}
+      className={cn(compact && "pt-6! pb-9! sm:pt-8! sm:pb-12! lg:pt-12! lg:pb-16!", className)}
     >
       {showHeading && (
         <SectionHeading
+          className={compact ? "mb-4! sm:mb-6! [&>:first-child]:mb-3 [&>:last-child]:mt-2!" : undefined}
           eyebrow="Instagram"
           title={`@${site.socialHandle}`}
           description="Latest projects and behind-the-scenes from our feed."
@@ -160,7 +163,7 @@ export function InstagramCarousel({
             )}
 
             {count > 1 && (
-              <div className="mx-auto mt-6 flex max-w-4xl items-center justify-center gap-4 sm:mt-10 sm:gap-8">
+              <div className={cn("mx-auto flex max-w-4xl items-center justify-center gap-4 sm:gap-8", compact ? "mt-3 sm:mt-5" : "mt-6 sm:mt-10")}>
                 <IconCircleButton icon={ChevronLeft} label="Previous post" onClick={prev} />
                 <div className="flex gap-3">
                   {posts.map((post, i) => (
@@ -182,7 +185,7 @@ export function InstagramCarousel({
               </div>
             )}
 
-            <div className="mt-10 text-center sm:mt-12">
+            <div className={cn("text-center", compact ? "mt-4 sm:mt-6" : "mt-10 sm:mt-12")}>
               <Button variant="secondary" asChild>
                 <a
                   href={site.instagram}

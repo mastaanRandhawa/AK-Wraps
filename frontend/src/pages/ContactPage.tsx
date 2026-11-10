@@ -16,7 +16,7 @@ export function ContactPage() {
         page="contact"
         title="Get in Touch"
         description="Book an appointment or request a quote at our Delta studio."
-        badge="Contact"
+        badge="AK Wraps & Customs · Delta studio"
       />
 
       <ContactCta variant="contact" />

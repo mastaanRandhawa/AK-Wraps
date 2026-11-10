@@ -79,7 +79,7 @@ export function Testimonials({ items }: TestimonialsProps) {
   if (!current) return null;
 
   return (
-    <Section variant="default" id="testimonials" className="relative overflow-hidden !py-12 sm:!py-16">
+    <Section variant="default" id="testimonials" className="relative overflow-hidden !py-9 sm:!py-12">
       <div className="pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden="true">
         <SafeImage
           src={images.testimonialsBg}
@@ -92,7 +92,7 @@ export function Testimonials({ items }: TestimonialsProps) {
         <SectionHeading
           eyebrow="Testimonials"
           title="Trusted by owners"
-          className="mb-6 sm:mb-8 md:mb-8 lg:mb-10"
+          className="mb-4 sm:mb-6 md:mb-6 lg:mb-8 [&>:first-child]:mb-4"
           align="center"
         />
         <MotionReveal variant="fade">
@@ -101,7 +101,7 @@ export function Testimonials({ items }: TestimonialsProps) {
             {...swipeHandlers}
           >
             <StarRating rating={current.rating} />
-            <div className="relative mt-5 min-h-[7rem] sm:mt-6 sm:min-h-[8rem]">
+            <div className="relative mt-4 min-h-[5.75rem] sm:mt-5 sm:min-h-[6rem]">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.blockquote
                   key={current.id}
@@ -123,7 +123,7 @@ export function Testimonials({ items }: TestimonialsProps) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
-                className="mt-5 sm:mt-6"
+                className="mt-3 sm:mt-4"
               >
                 <p className="type-caption font-bold uppercase tracking-widest text-white">
                   <a href={current.url} target="_blank" rel="noopener noreferrer" className="hover:text-accent">{current.author}</a>
@@ -133,11 +133,11 @@ export function Testimonials({ items }: TestimonialsProps) {
             </AnimatePresence>
           </div>
 
-          <p className="type-caption mt-5 text-center text-white/35 sm:hidden">
+          <p className="type-caption mt-3 text-center text-white/35 sm:hidden">
             Swipe to read more
           </p>
 
-          <div className="mt-5 flex items-center justify-center gap-5 sm:mt-7 sm:gap-6">
+          <div className="mt-3 flex items-center justify-center gap-5 sm:mt-5 sm:gap-6">
             <IconCircleButton icon={ChevronLeft} label="Previous testimonial" onClick={prev} />
             <div className="flex gap-2.5">
               {items.map((_, i) => (

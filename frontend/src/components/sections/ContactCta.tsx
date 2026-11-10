@@ -33,7 +33,10 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
   const isContactPage = variant === "contact";
   const submitted = status === "success";
   const location = useLocation();
-  const requestedProject = new URLSearchParams(location.search).get("project")?.slice(0, 200) ?? "";
+  const query = new URLSearchParams(location.search);
+  const requestedService = query.get("service") ?? "";
+  const selectedService = offerMessage ? "Paint Protection Film" : serviceOptions.includes(requestedService) ? requestedService : "";
+  const requestedProject = query.get("project")?.slice(0, 200) ?? "";
   useEffect(() => {
     if (!isContactPage || location.hash !== "#booking-form") return;
     const frame = requestAnimationFrame(() => {
@@ -109,7 +112,7 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
         "relative overflow-hidden",
         isContactPage
           ? "bg-black pb-16 pt-12 sm:pb-20 sm:pt-16 lg:pb-24"
-          : "section-padding",
+          : "py-10 sm:py-14 lg:py-20",
       )}
     >
       {!isContactPage && (
@@ -138,7 +141,7 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
           "relative mx-auto max-w-7xl container-padding",
           isContactPage
             ? "grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:items-start lg:gap-16 xl:grid-cols-[minmax(0,1fr)_32rem] xl:gap-20"
-            : "grid gap-16 lg:grid-cols-2 lg:gap-24",
+            : "grid gap-8 lg:grid-cols-2 lg:gap-16",
         )}
       >
         <MotionReveal variant="fade">
@@ -165,16 +168,16 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
             </div>
           ) : isContactPage ? (
             <>
-              <p className="type-label mb-4">Studio</p>
+              <p className="type-label mb-3 text-accent">Delta studio</p>
               <h2 className="type-section font-bold text-white">
                 <Link to={routes.booking}>Book your appointment</Link>
               </h2>
-              <p className="type-small mt-6 max-w-md font-light leading-relaxed text-white/50">
+              <p className="mt-4 max-w-md leading-relaxed text-white/80">
                 Tell us about your vehicle and goals. We typically respond within
                 one business day with availability and a tailored quote.
               </p>
 
-              <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                 <ContactInfoCard
                   icon={<Phone className="h-4 w-4" strokeWidth={1.5} />}
                   label="Phone"
@@ -203,7 +206,7 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
                   icon={<MapPin className="h-4 w-4" strokeWidth={1.5} />}
                   label="Address"
                   value={
-                    <span className="font-medium text-white">{site.address}</span>
+                    <a href={site.googleRating.url} target="_blank" rel="noopener noreferrer" className="font-medium text-white underline decoration-accent/60 underline-offset-4">{site.address}</a>
                   }
                 />
                 <ContactInfoCard
@@ -228,7 +231,7 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
                   className="type-section heading-split-bold mt-1 block"
                 />
               </h2>
-              <RevealFade delay={0.4} className="mt-8 max-w-md">
+              <RevealFade delay={0.4} className="mt-4 max-w-md">
                 <p className="type-small font-light leading-relaxed text-white/55">
                   At AK Wraps & Customs,{" "}
                   <strong className="font-semibold text-white">
@@ -242,7 +245,7 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
                 </p>
               </RevealFade>
 
-              <div className="mt-12 space-y-8">
+              <div className="mt-6 space-y-3">
                 <ContactRow
                   icon={<Phone className="h-4 w-4" strokeWidth={1.5} />}
                   label="Reach us by phone"
@@ -285,6 +288,7 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
             style={{ scrollMarginTop: "calc(var(--navbar-offset) + 1.5rem)" }}
             className={cn(
               "ppf-panel rounded-lg border border-white/10 bg-surface-glass p-6 backdrop-blur-md sm:p-8",
+              "quote-panel",
               isContactPage && "lg:sticky lg:top-[calc(var(--navbar-offset)+1.5rem)]",
             )}
           >
@@ -303,8 +307,8 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
                 className="space-y-4 sm:space-y-5"
 
               >
+                {!offerMessage && <header className="border-l-4 border-accent pl-4"><h3 className="text-3xl font-black leading-tight text-white">Get your build quote</h3><p className="mt-1 text-sm text-white/80">Tell us what you drive and the finish you have in mind.</p></header>}
                 {offerExtras && <><input type="hidden" name="addons" value={offerExtras.join(", ") || "None"}/><header className="ppf-quote-banner"><h3 className="max-w-xs text-3xl font-black leading-tight">Request your PPF quote</h3><p className="mt-2 font-semibold">Full-body PPF + Gtechniq ceramic</p><span className="ppf-price-label mt-3 block">Starting at</span><strong className="ppf-price-number text-3xl">${ppfOffer.special.toLocaleString("en-CA")} <small className="text-sm">CAD</small></strong></header>{offerExtras.length > 0 && <p className="text-sm text-accent">Requested add-ons: {offerExtras.join(", ")}</p>}</>}
-                {!offerMessage && !WEB3FORMS_KEY && <p className="type-small text-white/70">This form prepares an email. Please send it from your email app to complete your enquiry.</p>}
                 {/* Honeypot — hidden from users, catches bots */}
                 <input
                   type="text"
@@ -342,7 +346,7 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
                     />
                   </FormField>
                   <FormField label="Service" htmlFor={`${fieldId}-service`} className="sm:col-span-2">
-                    <Select id={`${fieldId}-service`} name="service" required defaultValue={offerMessage ? "Paint Protection Film" : ""}>
+                    <Select id={`${fieldId}-service`} name="service" required key={selectedService} defaultValue={selectedService}>
                       <option value="" disabled>
                         Select a service
                       </option>
@@ -364,7 +368,7 @@ export function ContactCta({ variant = "home", offerMessage, offerExtras }: Cont
                   </FormField>
                 </div>
                 <details className="rounded border border-white/10 p-3"><summary className="cursor-pointer text-sm text-white/70">Paint condition or existing film (optional)</summary><FormField label="Anything we should assess?" htmlFor={`${fieldId}-condition`} className="mt-4"><Textarea id={`${fieldId}-condition`} name="condition" maxLength={2000} rows={3} placeholder="Previous repainting, chips, peeling clear coat, existing wrap or tint…" /></FormField></details>
-                {offerMessage && !WEB3FORMS_KEY && <p className="text-sm">Your email app will open with your quote request ready to review and send.</p>}
+                {!WEB3FORMS_KEY && <p className="text-sm">Your email app will open with your quote request ready to review and send.</p>}
                 <p className="text-xs leading-relaxed text-white/50">Your enquiry helps us prepare a tailored consultation. Scope, price and availability are confirmed with you before booking. <Link to="/privacy" className="underline">Privacy policy</Link></p>
                 {status === "email-draft" && <p role="status" className="type-small text-accent">Please send the prepared message in your email app to complete your enquiry. If it did not open, email ak.wraps.customs@gmail.com or call (236) 412-5010.</p>}
                 {status === "error" && (
@@ -435,14 +439,14 @@ function ContactInfoCard({
   value: ReactNode;
 }) {
   return (
-    <div className="group rounded-md border border-white/10 bg-white/[0.03] p-5 transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.05]">
+    <div className="group rounded-xl border border-accent/30 bg-gradient-to-r from-[#0b2633] to-[#070e15] px-5 py-4">
       <div className="flex items-start gap-4">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 transition-colors duration-300 group-hover:border-accent/50">
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-accent/40 bg-accent/10 text-accent">
           <span className="headlight-icon">{icon}</span>
         </span>
         <div className="min-w-0">
-          <p className="type-label text-white/40">{label}</p>
-          <div className="type-small mt-1.5">{value}</div>
+          <p className="type-label text-accent">{label}</p>
+          <div className="mt-1 text-base">{value}</div>
         </div>
       </div>
     </div>

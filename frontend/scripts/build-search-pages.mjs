@@ -8,7 +8,7 @@ for (const page of pages) {
   const url = `https://akwraps.ca${path}`;
   const title = `${page.title} | AK Wraps & Customs`;
   const links = pages.map(p => `<a href="${p.slug === 'service-areas' ? '/service-areas' : `/services/${p.slug}`}">${escape(p.title)}</a>`).join(' · ');
-  const body = `<main style="max-width:960px;margin:100px auto;padding:24px;font-family:system-ui;line-height:1.7"><a href="/">AK Wraps &amp; Customs</a><h1>${escape(page.title)}</h1><p>${escape(page.intro)}</p>${page.sections.map(s => `<section><h2>${escape(s.title)}</h2><p>${escape(s.text)}</p></section>`).join('')}<h2>Your questions answered</h2>${page.faq.map(f => `<h3>${escape(f.question)}</h3><p>${escape(f.answer)}</p>`).join('')}<p><a href="/contact#booking-form">Book an appointment</a> · <a href="/gallery">See our work</a></p><nav>${links}</nav></main>`;
+  const body = `<main style="max-width:960px;margin:100px auto;padding:24px;font-family:system-ui;line-height:1.7"><a href="/">AK Wraps &amp; Customs</a><h1>${escape(page.title)}</h1><p>${escape(page.intro)}</p>${page.sections.map(s => `<section${s.id ? ' id="'+escape(s.id)+'"' : ''}><h2>${escape(s.title)}</h2><p>${escape(s.text)}</p></section>`).join('')}${page.faq.length ? '<h2>Your questions answered</h2>' : ''}${page.faq.map(f => `<h3>${escape(f.question)}</h3><p>${escape(f.answer)}</p>`).join('')}<p><a href="/contact#booking-form">Book an appointment</a> · <a href="/gallery">See our work</a></p><nav><a href="/services/">All services</a> · ${links}</nav></main>`;
   let html = template.replace(/<title>.*?<\/title>/s, `<title>${escape(title)}</title>`)
     .replace(/(<meta name="description"\s+content=")[^"]*/, `$1${escape(page.description)}`)
     .replace(/(<link rel="canonical" href=")[^"]*/, `$1${url}`)
@@ -19,7 +19,7 @@ for (const page of pages) {
   if (page.slug !== 'service-areas') {
     if (page.slug === 'paint-protection-film') {
       const price = amount => '$' + amount.toLocaleString('en-CA');
-      const promotion = '<section><h2>Full-body PPF package special</h2><p>Paint polishing, full-body self-healing PPF and Gtechniq ceramic coating.</p><p>Regular price <s>' + price(ppfOffer.regular) + '</s>. Starting at <strong>' + price(ppfOffer.special) + ' CAD</strong>. Save ' + price(ppfOffer.regular - ppfOffer.special) + '.</p><a href="tel:2364125010">Call the studio about this offer</a></section>';
+      const promotion = '<section id="ppf-pricing"><h2>Full-body PPF package special</h2><p>Paint polishing, full-body self-healing PPF and Gtechniq ceramic coating.</p><p>Regular price <s>' + price(ppfOffer.regular) + '</s>. Starting at <strong>' + price(ppfOffer.special) + ' CAD</strong>. Save ' + price(ppfOffer.regular - ppfOffer.special) + '.</p><a href="tel:2364125010">Call the studio about this offer</a></section>';
       html = html.replace('</h1>', '</h1>' + promotion);
     }
     const schema = {'@context':'https://schema.org','@type':'Service',name:page.title,description:page.description,url,provider:{'@id':'https://akwraps.ca/#business'}};
@@ -32,8 +32,10 @@ console.log(`Generated ${pages.length} crawlable service and visitor guides.`);
 
 // Supply a factual homepage summary before React loads, using the same public content.
 const business = JSON.parse(template.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
-const homeLinks = pages.map(p => `<li><a href="${p.slug === 'service-areas' ? '/service-areas' : `/services/${p.slug}`}">${escape(p.title)}</a></li>`).join('');
-const homeContent = `<main style="max-width:960px;margin:100px auto;padding:24px;font-family:system-ui;line-height:1.7"><h1>AK Wraps &amp; Customs</h1><h2>Car wraps, PPF, window tint and ceramic coating in Delta</h2><p>Visit AK Wraps &amp; Customs at 6165 BC-17A, Delta, BC. We welcome drivers from ${escape(business.areaServed.join(', '))}. All work takes place at our Delta studio.</p><p>Hours: Monday–Sunday, 12 PM–10 PM. Phone: <a href="tel:+12364125010">(236) 412-5010</a>. Email: <a href="mailto:ak.wraps.customs@gmail.com">ak.wraps.customs@gmail.com</a>.</p><nav aria-label="Service and location guides"><ul>${homeLinks}</ul></nav><p><a href="/gallery">Explore our vehicle projects</a> · <a href="/contact#booking-form">Book an appointment</a> · <a href="/about">About our studio</a></p></main>`;
+const homeDirectory = JSON.parse(fs.readFileSync('src/content/home-service-directory.json','utf8'));
+const homeNav = homeDirectory.map(group => '<h2>' + escape(group.city) + '</h2><ul>' +
+  group.links.map(link => '<li><a href="' + escape(link.href) + '">' + escape(link.label) + '</a></li>').join('') + '</ul>').join('');
+const homeContent = `<main style="max-width:960px;margin:100px auto;padding:24px;font-family:system-ui;line-height:1.7"><h1>AK Wraps &amp; Customs</h1><h2>Car wraps, PPF, window tint and ceramic coating in Delta</h2><p>Visit AK Wraps &amp; Customs at 6165 BC-17A, Delta, BC. Our mobile service covers ${escape(business.areaServed.join(', '))}. Contact us to arrange mobile service or an appointment at our main Delta studio.</p><p>Hours: Monday–Sunday, 12 PM–10 PM. Phone: <a href="tel:+12364125010">(236) 412-5010</a>. Email: <a href="mailto:ak.wraps.customs@gmail.com">ak.wraps.customs@gmail.com</a>.</p><nav id="local-services" aria-label="Service and location links">${homeNav}</nav><p><a href="/gallery">Explore our vehicle projects</a> · <a href="/contact#booking-form">Book an appointment</a> · <a href="/about">About our studio</a></p></main>`;
 fs.writeFileSync('dist/index.html', template.replace('<div id="root"></div>', `<div id="root">${homeContent}</div>`));
 
 // Emit real documents for known routes so GitHub Pages returns HTTP 200 on direct visits.
@@ -72,6 +74,13 @@ for (const [route] of routePages) {
  if (route === 'gallery') content = projectList(projects);
  if (route.startsWith('gallery/brands/')) content = projectList(projects.filter(p=>p.brand === route.split('/').at(-1)));
  if (route === 'services') content = `<section><h2>Choose a service</h2>${pages.filter(p=>p.slug !== 'service-areas').map(p=>`<article><h3><a href="/services/${p.slug}">${escape(p.title)}</a></h3><p>${escape(p.intro)}</p></article>`).join('')}</section>`;
+ if (route === 'services') {
+   content += '<section><h2>Everything we offer</h2>' + pages.filter(p => p.category).map(p =>
+     '<h3><a href="/services/' + p.slug + '/">' + escape(p.category) + '</a></h3><ul>' +
+     p.sections.filter(s => s.id).map(s => '<li><a href="/services/' + (s.destination || p.slug) + '/' +
+       (s.destination ? '' : '#' + s.id) + '">' + escape(s.title) + '</a></li>').join('') + '</ul>'
+   ).join('') + '</section>';
+ }
  if (content) html = html.replace('</main>', content+'</main>');
  fs.writeFileSync(file, html);
 }
@@ -118,8 +127,16 @@ console.log(`Generated sitemap with ${urls.length} indexable pages.`);
 
 // Match the visible regional visit guide in the initial HTML.
 const regions = JSON.parse(fs.readFileSync('src/content/service-regions.json', 'utf8'));
+const areaServices = JSON.parse(fs.readFileSync('src/content/area-service-links.json', 'utf8'));
+const areaDirectory = '<section><h2>Where we serve</h2><p>Mobile appointments are available in all these communities. Our main studio is in Delta.</p>' + regions.flatMap(region => region.cities).map(city =>
+  '<section><h3>' + escape(city) + '</h3><ul>' + areaServices.map(service =>
+    '<li><a href="' + service.path + '">' + escape(service.label) + ' for ' + escape(city) + ' drivers</a></li>'
+  ).join('') + '</ul></section>'
+).join('') + '</section>';
+const aboutFile = 'dist/about/index.html';
+fs.writeFileSync(aboutFile, fs.readFileSync(aboutFile, 'utf8').replace('</main>', areaDirectory + '</main>'));
 const regionalAddress = `${business.address.streetAddress}, ${business.address.addressLocality}, ${business.address.addressRegion} ${business.address.postalCode}`;
-const regionalHtml = `<section><h2>Plan your visit from Greater Vancouver</h2><p>All services are performed at ${escape(regionalAddress)}. Contact us to confirm your appointment.</p>${regions.map(r=>`<article><h3>${escape(r.title)}</h3><p>${escape(r.note)}</p><ul>${r.cities.map(city=>`<li><a href="https://www.google.com/maps/dir/?api=1&amp;origin=${encodeURIComponent(city+', BC')}&amp;destination=${encodeURIComponent(regionalAddress)}">${escape(city)} to our Delta studio</a></li>`).join('')}</ul></article>`).join('')}</section>`;
+const regionalHtml = `<section><h2>Mobile appointments and Delta studio directions</h2><p>Visit our main studio at ${escape(regionalAddress)} or request mobile service in any community below.</p>${regions.map(r=>`<article><h3>${escape(r.title)}</h3><p>${escape(r.note)}</p><ul>${r.cities.map(city=>`<li><a href="https://www.google.com/maps/dir/?api=1&amp;origin=${encodeURIComponent(city+', BC')}&amp;destination=${encodeURIComponent(regionalAddress)}">${escape(city)} to our Delta studio</a></li>`).join('')}</ul></article>`).join('')}</section>`;
 const areaFile = 'dist/service-areas/index.html';
 fs.writeFileSync(areaFile, fs.readFileSync(areaFile,'utf8').replace('</main>',regionalHtml+'</main>'));
 

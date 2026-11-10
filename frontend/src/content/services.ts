@@ -8,19 +8,10 @@ export interface Service {
   image: string;
   imageFallback?: string;
   tagline?: string;
+  quoteLink?: boolean;
 }
 
 export const featuredServices: Service[] = [
-  {
-    id: "vinyl-wraps",
-    title: "Vinyl Wraps",
-    tagline: "Bold colour, flawless finish",
-    description:
-      "Full and partial vinyl wraps in gloss, satin, matte, and specialty finishes — colour changes without repainting.",
-    price: "Tailored to your vehicle",
-    image: images.serviceVinylWrap,
-    imageFallback: images.serviceVinylWrapFallback,
-  },
   {
     id: "ppf",
     title: "Paint Protection Film",
@@ -32,14 +23,23 @@ export const featuredServices: Service[] = [
     imageFallback: images.servicePpfFallback,
   },
   {
-    id: "coloured-ppf",
-    title: "Coloured PPF",
-    tagline: "Colour and protection combined",
+    id: "vinyl-wraps",
+    title: "Vinyl Wraps",
+    tagline: "Bold colour, flawless finish",
     description:
-      "Premium coloured paint protection film that changes your vehicle's look while guarding against chips and UV damage.",
+      "Full and partial vinyl wraps in gloss, satin, matte, and specialty finishes — colour changes without repainting.",
     price: "Tailored to your vehicle",
-    image: images.serviceColouredPpf,
-    imageFallback: images.serviceColouredPpfFallback,
+    image: images.serviceVinylWrap,
+    imageFallback: images.serviceVinylWrapFallback,
+  },
+  {
+    id: "frontal-ppf",
+    quoteLink: true,
+    title: "Frontal PPF",
+    tagline: "Stone-chip protection for the front of your vehicle",
+    description: "Protect the front bumper, hood and front fenders with clear paint protection film. We confirm panel coverage and pricing for your vehicle.",
+    price: "Tailored to your vehicle",
+    image: images.servicePpf,
   },
   {
     id: "window-tints",
@@ -58,18 +58,18 @@ export const featuredServices: Service[] = [
     description:
       "Multi-stage paint correction followed by ceramic coating for deep shine, hydrophobic protection, and easier maintenance.",
     price: "Quote required",
-    image: images.serviceCeramic,
-    imageFallback: images.serviceCeramicFallback,
-  },
-  {
-    id: "wide-body-fabrication",
-    title: "Wide Body Kits & Custom Fabrication",
-    tagline: "Aggressive stance, built in-house",
-    description:
-      "Wide body kit fitting, custom panel fabrication, and structural modifications executed entirely at our Delta studio.",
-    price: "Quote required",
     image: images.serviceWideBody,
     imageFallback: images.serviceWideBodyFallback,
+  },
+  {
+    id: "coloured-ppf",
+    title: "Coloured PPF",
+    tagline: "Colour and protection combined",
+    description:
+      "Premium coloured paint protection film that changes your vehicle's look while guarding against chips and UV damage.",
+    price: "Tailored to your vehicle",
+    image: images.serviceColouredPpf,
+    imageFallback: images.serviceColouredPpfFallback,
   },
   {
     id: "custom-paint-matching",
@@ -81,80 +81,30 @@ export const featuredServices: Service[] = [
     image: images.servicePaintMatch,
     imageFallback: images.servicePaintMatchFallback,
   },
+  {
+    id: "wide-body-fabrication",
+    title: "Wide Body Kits & Custom Fabrication",
+    tagline: "Aggressive stance, built in-house",
+    description:
+      "Wide body kit fitting, custom panel fabrication, and structural modifications executed entirely at our Delta studio.",
+    price: "Quote required",
+    image: images.serviceCeramic,
+    imageFallback: images.serviceCeramicFallback,
+  },
+  {
+    id: "commercial-graphics", title: "Commercial Graphics", quoteLink: true,
+    tagline: "Vehicle lettering, decals and fleet branding",
+    description: "Bring your company branding onto work vehicles with commercial graphics and fleet decals.",
+    price: "Quote required", image: "/projects/DTToiaXEnkK.jpg",
+  },
+  {
+    id: "detailing", title: "Detailing Services", quoteLink: true,
+    tagline: "Interior and exterior vehicle care",
+    description: "Request detailing tailored to your vehicle and its condition.",
+    price: "Quote required", image: "/projects/DY1AnDpgfFk.jpg",
+  },
 ];
 
-export const serviceCategories = [
-  {
-    title: "Vinyl Wraps",
-    items: [
-      "Full Colour Change",
-      "Partial & Accent Wraps",
-      "Gloss, Satin & Matte Finishes",
-      "Chrome Delete",
-      "Commercial & Fleet Branding",
-    ],
-  },
-  {
-    title: "Paint Protection Film",
-    items: [
-      "Full Front Coverage",
-      "Full Body PPF",
-      "Track & High-Impact Packages",
-      "Self-Healing Clear Film",
-      "Stealth & Satin Finishes",
-    ],
-  },
-  {
-    title: "Coloured PPF",
-    items: [
-      "Solid Colour Films",
-      "Colour-Shift Options",
-      "Accent & Panel Coverage",
-      "Chip & Scratch Protection",
-      "UV-Resistant Finishes",
-    ],
-  },
-  {
-    title: "Window Tints",
-    items: [
-      "Ceramic Window Film",
-      "Heat & UV Rejection",
-      "Privacy Tint Packages",
-      "Windshield Tint Strips",
-      "Precision Computer-Cut Fit",
-    ],
-  },
-  {
-    title: "Ceramic Coating & Paint Correction",
-    items: [
-      "Single & Multi-Stage Correction",
-      "Swirl & Scratch Removal",
-      "Ceramic Paint Coating",
-      "Wheel & Glass Coating",
-      "Gloss Enhancement",
-    ],
-  },
-  {
-    title: "Wide Body Kits & Custom Fabrication",
-    items: [
-      "Wide Body Kit Installation",
-      "Custom Panel Fabrication",
-      "Bumper & Fender Modification",
-      "Fitment & Alignment",
-      "Structural Reinforcement",
-    ],
-  },
-  {
-    title: "Custom Paint Matching",
-    items: [
-      "Factory Colour Matching",
-      "Custom Mix Formulas",
-      "Panel & Accent Painting",
-      "Blend & Feather Techniques",
-      "Clear Coat & Finish Work",
-    ],
-  },
-];
 
 export const pricing = [
   { service: "Vinyl Wraps", price: "Vehicle-specific quote" },
@@ -170,6 +120,7 @@ export const pricing = [
     price: "Quote required",
   },
   { service: "Custom Paint Matching", price: "Quote required" },
+  ...featuredServices.filter(service => service.quoteLink).map(({title, price}) => ({service: title, price})),
 ];
 
 export const faqs = [

@@ -36,7 +36,7 @@ export function PortfolioGrid({
   };
 
   return (
-    <Section variant="default" id="portfolio" className="[content-visibility:visible]">
+    <Section variant="default" id="portfolio" className={showCta ? "[content-visibility:visible] pb-7! sm:pb-10!" : "[content-visibility:visible]"}>
       <SectionHeading
         eyebrow="AK Builds"
         title="Our Work"
@@ -96,10 +96,10 @@ export function PortfolioGrid({
 
       {showCta && (
         <>
-          <p className="type-caption mt-4 text-center text-white/35 sm:hidden">
+          <p className="type-caption mt-2 text-center text-white/35 sm:hidden">
             Swipe to browse projects
           </p>
-          <MotionReveal delay={200} className="mt-10 text-center sm:mt-20">
+          <MotionReveal delay={200} className="mt-4 text-center sm:mt-8">
             <Button variant="default" size="lg" asChild>
               <Link to={routes.gallery}>View Full Gallery</Link>
             </Button>

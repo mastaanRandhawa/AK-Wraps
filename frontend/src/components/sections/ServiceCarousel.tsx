@@ -105,7 +105,7 @@ export function ServiceCarousel({
   };
 
   return (
-    <Section variant="elevated" id="services" fullWidth className="relative overflow-hidden">
+    <Section variant="elevated" id="services" fullWidth className={cn("relative overflow-hidden", showPartners && "pb-5! sm:pb-8!")}>
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.12]"
         aria-hidden="true"
@@ -122,7 +122,7 @@ export function ServiceCarousel({
           <SectionHeading
             eyebrow="AK Wraps & Customs"
             title="Our Services"
-            description="Wraps, protection, tint, coatings, and custom fabrication — all performed in-house at our Delta studio."
+            description="Wraps, protection, tint, coatings, and custom fabrication. Visit our Delta studio or ask about mobile service."
             className="flex-1 min-w-0"
           />
           <div className="mb-[var(--spacing-heading-gap)] hidden shrink-0 gap-3 sm:flex">
@@ -151,7 +151,7 @@ export function ServiceCarousel({
                   cardRefs.current[index] = el;
                 }}
                 variant="service"
-                to={service.id === "ppf" ? "/services/paint-protection-film/" : undefined}
+                to={service.id === "ppf" ? "/services/paint-protection-film/" : service.quoteLink ? `/contact?service=${encodeURIComponent(service.title)}#booking-form` : undefined}
                 image={service.image}
                 imageFallback={service.imageFallback}
                 alt={service.title}
@@ -167,11 +167,11 @@ export function ServiceCarousel({
           </div>
         </div>
 
-        <p className="type-caption mt-4 text-center text-white/35 sm:hidden">
+        <p className="type-caption mt-3 text-center text-white/35 sm:hidden">
           Swipe to browse services
         </p>
 
-        <div className="mt-4 flex items-center justify-center gap-2 sm:mt-8">
+        <div className="mt-3 flex items-center justify-center gap-2 sm:mt-6">
           {featured.map((service, index) => (
             <button
               key={service.id}
@@ -188,11 +188,11 @@ export function ServiceCarousel({
           ))}
         </div>
 
-        <div className="mt-5 text-center"><Link className="inline-flex min-h-11 items-center text-sm text-accent underline underline-offset-4" to="/services">Compare coverage, finishes &amp; care →</Link></div>
+        <div className="mt-2 text-center"><Link className="inline-flex min-h-11 items-center text-sm text-accent underline underline-offset-4" to="/services">Compare coverage, finishes &amp; care →</Link></div>
 
         {showPartners && (
-          <div className="mt-10 pt-6 sm:mt-14 sm:pt-8">
-            <div className="fade-divider mx-auto mb-6 max-w-5xl sm:mb-8" />
+          <div className="mt-6 sm:mt-9">
+            <div className="fade-divider mx-auto mb-2 max-w-5xl sm:mb-3" />
             <PartnerMarquee partners={partnerBrands} />
           </div>
         )}

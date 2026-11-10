@@ -2,6 +2,7 @@ import { JarvisBooking } from "@/components/hero/JarvisBooking";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Phone } from "lucide-react";
+import ppfOffer from "@/content/ppf-offer.json";
 import { NAVBAR_OFFSET } from "@/config/layout";
 import { site } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -16,6 +17,7 @@ import {
 } from "@/components/hero/HeroSocialProof";
 
 interface CallToAction {
+  className?: string;
   text: string;
   href: string;
   variant: "primary" | "secondary" | "ghost";
@@ -128,7 +130,7 @@ export function HeroLanding({
 
       <div
         className={cn(
-          "relative z-10 flex flex-col px-5 sm:px-8 lg:px-12",
+          "hero-content relative z-10 flex flex-col px-5 sm:px-8 lg:px-12",
           align === "bottom"
             ? compact
               ? "min-h-[calc(45vh-var(--navbar-offset))] justify-end pb-12 sm:min-h-[calc(50vh-var(--navbar-offset))] sm:pb-16"
@@ -156,9 +158,26 @@ export function HeroLanding({
                   <p className="type-small text-muted-foreground">{description}</p>
                 </RevealFade>
               )}
+              {primaryCta && <Button asChild size="lg" className="jarvis-book-pulse mt-6 shadow-[0_0_22px_#01c8f955]"><Link to={primaryCta.href}>{primaryCta.text}</Link></Button>}
             </div>
           ) : (
             <>
+              <Link
+                to="/services/paint-protection-film/"
+                aria-label={`View the full-body PPF special offer, from $${ppfOffer.special.toLocaleString("en-CA")} CAD`}
+                className="ppf-promo-badge relative -top-3 mb-4 inline-flex min-h-11 max-w-full items-center gap-1.5 rounded-md bg-black/80 px-2 py-1 text-white ring-1 ring-accent/45 hover:ring-accent focus-visible:outline-2 focus-visible:outline-accent sm:mb-9"
+              >
+                <svg aria-hidden="true" viewBox="0 0 40 46" className="h-8 w-7 shrink-0 text-accent">
+                  <path d="M20 2 37 7v14c0 10-8 17-17 22C11 38 3 31 3 21V7Z" fill="#071b25" stroke="currentColor" strokeWidth="2"/>
+                  <path d="m10 11 5-2h15l-5 3H10Zm3 21h14l-7 6Z" fill="currentColor"/>
+                  <text x="20" y="26" textAnchor="middle" fill="white" fontFamily="Arial,sans-serif" fontSize="13" fontWeight="900">PPF</text>
+                </svg>
+                <span>
+                  <span className="block text-[10px] font-bold uppercase tracking-wide text-accent">Full-body special</span>
+                  <span className="block text-xs font-semibold">From ${ppfOffer.special.toLocaleString("en-CA")} CAD</span>
+                </span>
+
+              </Link>
               <JarvisBooking />
                 <div className="grid gap-4 sm:gap-6 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-5 xl:gap-x-10">
                 {badge && (
@@ -205,7 +224,7 @@ export function HeroLanding({
                                 : "secondary"
                           }
                           size="lg"
-                          className="shrink-0"
+                          className={cn("shrink-0", primaryCta.className)}
                           asChild
                         >
                           {primaryCta.href.startsWith("http") ||

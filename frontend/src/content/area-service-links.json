@@ -1,0 +1,14 @@
+[
+  {
+    "label": "Vinyl wraps",
+    "path": "/services/car-wraps/"
+  },
+  {
+    "label": "Paint protection film (PPF)",
+    "path": "/services/paint-protection-film/"
+  },
+  {
+    "label": "Window tint",
+    "path": "/services/window-tint/"
+  }
+]

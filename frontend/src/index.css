@@ -117,6 +117,10 @@
     padding-bottom: var(--spacing-section-y);
   }
 
+  #vehicle-brands + #portfolio {
+    padding-top: clamp(1.5rem, 2vw, 2.5rem);
+  }
+
   .container-padding {
     padding-left: var(--spacing-container-x);
     padding-right: var(--spacing-container-x);
@@ -727,3 +731,51 @@ body { position: relative; touch-action: pan-y pinch-zoom; }
   filter: drop-shadow(0 0 10px rgb(51 215 242 / 18%));
 }
 .ppf-page .ppf-warranty p.text-accent { color: var(--color-accent); }
+
+#booking-form.quote-panel {
+  border-color: #23819b;
+  background: linear-gradient(155deg, #102633 0%, #080f17 28%, #070c12 85%);
+  box-shadow: 0 10px 30px #0006;
+}
+.quote-panel label { color: #eaf6fb; }
+.quote-panel :is(input:not([type=hidden]), select, textarea) {
+  background: #080f16;
+  border-color: #435461;
+  color: white;
+  font-size: 1rem;
+  letter-spacing: normal;
+}
+.quote-panel :is(input, textarea)::placeholder { color: #aabac4; }
+.quote-panel :is(input, select, textarea):focus-visible { outline: 2px solid var(--color-accent); }
+
+.services-index-hero {
+  min-height: calc(var(--navbar-offset) + clamp(8.5rem, 19svh, 14rem));
+  display: flex;
+  flex-direction: column;
+}
+.services-index-hero .hero-content {
+  min-height: auto;
+  margin-top: auto;
+  padding-block: 1rem 1.5rem;
+}
+@media (min-width: 640px) {
+  .services-index-hero .hero-content { padding-bottom: 2rem; }
+}
+.services-index-hero .hero-content .type-label {
+  margin-bottom: 0.25rem;
+}
+
+@keyframes ppf-promo-enter {
+  from { visibility: hidden; opacity: 0; transform: scale(.9); }
+  to { visibility: visible; opacity: 1; transform: scale(1); }
+}
+@keyframes ppf-promo-pulse {
+  50% { transform: scale(1.035); box-shadow: 0 0 14px #33d7f24d; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ppf-promo-badge {
+    transform-origin: left center;
+    animation: ppf-promo-enter .3s ease-out 1s backwards, ppf-promo-pulse 2.6s ease-in-out 1.3s infinite;
+  }
+  .ppf-promo-badge:is(:hover, :focus-visible) { animation-play-state: running, paused; }
+}

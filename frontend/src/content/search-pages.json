@@ -28,6 +28,31 @@
       {
         "title": "What your consultation should cover",
         "text": "Confirm the film, covered panels and whether door returns, trim removal or existing wrap removal are included. We will discuss your paint condition and desired finish before agreeing on the scope. Bring reference images, and review our documented builds for examples."
+      },
+      {
+        "title": "Full Colour Change",
+        "text": "Change the exterior colour with vinyl. Discuss visible painted panels, door jambs and trim before selecting a finish.",
+        "id": "full-colour-change"
+      },
+      {
+        "title": "Partial & Accent Wraps",
+        "text": "Choose individual panels such as the roof, mirrors or hood for a contrasting accent.",
+        "id": "partial-accent-wraps"
+      },
+      {
+        "title": "Gloss, Satin & Matte Finishes",
+        "text": "Compare physical film samples on your vehicle to see how each finish reflects light.",
+        "id": "gloss-satin-matte-finishes"
+      },
+      {
+        "title": "Chrome Delete",
+        "text": "Cover selected bright trim with vinyl. Bring photos of the window surrounds and badges you want changed.",
+        "id": "chrome-delete"
+      },
+      {
+        "title": "Commercial & Fleet Branding",
+        "text": "For logos, lettering and coordinated fleet graphics, discuss the artwork and vehicle measurements.",
+        "id": "commercial-fleet-branding"
       }
     ],
     "faq": [
@@ -48,14 +73,15 @@
         "answer": "Look for relevant completed work, a clear written scope, an explanation of the film and preparation, and product-specific care and warranty terms. Ask to see work on similar body shapes and discuss the finish you expect before comparing quotes."
       },
       {
-        "question": "Where is your shop, and can I visit from another city?",
-        "answer": "Our shop is at 6165 BC-17A, Delta, BC V4K 4E2. We welcome Greater Vancouver drivers at this location. Contact us to agree on scope, drop-off and collection before travelling; we do not claim a branch in every city."
+        "question": "Where is the studio, and do you offer mobile service?",
+        "answer": "Our main studio is at 6165 BC-17A, Delta, BC V4K 4E2. We also offer mobile service throughout Greater Vancouver and the Fraser Valley. Send your location and vehicle details so we can confirm availability for your project."
       },
       {
         "question": "What happens after I enquire?",
         "answer": "We review your vehicle and goals, discuss preparation and material options, and confirm scope, pricing and timing with you. Ask for the selected product’s warranty and care instructions before booking. Sending the form does not reserve an appointment."
       }
-    ]
+    ],
+    "category": "Vinyl Wraps"
   },
   {
     "slug": "paint-protection-film",
@@ -86,6 +112,32 @@
       {
         "title": "PPF and ceramic coating serve different purposes",
         "text": "PPF is a physical film designed to help protect the surfaces it covers. Ceramic coating is a surface treatment that can make maintenance easier. It is not a substitute for film against stone impacts. Discuss whether a compatible combination fits your goals."
+      },
+      {
+        "title": "Frontal PPF (full front coverage)",
+        "text": "Ask for a front bumper, hood, fender and mirror coverage list specific to your vehicle.",
+        "id": "frontal-ppf-full-front-coverage",
+        "destination": "frontal-ppf"
+      },
+      {
+        "title": "Full Body PPF",
+        "text": "Protect painted exterior panels with a full-body installation. Review the coverage diagram and package price above.",
+        "id": "full-body-ppf"
+      },
+      {
+        "title": "Track & High-Impact Packages",
+        "text": "Identify exposed surfaces such as rocker panels, rear quarters and the front splitter before choosing coverage.",
+        "id": "track-high-impact-packages"
+      },
+      {
+        "title": "Self-Healing Clear Film",
+        "text": "Clear film preserves the paint colour. Its top layer can recover from light marks with warmth.",
+        "id": "self-healing-clear-film"
+      },
+      {
+        "title": "Stealth & Satin Finishes",
+        "text": "Compare satin film samples on your paint to assess sheen and colour before installation.",
+        "id": "stealth-satin-finishes"
       }
     ],
     "faq": [
@@ -126,8 +178,8 @@
         "answer": "If you are comparing STEK PPF, 3M paint protection film or another brand, ask for the exact series on each quote. Compare panel coverage, edge finishing, aftercare and written warranty terms. Contact our Delta studio to confirm availability for your preferred film."
       },
       {
-        "question": "Where is your shop, and can I visit from another city?",
-        "answer": "Our shop is at 6165 BC-17A, Delta, BC V4K 4E2. We welcome Greater Vancouver drivers at this location. Contact us to agree on scope, drop-off and collection before travelling; we do not claim a branch in every city."
+        "question": "Where is the studio, and do you offer mobile service?",
+        "answer": "Our main studio is at 6165 BC-17A, Delta, BC V4K 4E2. We also offer mobile service throughout Greater Vancouver and the Fraser Valley. Send your location and vehicle details so we can confirm availability for your project."
       },
       {
         "question": "How do I get a Tesla PPF quote?",
@@ -137,7 +189,8 @@
         "question": "Should I choose matte PPF or a vinyl wrap?",
         "answer": "Matte PPF combines a low-gloss finish with paint protection film. A vinyl wrap is typically chosen for a colour or styling change. Tell us the look you want and whether stone-chip protection is a priority so we can discuss suitable materials."
       }
-    ]
+    ],
+    "category": "Paint Protection Film"
   },
   {
     "slug": "window-tint",
@@ -164,6 +217,31 @@
       {
         "title": "Comfort, appearance and maintenance",
         "text": "Compare the specific film data and agreed windows rather than choosing by shade alone. Ask about existing-film removal, curing and cleaning. Product performance and suitable coverage should be confirmed for your vehicle before installation."
+      },
+      {
+        "title": "Ceramic Window Film",
+        "text": "Compare ceramic film shades on the glass you want treated.",
+        "id": "ceramic-window-film"
+      },
+      {
+        "title": "Heat & UV Rejection",
+        "text": "Ask for the selected film’s heat and ultraviolet performance data when comparing shades.",
+        "id": "heat-uv-rejection"
+      },
+      {
+        "title": "Privacy Tint Packages",
+        "text": "Tell us which windows need more privacy so we can discuss suitable coverage.",
+        "id": "privacy-tint-packages"
+      },
+      {
+        "title": "Windshield Tint Strips",
+        "text": "Discuss placement and suitability for your particular windshield.",
+        "id": "windshield-tint-strips"
+      },
+      {
+        "title": "Precision Computer-Cut Fit",
+        "text": "We assess glass shape and pattern availability when planning the film cut.",
+        "id": "precision-computer-cut-fit"
       }
     ],
     "faq": [
@@ -177,17 +255,18 @@
       },
       {
         "question": "What does the warranty cover?",
-        "answer": "Ask for the warranty terms for the selected product and installation before booking. Manufacturer coverage and installation workmanship are different; duration, exclusions and maintenance requirements depend on the agreed product and scope."
+        "answer": "Our window tint includes a lifetime warranty. Contact the studio for the written coverage, exclusions and care requirements for your installation."
       },
       {
-        "question": "Where is your shop, and can I visit from another city?",
-        "answer": "Our shop is at 6165 BC-17A, Delta, BC V4K 4E2. We welcome Greater Vancouver drivers at this location. Contact us to agree on scope, drop-off and collection before travelling; we do not claim a branch in every city."
+        "question": "Where is the studio, and do you offer mobile service?",
+        "answer": "Our main studio is at 6165 BC-17A, Delta, BC V4K 4E2. We also offer mobile service throughout Greater Vancouver and the Fraser Valley. Send your location and vehicle details so we can confirm availability for your project."
       },
       {
         "question": "What happens after I enquire?",
         "answer": "We review your vehicle and goals, discuss preparation and material options, and confirm scope, pricing and timing with you. Ask for the selected product’s warranty and care instructions before booking. Sending the form does not reserve an appointment."
       }
-    ]
+    ],
+    "category": "Window Tints"
   },
   {
     "slug": "ceramic-coating",
@@ -214,6 +293,31 @@
       {
         "title": "Choose preparation before a durability label",
         "text": "A coating is applied over the finish underneath it. Compare the assessment, cleaning and polishing included in each quote, then the selected coating and its care requirements. A stated durability period is not a promise that every scratch, stain or maintenance issue is covered."
+      },
+      {
+        "title": "Single & Multi-Stage Correction",
+        "text": "We assess the paint before recommending one polishing stage or a more involved correction.",
+        "id": "single-multi-stage-correction"
+      },
+      {
+        "title": "Swirl & Scratch Removal",
+        "text": "An inspection helps distinguish polishable swirls from scratches that require repair.",
+        "id": "swirl-scratch-removal"
+      },
+      {
+        "title": "Ceramic Paint Coating",
+        "text": "Choose a coating after reviewing the condition and preparation of the painted panels.",
+        "id": "ceramic-paint-coating"
+      },
+      {
+        "title": "Wheel & Glass Coating",
+        "text": "Specify whether the quote should cover glass, wheel faces or additional wheel surfaces.",
+        "id": "wheel-glass-coating"
+      },
+      {
+        "title": "Gloss Enhancement",
+        "text": "Polishing refines the surface before coating to improve clarity and reflections.",
+        "id": "gloss-enhancement"
       }
     ],
     "faq": [
@@ -230,28 +334,29 @@
         "answer": "Ask for the warranty terms for the selected product and installation before booking. Manufacturer coverage and installation workmanship are different; duration, exclusions and maintenance requirements depend on the agreed product and scope."
       },
       {
-        "question": "Where is your shop, and can I visit from another city?",
-        "answer": "Our shop is at 6165 BC-17A, Delta, BC V4K 4E2. We welcome Greater Vancouver drivers at this location. Contact us to agree on scope, drop-off and collection before travelling; we do not claim a branch in every city."
+        "question": "Where is the studio, and do you offer mobile service?",
+        "answer": "Our main studio is at 6165 BC-17A, Delta, BC V4K 4E2. We also offer mobile service throughout Greater Vancouver and the Fraser Valley. Send your location and vehicle details so we can confirm availability for your project."
       },
       {
         "question": "What happens after I enquire?",
         "answer": "We review your vehicle and goals, discuss preparation and material options, and confirm scope, pricing and timing with you. Ask for the selected product’s warranty and care instructions before booking. Sending the form does not reserve an appointment."
       }
-    ]
+    ],
+    "category": "Ceramic Coating & Paint Correction"
   },
   {
     "slug": "service-areas",
-    "title": "Car Wraps, PPF, Tint & Ceramic Coating | Greater Vancouver",
-    "description": "Visit AK Wraps & Customs in Delta for wraps, PPF, tint and ceramic coating. Welcoming drivers from Surrey, Richmond, Vancouver and the Lower Mainland.",
-    "intro": "Choose your community below to plan a visit to our Delta studio for car wrapping, paint protection film installation, window tint or ceramic coating. All installations take place at AK Wraps & Customs in Delta; contact us before travelling.",
+    "title": "Mobile vehicle services & Delta studio | Greater Vancouver",
+    "description": "Mobile car wraps, PPF and window tint enquiries across Greater Vancouver and the Fraser Valley. Book at your location or our main studio in Delta.",
+    "intro": "Our main studio is at 6165 BC-17A, Delta, BC V4K 4E2. We also offer mobile service throughout the communities listed below. Send your location and vehicle details so we can confirm availability for your project.",
     "sections": [
       {
-        "title": "Visit from across the Lower Mainland",
-        "text": "Whether you are nearby in Surrey or Richmond, or travelling from Vancouver, Burnaby, White Rock or New Westminster, contact us before arriving so we can discuss your vehicle and arrange a suitable time."
+        "title": "Book mobile service in your community",
+        "text": "Tell us your city, vehicle and requested coverage. We’ll discuss access, workspace and appointment options with you."
       },
       {
         "title": "Planning a trip from Langley, Abbotsford or Coquitlam",
-        "text": "Confirm the project scope, drop-off and estimated collection date before making travel arrangements. Full wraps and other extensive work may require multiple days; our team will discuss timing for your vehicle."
+        "text": "For mobile service, share your location and preferred dates. If you choose a studio visit, confirm drop-off and pickup before travelling."
       },
       {
         "title": "Choose the service that suits your vehicle",
@@ -259,22 +364,185 @@
       },
       {
         "title": "Find our Delta studio",
-        "text": "Visit 6165 BC-17A, Delta, BC. Our hours are Monday through Sunday, 12 PM to 10 PM. Call (236) 412-5010 to discuss your visit. All work is performed at our Delta studio; an enquiry does not confirm an appointment."
+        "text": "Visit our main studio at 6165 BC-17A, Delta, BC, or call (236) 412-5010 to arrange a mobile appointment."
       }
     ],
     "faq": [
       {
-        "question": "Do you have shops in each city?",
-        "answer": "No. AK Wraps & Customs operates from one studio in Delta. We welcome customers from the surrounding cities to arrange their work with us here."
+        "question": "Can you come to my location?",
+        "answer": "Yes. Our main shop is in Delta and our mobile team serves all listed areas. Send your address and the service you need so we can plan your appointment."
       },
       {
         "question": "What should I send for a quote?",
         "answer": "Provide your contact details, vehicle year, make and model, the services you want and any relevant photos or existing damage. Our team will confirm the scope, price and availability."
-      },
-      {
-        "question": "Will you be the closest shop when I search for a service near me?",
-        "answer": "That depends on your location. Our physical shop is in Delta. Use the directions for your community to compare the trip, then discuss your vehicle and appointment with us. We welcome enquiries across Greater Vancouver, but do not offer a branch or mobile installation in each city."
       }
     ]
+  },
+  {
+    "slug": "coloured-ppf",
+    "title": "Coloured PPF in Delta, BC",
+    "description": "Coloured PPF at AK Wraps & Customs in Delta. Look at solid-colour film samples under daylight and studio lighting.",
+    "intro": "View a colour-shift sample from several angles before choosing the film.",
+    "sections": [
+      {
+        "title": "Solid Colour Films",
+        "text": "Look at solid-colour film samples under daylight and studio lighting.",
+        "id": "solid-colour-films"
+      },
+      {
+        "title": "Colour-Shift Options",
+        "text": "View a colour-shift sample from several angles before choosing the film.",
+        "id": "colour-shift-options"
+      },
+      {
+        "title": "Accent & Panel Coverage",
+        "text": "Choose the body panels or accent pieces you want to protect and change in colour.",
+        "id": "accent-panel-coverage"
+      },
+      {
+        "title": "Chip & Scratch Protection",
+        "text": "A coloured protective layer helps reduce wear from road grit on the panels it covers.",
+        "id": "chip-scratch-protection"
+      },
+      {
+        "title": "UV-Resistant Finishes",
+        "text": "Review the selected film’s UV specifications and written care instructions before booking.",
+        "id": "uv-resistant-finishes"
+      }
+    ],
+    "faq": [],
+    "category": "Coloured PPF"
+  },
+  {
+    "slug": "wide-body-fabrication",
+    "title": "Wide Body Kits & Custom Fabrication in Delta, BC",
+    "description": "Wide Body Kits & Custom Fabrication at AK Wraps & Customs in Delta. Bring the kit details and vehicle model so we can assess panel fit and mounting.",
+    "intro": "Discuss the shape, material and attachment points needed for a bespoke panel.",
+    "sections": [
+      {
+        "title": "Wide Body Kit Installation",
+        "text": "Bring the kit details and vehicle model so we can assess panel fit and mounting.",
+        "id": "wide-body-kit-installation"
+      },
+      {
+        "title": "Custom Panel Fabrication",
+        "text": "Discuss the shape, material and attachment points needed for a bespoke panel.",
+        "id": "custom-panel-fabrication"
+      },
+      {
+        "title": "Bumper & Fender Modification",
+        "text": "We assess the bumper or fender against the proposed kit and wheel clearance.",
+        "id": "bumper-fender-modification"
+      },
+      {
+        "title": "Fitment & Alignment",
+        "text": "Panel gaps and mounting positions are checked together during test fitting.",
+        "id": "fitment-alignment"
+      },
+      {
+        "title": "Structural Reinforcement",
+        "text": "Discuss mounting loads and reinforcement requirements during the build assessment.",
+        "id": "structural-reinforcement"
+      }
+    ],
+    "faq": [],
+    "category": "Wide Body Kits & Custom Fabrication"
+  },
+  {
+    "slug": "custom-paint-matching",
+    "title": "Custom Paint Matching in Delta, BC",
+    "description": "Custom Paint Matching at AK Wraps & Customs in Delta. We compare the paint code with the finish on the vehicle before selecting a match.",
+    "intro": "Bring a sample or colour reference for the proposed mix.",
+    "sections": [
+      {
+        "title": "Factory Colour Matching",
+        "text": "We compare the paint code with the finish on the vehicle before selecting a match.",
+        "id": "factory-colour-matching"
+      },
+      {
+        "title": "Custom Mix Formulas",
+        "text": "Bring a sample or colour reference for the proposed mix.",
+        "id": "custom-mix-formulas"
+      },
+      {
+        "title": "Panel & Accent Painting",
+        "text": "Identify individual panels, trim or accent pieces for an itemized refinishing quote.",
+        "id": "panel-accent-painting"
+      },
+      {
+        "title": "Blend & Feather Techniques",
+        "text": "Adjacent panels and existing paint condition guide the blending plan.",
+        "id": "blend-feather-techniques"
+      },
+      {
+        "title": "Clear Coat & Finish Work",
+        "text": "The final clear finish is assessed alongside neighbouring panels for gloss and consistency.",
+        "id": "clear-coat-finish-work"
+      }
+    ],
+    "faq": [],
+    "category": "Custom Paint Matching"
+  },
+  {
+    "slug": "commercial-graphics",
+    "title": "Commercial Graphics in Delta, BC",
+    "description": "Commercial Graphics at AK Wraps & Customs in Delta. Add a business name, phone number or logo in lettering sized for the vehicle.",
+    "intro": "Coordinate decals across multiple vehicles using your artwork and fleet measurements.",
+    "sections": [
+      {
+        "title": "Vehicle lettering",
+        "text": "Add a business name, phone number or logo in lettering sized for the vehicle.",
+        "id": "vehicle-lettering"
+      },
+      {
+        "title": "Fleet decals",
+        "text": "Coordinate decals across multiple vehicles using your artwork and fleet measurements.",
+        "id": "fleet-decals"
+      },
+      {
+        "title": "Commercial wraps",
+        "text": "Plan branded panel coverage around doors, body lines and existing equipment.",
+        "id": "commercial-wraps"
+      }
+    ],
+    "faq": [],
+    "category": "Commercial Graphics"
+  },
+  {
+    "slug": "detailing",
+    "title": "Detailing Services in Delta, BC",
+    "description": "Detailing Services at AK Wraps & Customs in Delta. Identify the cabin surfaces and areas that need attention, including upholstery and trim.",
+    "intro": "Send photos of the exterior condition to plan cleaning for paint, trim and wheels.",
+    "sections": [
+      {
+        "title": "Interior detailing",
+        "text": "Identify the cabin surfaces and areas that need attention, including upholstery and trim.",
+        "id": "interior-detailing"
+      },
+      {
+        "title": "Exterior detailing",
+        "text": "Send photos of the exterior condition to plan cleaning for paint, trim and wheels.",
+        "id": "exterior-detailing"
+      }
+    ],
+    "faq": [],
+    "category": "Detailing Services"
+  },
+  {
+    "slug": "frontal-ppf",
+    "title": "Frontal PPF in Delta, BC",
+    "description": "Request front-end paint protection film for your bumper, hood and fenders at our Delta studio.",
+    "intro": "Front-end PPF concentrates protection on the painted surfaces most exposed to flying road grit.",
+    "sections": [
+      {
+        "title": "Choose your front panel coverage",
+        "text": "Tell us your year, make and model. We will confirm bumper, hood, front fender and mirror coverage and edge treatment in your quote."
+      },
+      {
+        "title": "Preparing the paint",
+        "text": "Send photos of existing chips, repainted panels or old film so we can discuss preparation before fitting new film."
+      }
+    ],
+    "faq": []
   }
 ]

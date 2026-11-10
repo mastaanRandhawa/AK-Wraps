@@ -42,7 +42,7 @@ const filmBenefits = [
 ];
 const enquire = "I would like a quote for the " + money(offer.special) + " full-body PPF promotion with Gtechniq ceramic coating.";
 
-export function PpfOverview({ faq }: { faq: {question: string; answer: string}[] }) {
+export function PpfOverview({ faq, coverageOptions }: { coverageOptions: {id?: string; title:string; text:string}[]; faq: {question: string; answer: string}[] }) {
   const [extras, setExtras] = useState<string[]>([]);
   return <div className="ppf-page text-white">
     <JarvisBooking popupOnly delayMs={5000} initialService="Paint Protection Film" />
@@ -71,6 +71,7 @@ export function PpfOverview({ faq }: { faq: {question: string; answer: string}[]
           <article key={title} className="ppf-panel rounded-lg border border-white/15 bg-white/[0.04] p-6"><Icon aria-hidden="true" className="mb-5 text-accent"/><h3 className="text-xl font-bold">{title}</h3><p className="mt-3 leading-relaxed text-white/70">{text}</p></article>)}</div>
       </section>
       <F12Coverage/>
+      <section className="mt-8"><h2 className="text-2xl font-bold">Film and coverage options</h2><dl className="mt-4 grid gap-4 sm:grid-cols-2">{coverageOptions.map(option => <div key={option.id} id={option.id} className="scroll-mt-28"><dt className="font-bold">{option.title}</dt><dd className="mt-1 text-sm text-white/80">{option.text}</dd></div>)}</dl><Link className="mt-4 inline-block text-accent underline" to="/services/">Explore all services</Link></section>
       <section id="ppf-warranty" aria-labelledby="ppf-warranty-title" className="ppf-panel ppf-warranty mx-auto mt-12 max-w-[25rem] scroll-mt-28 rounded-[20px] border px-6 pb-8 pt-7 text-center">
         <div aria-hidden="true" className="ppf-warranty-type"><span className="block text-[6rem] leading-[.88] text-accent">10</span><span className="block text-2xl leading-none tracking-widest">Years</span></div>
         <p className="mt-9 text-xs font-black uppercase tracking-[.18em] text-accent">Peace of mind</p>

@@ -1,4 +1,20 @@
 [
-  {"title":"Vinyl wraps","duration":"2 years","coverage":"Installation workmanship","description":"Our vinyl wraps include a two-year installation warranty."},
-  {"title":"Paint protection film","duration":"10 years","coverage":"Film and installation","description":"Our PPF includes a ten-year warranty covering both the film and installation."}
+  {
+    "title": "Vinyl wraps",
+    "duration": "2 years",
+    "coverage": "Installation workmanship",
+    "description": "Our vinyl wraps include a two-year installation warranty."
+  },
+  {
+    "title": "Paint protection film",
+    "duration": "10 years",
+    "coverage": "Film and installation",
+    "description": "Our PPF includes a ten-year warranty covering both the film and installation."
+  },
+  {
+    "title": "Window tint",
+    "duration": "Lifetime",
+    "coverage": "Window tint warranty",
+    "description": "Window tint includes a lifetime warranty. Ask us for the written terms for your installation."
+  }
 ]

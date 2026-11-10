@@ -26,6 +26,8 @@ export const site = {
   tiktok: "https://www.tiktok.com/@akwrapscustoms",
   serviceAreas: [
   "Delta",
+  "Ladner",
+  "Tsawwassen",
   "Surrey",
   "White Rock",
   "Vancouver",

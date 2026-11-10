@@ -5,7 +5,7 @@ import { routes } from "@/config/routes";
 import type { PageHeroKey } from "@/config/hero-gradients";
 
 const homeCallToActions = [
-  { text: "Explore Services", href: routes.services, variant: "ghost" as const },
+  { text: "Explore Services", href: routes.services, variant: "ghost" as const, className: "border-2 border-[#33d7f2] shadow-[0_0_12px_#33d7f25c] hover:border-[#83efff] focus-visible:ring-[#33d7f2]" },
 ];
 
 const pageHeroImages: Record<PageHeroKey, string> = {
@@ -24,9 +24,10 @@ interface HomeHeroProps {
 }
 
 interface PageHeroProps {
+  className?: string;
   page: PageHeroKey;
   title: string;
-  description: string;
+  description?: string;
   badge?: string;
 }
 
@@ -50,6 +51,7 @@ export function HeroSection(props: HeroSectionProps) {
 
   return (
     <HeroLanding
+      className={isPage ? props.className : undefined}
       title={title}
       titleHref={isPage && props.page === "contact" ? routes.booking : undefined}
       titleLines={isPage ? undefined : site.heroTitleLines}
@@ -61,7 +63,7 @@ export function HeroSection(props: HeroSectionProps) {
       backgroundVideo={isPage ? undefined : videoSrc}
       backgroundVideoMobile={isPage || import.meta.env.VITE_HERO_VIDEO_URL ? undefined : `${import.meta.env.BASE_URL}videos/ak-wraps-meet-phone.mp4`}
       videoPoster={`${import.meta.env.BASE_URL}videos/ak-wraps-meet-poster.webp`}
-      callToActions={isPage ? undefined : homeCallToActions}
+      callToActions={isPage ? (props.page === "contact" ? [{ text: "Book Now", href: routes.booking, variant: "primary" }] : undefined) : homeCallToActions}
       titleSize={isPage ? "medium" : "large"}
       showSocialProof={!isPage}
       compact={isPage}
