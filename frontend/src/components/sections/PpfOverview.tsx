@@ -109,8 +109,8 @@ export function PpfOverview({ faq }: { faq: {question: string; answer: string}[]
       </section>
       <section id="ppf-pricing" aria-labelledby="ppf-price-title" className="mx-auto mt-16 max-w-2xl scroll-mt-28 text-center">
         <p className="type-label text-accent">Your investment</p>
-        <h2 id="ppf-price-title" className="mt-2 text-3xl font-black uppercase sm:text-4xl">Full-body package pricing</h2>
-        <p className="mx-auto mt-4 max-w-lg leading-relaxed text-white/75">Our Delta team polishes the paint, installs the film and applies the ceramic coating in one package.</p>
+        <h2 id="ppf-price-title" className="mt-2 text-3xl font-black uppercase sm:text-4xl">How much does car PPF cost?</h2>
+        <p className="mx-auto mt-4 max-w-lg leading-relaxed text-white/75">The full-body price below includes polishing, film and ceramic coating. Full front PPF and individual panels are quoted separately based on vehicle size and paint condition.</p>
         <dl className="ppf-panel mt-7 divide-y divide-accent/20 overflow-hidden rounded-2xl border border-accent/25 bg-surface text-left">
           {["Decontamination wash & full paint polishing", "Self-healing paint protection film installation", "Gtechniq ceramic coating", "10-year PPF warranty", "Optional films and ceramic window tint"].map((label, i) => (
             <div className="flex items-start justify-between gap-4 px-4 py-4 sm:px-6" key={label}>
@@ -168,7 +168,7 @@ export function PpfOverview({ faq }: { faq: {question: string; answer: string}[]
     </div>
     <ContactCta variant="contact" offerMessage={enquire} offerExtras={extras}/>
     <div className="container-padding mx-auto max-w-6xl pb-14">
-      <section id="ppf-faq" className="mt-14 scroll-mt-28"><h2 className="mb-5 text-3xl font-bold">PPF questions</h2>{faq.map(item=><details key={item.question} className="border-b border-white/15 py-4"><summary className="cursor-pointer font-semibold">{item.question}</summary><p className="mt-3 max-w-3xl leading-relaxed text-white/70">{item.answer}</p></details>)}</section>
+      <section id="ppf-faq" className="mt-14 scroll-mt-28"><h2 className="mb-5 text-3xl font-bold">Car paint protection film questions</h2>{faq.map(item=><details key={item.question} className="border-b border-white/15 py-4"><summary className="cursor-pointer font-semibold">{item.question}</summary><p className="mt-3 max-w-3xl leading-relaxed text-white/70">{item.answer}</p></details>)}<p className="mt-5"><Link className="text-accent underline" to="/projects/ferrari-f12-berlinetta-wrap-ppf/">See a completed PPF job on our Ferrari F12</Link></p></section>
     </div>
 
   </div>;
