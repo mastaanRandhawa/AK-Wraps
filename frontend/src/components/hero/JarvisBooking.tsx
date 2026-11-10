@@ -14,12 +14,12 @@ const questions = [
 const labels = ["Services", "Vehicle year, make and model", "Name", "Email", "Phone"];
 const deliveryKey = import.meta.env.VITE_WEB3FORMS_KEY?.trim();
 
-export function JarvisBooking() {
+export function JarvisBooking({ popupOnly = false, initialService, delayMs = 3000 }: { delayMs?: number; popupOnly?: boolean; initialService?: string } = {}) {
   const [visible, setVisible] = useState(false);
   const [scrollPrompt, setScrollPrompt] = useState(false);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
-  const [services, setServices] = useState<string[]>([]);
+  const [services, setServices] = useState<string[]>(initialService ? [initialService] : []);
   const [value, setValue] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const dialog = useRef<HTMLDialogElement>(null);
@@ -34,8 +34,8 @@ export function JarvisBooking() {
       setScrollPrompt(false);
       if (dialog.current?.open || status === "sent") return;
       timer = window.setTimeout(() => {
-        if (!dialog.current?.open && !document.hidden) setScrollPrompt(true);
-      }, 3000);
+        if (!dialog.current?.open && !document.hidden && !document.activeElement?.closest("#booking-form")) setScrollPrompt(true);
+      }, delayMs);
     };
     const hide = () => { window.clearTimeout(timer); setScrollPrompt(false); };
     window.addEventListener("scroll", reset, { passive: true });
@@ -45,7 +45,7 @@ export function JarvisBooking() {
       window.removeEventListener("scroll", reset);
       document.removeEventListener("visibilitychange", hide);
     };
-  }, [status]);
+  }, [status, delayMs]);
   const openBooking = () => { setScrollPrompt(false); dialog.current?.showModal(); };
   const close = () => { dialog.current?.close(); };
   function next(e: FormEvent) {
@@ -72,7 +72,7 @@ export function JarvisBooking() {
   }
   const emailHref = `mailto:${site.email}?subject=${encodeURIComponent("Jarvis — Appointment enquiry")}&body=${encodeURIComponent(answers.map((answer, i) => `${labels[i]}: ${answer}`).join("\n\n"))}`;
   return <>
-    {<div className={`relative z-20 mb-10 flex h-12 translate-y-0 sm:-translate-y-6 items-center justify-center transition-opacity duration-300 sm:h-[3.25rem] ${visible && !scrollPrompt ? "opacity-100" : "invisible opacity-0"}`}><Button size="lg" onClick={openBooking} style={{ zoom: 1.15 }} className="jarvis-book-pulse shadow-[0_0_35px_#01c8f944]">Book Now</Button></div>}
+    {!popupOnly && <div className={`relative z-20 mb-10 flex h-12 translate-y-0 sm:-translate-y-6 items-center justify-center transition-opacity duration-300 sm:h-[3.25rem] ${visible && !scrollPrompt ? "opacity-100" : "invisible opacity-0"}`}><Button size="lg" onClick={openBooking} style={{ zoom: 1.15 }} className="jarvis-book-pulse shadow-[0_0_35px_#01c8f944]">Book Now</Button></div>}
     {scrollPrompt && createPortal(
       <div className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center">
         <div className="pointer-events-auto relative">

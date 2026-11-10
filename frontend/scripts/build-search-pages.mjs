@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 const pages = JSON.parse(fs.readFileSync('src/content/search-pages.json', 'utf8').replace(/^\uFEFF/, ''));
 const template = fs.readFileSync('dist/index.html', 'utf8');
+const ppfOffer = JSON.parse(fs.readFileSync('src/content/ppf-offer.json', 'utf8'));
 const escape = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 for (const page of pages) {
   const path = page.slug === 'service-areas' ? '/service-areas' : `/services/${page.slug}`;
@@ -16,6 +17,11 @@ for (const page of pages) {
     .replace(/(<meta (?:property="og:description"|name="twitter:description")\s+content=")[^"]*/g, `$1${escape(page.description)}`)
     .replace('<div id="root"></div>', `<div id="root">${body}</div>`);
   if (page.slug !== 'service-areas') {
+    if (page.slug === 'paint-protection-film') {
+      const price = amount => '$' + amount.toLocaleString('en-CA');
+      const promotion = '<section><h2>Full-body PPF package special</h2><p>Paint polishing, full-body self-healing PPF and Gtechniq ceramic coating.</p><p>Regular price <s>' + price(ppfOffer.regular) + '</s>. Starting at <strong>' + price(ppfOffer.special) + ' CAD</strong>. Save ' + price(ppfOffer.regular - ppfOffer.special) + '.</p><a href="tel:2364125010">Call the studio about this offer</a></section>';
+      html = html.replace('</h1>', '</h1>' + promotion);
+    }
     const schema = {'@context':'https://schema.org','@type':'Service',name:page.title,description:page.description,url,provider:{'@id':'https://akwraps.ca/#business'}};
     html = html.replace('</head>', `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g,'\\u003c')}</script></head>`);
   }

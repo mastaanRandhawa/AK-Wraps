@@ -151,6 +151,7 @@ export function ServiceCarousel({
                   cardRefs.current[index] = el;
                 }}
                 variant="service"
+                to={service.id === "ppf" ? "/services/paint-protection-film/" : undefined}
                 image={service.image}
                 imageFallback={service.imageFallback}
                 alt={service.title}

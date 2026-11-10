@@ -1,5 +1,6 @@
 import { forwardRef, type KeyboardEvent, type ReactNode } from "react";
 import { SafeImage } from "@/components/ui/safe-image";
+import { Link } from "react-router-dom";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +23,7 @@ interface PortfolioCardProps extends MediaCardBaseProps {
 
 interface ServiceCardProps extends MediaCardBaseProps {
   variant: "service";
+  to?: string;
   image: string;
   imageFallback?: string;
   alt: string;
@@ -64,6 +66,7 @@ const ServiceMediaCard = forwardRef<HTMLElement, ServiceCardProps>(
       title,
       description,
       isActive = false,
+      to,
       onSelect,
       onHover,
       onLeave,
@@ -74,18 +77,18 @@ const ServiceMediaCard = forwardRef<HTMLElement, ServiceCardProps>(
     return (
       <article
         ref={ref}
-        role="button"
-        tabIndex={0}
-        aria-pressed={isActive}
-        onClick={onSelect}
-        onKeyDown={(e) => handleServiceKeyDown(e, onSelect)}
+        role={to ? undefined : "button"}
+        tabIndex={to ? undefined : 0}
+        aria-pressed={to ? undefined : isActive}
+        onClick={to ? undefined : onSelect}
+        onKeyDown={to ? undefined : (e) => handleServiceKeyDown(e, onSelect)}
         onMouseEnter={onHover}
         onMouseLeave={onLeave}
         onFocus={onHover}
         onBlur={onLeave}
         className={cn(
           "group w-[min(72vw,240px)] shrink-0 cursor-pointer snap-center overflow-hidden rounded-md border bg-black touch-manipulation sm:w-[280px] md:w-[300px] lg:w-[320px]",
-          "headlight-border transition-opacity duration-500",
+          "relative headlight-border transition-opacity duration-500",
           isActive ? "headlight-on opacity-100" : "opacity-80",
           className,
         )}
@@ -122,7 +125,7 @@ const ServiceMediaCard = forwardRef<HTMLElement, ServiceCardProps>(
                   isActive ? "text-white" : "text-white/70",
                 )}
               >
-                {title}
+                {to ? <Link to={to} className="after:absolute after:inset-0 after:z-10 focus-visible:after:ring-2 focus-visible:after:ring-inset focus-visible:after:ring-accent">{title}</Link> : title}
               </h3>
               <p
                 className={cn(

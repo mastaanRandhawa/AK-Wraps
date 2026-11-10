@@ -634,3 +634,96 @@ body { position: relative; touch-action: pan-y pinch-zoom; }
     padding-top: calc(clamp(6rem, 14svh, 8rem) + env(safe-area-inset-top, 0px));
   }
 }
+
+/* The PPF promotion uses its own palette within the AK site. */
+.ppf-page {
+  --color-accent: #33d7f2;
+  --color-accent-hover: #80eafa;
+  --color-surface: #020509;
+  --color-surface-glass: #020509;
+  background-color: #06111d;
+  background-image: linear-gradient(90deg,
+    rgb(51 215 242 / 48%) 0%,
+    rgb(51 215 242 / 18%) 3%,
+    rgb(51 215 242 / 5%) 10%,
+    transparent 23%, transparent 77%,
+    rgb(51 215 242 / 5%) 90%,
+    rgb(51 215 242 / 18%) 97%,
+    rgb(51 215 242 / 48%) 100%);
+}
+
+.ppf-page .ppf-panel {
+  border-color: var(--color-accent);
+  background: var(--color-surface);
+}
+.ppf-page .ppf-panel :is(p, td, s),
+.ppf-page :is(#ppf-benefits, #ppf-add-ons) > :first-child p:not(.type-label) {
+  color: #f5fbff;
+}
+.ppf-page .ppf-warranty {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 16px rgb(51 215 242 / 10%), inset 0 0 14px rgb(51 215 242 / 3%);
+}
+
+.ppf-page s {
+  text-decoration-color: #ff4858;
+  text-decoration-thickness: 2px;
+}
+.ppf-quote-banner {
+  padding: 1.25rem;
+  border-left: 3px solid var(--color-accent);
+  border-radius: .5rem;
+  background: linear-gradient(90deg, #020912fa, #02101bd9 62%, #02101b66), url('/projects/DZqr-WAmsiw.jpg') center 58% / cover;
+}
+.ppf-page #booking-form label {
+  color: #ecf9ff;
+  letter-spacing: .08em;
+}
+.ppf-page #booking-form :is(input:not([type=hidden]), select, textarea) {
+  background-color: #09131d;
+  border-color: #405465;
+  font-size: 1rem;
+  letter-spacing: normal;
+}
+.ppf-page #booking-form :is(input, textarea)::placeholder { color: #a0afbc; }
+.ppf-page #booking-form :is(input, select, textarea):focus-visible { outline: 2px solid var(--color-accent); }
+
+.ppf-price-display {
+  display: inline-block;
+  padding: .55rem .85rem .65rem;
+  border-block: 1px solid #33d7f2;
+  color: #dbf9ff;
+}
+.ppf-price-label { font: 700 .75rem/1.5 system-ui, sans-serif; letter-spacing: .18em; text-transform: uppercase; }
+.ppf-price-display .ppf-price-label { display: block; }
+.ppf-price-number {
+  font-family: "Arial Black", "Arial", sans-serif;
+  font-weight: 1000;
+  letter-spacing: -.055em;
+  line-height: 1.05;
+  color: #52d9ff;
+}
+.ppf-price-display .ppf-price-number { font-size: clamp(3.3rem, 10vw, 5.1rem); }
+@supports (background-clip: text) {
+  .ppf-price-number {
+    background: linear-gradient(180deg, #efffff 4%, #76eaff 34%, #23beff 60%, #398aff 95%);
+    background-clip: text;
+    color: transparent;
+  }
+}
+@media (forced-colors: active) { .ppf-price-number { color: CanvasText; } }
+
+.ppf-page .ppf-warranty {
+  background: linear-gradient(135deg, #082735 0%, #08131c 54%, #090e16 100%);
+  box-shadow: 0 0 22px rgb(51 215 242 / 13%);
+}
+.ppf-warranty-type {
+  font-family: Impact, Haettenschweiler, "Arial Narrow", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  transform: scaleX(.88);
+}
+.ppf-warranty :is(.ppf-warranty-type span:first-child, .bg-accent) {
+  filter: drop-shadow(0 0 10px rgb(51 215 242 / 18%));
+}
+.ppf-page .ppf-warranty p.text-accent { color: var(--color-accent); }

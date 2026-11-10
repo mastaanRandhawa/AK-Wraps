@@ -12,18 +12,21 @@ import { CinematicMedia } from "@/components/ui/cinematic-media";
 import { RevealFade, RevealText } from "@/components/ui/reveal-text";
 import { site } from "@/config/site";
 import { images } from "@/content/images";
+import ppfOffer from "@/content/ppf-offer.json";
 import { serviceOptions } from "@/content/services";
 import { cn } from "@/lib/utils";
 
 interface ContactCtaProps {
   variant?: "home" | "contact";
+  offerMessage?: string;
+  offerExtras?: string[];
 }
 
 type FormStatus = "idle" | "email-draft" | "submitting" | "success" | "error";
 
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY?.trim();
 
-export function ContactCta({ variant = "home" }: ContactCtaProps) {
+export function ContactCta({ variant = "home", offerMessage, offerExtras }: ContactCtaProps) {
   const [status, setStatus] = useState<FormStatus>("idle");
   const sending = useRef(false);
   const fieldId = useId();
@@ -63,6 +66,7 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
         `Phone: ${data.get("phone") ?? ""}`,
         `Vehicle: ${data.get("vehicle") ?? ""}`,
         `Service: ${data.get("service") ?? ""}`,
+        ...(data.has("addons") ? ["Optional add-ons: " + data.get("addons")] : []),
         `Paint / existing film: ${data.get("condition") ?? ""}`,
         "",
         `${data.get("message") ?? ""}`,
@@ -138,7 +142,28 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
         )}
       >
         <MotionReveal variant="fade">
-          {isContactPage ? (
+          {offerMessage ? (
+            <div id="ppf-quote" className="scroll-mt-28">
+              <p className="type-label mb-3 text-accent">Request a quote</p>
+              <h2 className="type-section font-bold text-white">Get your personalized PPF quote</h2>
+              <p className="mt-4 max-w-xl leading-relaxed text-white/75">
+                Tell AK Wraps &amp; Customs what you drive and which panels you want protected. Our Delta team will confirm coverage, pricing and available installation dates with you.
+              </p>
+              <ul className="mt-7 space-y-3">
+                {[
+                  ["Follow-up from our studio", "We’ll review your vehicle details and get in touch about your preferred timing."],
+                  ["Booking details up front", "We’ll go over the installation date and any deposit required before you commit."],
+                  ["Written warranty details", "Review the terms of your 10-year PPF warranty, including care instructions and exclusions for your film."],
+                ].map(([title, description]) => (
+                  <li key={title} className="ppf-panel flex items-center gap-4 rounded-lg border border-accent/25 bg-white/[0.04] p-4 sm:p-5">
+                    <span aria-hidden="true" className="text-xl text-accent">✓</span>
+                    <div><h3 className="font-bold text-white">{title}</h3>
+                      <p className="mt-1 leading-relaxed text-white/70">{description}</p></div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : isContactPage ? (
             <>
               <p className="type-label mb-4">Studio</p>
               <h2 className="type-section font-bold text-white">
@@ -259,7 +284,7 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
             id="booking-form"
             style={{ scrollMarginTop: "calc(var(--navbar-offset) + 1.5rem)" }}
             className={cn(
-              "rounded-lg border border-white/10 bg-surface-glass p-6 backdrop-blur-md sm:p-8",
+              "ppf-panel rounded-lg border border-white/10 bg-surface-glass p-6 backdrop-blur-md sm:p-8",
               isContactPage && "lg:sticky lg:top-[calc(var(--navbar-offset)+1.5rem)]",
             )}
           >
@@ -278,7 +303,8 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                 className="space-y-4 sm:space-y-5"
 
               >
-                {!WEB3FORMS_KEY && <p className="type-small text-white/70">This form prepares an email. Please send it from your email app to complete your enquiry.</p>}
+                {offerExtras && <><input type="hidden" name="addons" value={offerExtras.join(", ") || "None"}/><header className="ppf-quote-banner"><h3 className="max-w-xs text-3xl font-black leading-tight">Request your PPF quote</h3><p className="mt-2 font-semibold">Full-body PPF + Gtechniq ceramic</p><span className="ppf-price-label mt-3 block">Starting at</span><strong className="ppf-price-number text-3xl">${ppfOffer.special.toLocaleString("en-CA")} <small className="text-sm">CAD</small></strong></header>{offerExtras.length > 0 && <p className="text-sm text-accent">Requested add-ons: {offerExtras.join(", ")}</p>}</>}
+                {!offerMessage && !WEB3FORMS_KEY && <p className="type-small text-white/70">This form prepares an email. Please send it from your email app to complete your enquiry.</p>}
                 {/* Honeypot — hidden from users, catches bots */}
                 <input
                   type="text"
@@ -288,7 +314,7 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                   aria-hidden="true"
                   className="hidden"
                 />
-                <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
+                <div className={cn("grid gap-4 sm:grid-cols-2 sm:gap-5", offerMessage && "gap-3")}>
                   <FormField label="Name" htmlFor={`${fieldId}-name`} className="sm:col-span-2">
                     <Input id={`${fieldId}-name`} placeholder="Your name" required pattern=".*\S.*" maxLength={100} name="name" autoComplete="name" />
                   </FormField>
@@ -316,7 +342,7 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                     />
                   </FormField>
                   <FormField label="Service" htmlFor={`${fieldId}-service`} className="sm:col-span-2">
-                    <Select id={`${fieldId}-service`} name="service" required defaultValue="">
+                    <Select id={`${fieldId}-service`} name="service" required defaultValue={offerMessage ? "Paint Protection Film" : ""}>
                       <option value="" disabled>
                         Select a service
                       </option>
@@ -331,13 +357,14 @@ export function ContactCta({ variant = "home" }: ContactCtaProps) {
                     <Textarea
                       id={`${fieldId}-message`}
                       placeholder="Tell us about your project goals..."
-                      defaultValue={requestedProject ? `I would like to discuss a project similar to: ${requestedProject}` : ""}
+                      defaultValue={offerMessage ?? (requestedProject ? `I would like to discuss a project similar to: ${requestedProject}` : "")}
                       name="message"
                       rows={4}
                     />
                   </FormField>
                 </div>
                 <details className="rounded border border-white/10 p-3"><summary className="cursor-pointer text-sm text-white/70">Paint condition or existing film (optional)</summary><FormField label="Anything we should assess?" htmlFor={`${fieldId}-condition`} className="mt-4"><Textarea id={`${fieldId}-condition`} name="condition" maxLength={2000} rows={3} placeholder="Previous repainting, chips, peeling clear coat, existing wrap or tint…" /></FormField></details>
+                {offerMessage && !WEB3FORMS_KEY && <p className="text-sm">Your email app will open with your quote request ready to review and send.</p>}
                 <p className="text-xs leading-relaxed text-white/50">Your enquiry helps us prepare a tailored consultation. Scope, price and availability are confirmed with you before booking. <Link to="/privacy" className="underline">Privacy policy</Link></p>
                 {status === "email-draft" && <p role="status" className="type-small text-accent">Please send the prepared message in your email app to complete your enquiry. If it did not open, email ak.wraps.customs@gmail.com or call (236) 412-5010.</p>}
                 {status === "error" && (

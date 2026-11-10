@@ -90,16 +90,36 @@
     ],
     "faq": [
       {
-        "question": "Is PPF the same as ceramic coating?",
-        "answer": "No. PPF is a physical film; ceramic coating is a surface treatment. They serve different purposes. We can discuss which option, or combination, suits your goals."
+        "question": "How long does installation take, and when can I book?",
+        "answer": "Send us your vehicle details and preferred dates. We’ll review paint preparation, coverage and coating cure time, then confirm pricing, drop-off and pickup with you before booking."
       },
       {
-        "question": "Is PPF damage-proof?",
-        "answer": "No film makes a vehicle damage-proof. Coverage, maintenance and the nature of an impact affect protection. Ask about the specific film’s care instructions and warranty terms."
+        "question": "What does self-healing film protect against?",
+        "answer": "PPF helps guard painted panels against road grit and small chips. Warmth can help fine surface swirls fade, but deep scratches, cuts and heavy impacts can still damage the film or paint."
       },
       {
-        "question": "What does the warranty cover?",
+        "question": "Why polish the paint before applying PPF?",
+        "answer": "Clear film shows the finish underneath. Polishing reduces haze and fine swirls before installation. We assess deeper scratches, chips or previous repairs separately."
+      },
+      {
+        "question": "What does ceramic coating add over PPF?",
+        "answer": "The film provides the physical barrier. The Gtechniq coating adds gloss and helps water bead on the film, making it easier to rinse away grime."
+      },
+      {
+        "question": "Which panels and extras are included?",
+        "answer": "The full-body package covers painted exterior panels. We confirm the panel list and edge treatment for your vehicle. Interior and accent trim film, windshield film, headlight film and ceramic window tint are quoted separately."
+      },
+      {
+        "question": "What does the 10-year PPF warranty cover?",
         "answer": "Our PPF includes a ten-year warranty covering both the film and installation. Contact us for the written terms, exclusions and care requirements for your chosen installation before booking."
+      },
+      {
+        "question": "When and how should I wash my vehicle after installation?",
+        "answer": "At pickup, ask for the first-wash date for your film and coating. Once they’re ready, follow the supplied care instructions, wash gently and avoid directing a pressure washer at film edges."
+      },
+      {
+        "question": "What records should I keep for an ICBC claim?",
+        "answer": "Keep your itemized installation invoice and photos showing the covered panels. If the film is damaged, ask your ICBC claims representative what documentation they need before arranging replacement."
       },
       {
         "question": "How do I compare PPF shops in Greater Vancouver?",
@@ -108,10 +128,6 @@
       {
         "question": "Where is your shop, and can I visit from another city?",
         "answer": "Our shop is at 6165 BC-17A, Delta, BC V4K 4E2. We welcome Greater Vancouver drivers at this location. Contact us to agree on scope, drop-off and collection before travelling; we do not claim a branch in every city."
-      },
-      {
-        "question": "What happens after I enquire?",
-        "answer": "We review your vehicle and goals, discuss preparation and material options, and confirm scope, pricing and timing with you. Ask for the selected product’s warranty and care instructions before booking. Sending the form does not reserve an appointment."
       }
     ]
   },

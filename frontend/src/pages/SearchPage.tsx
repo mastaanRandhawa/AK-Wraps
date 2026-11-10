@@ -1,4 +1,5 @@
 import { WarrantySummary } from "@/components/sections/WarrantySummary";
+import { PpfOverview } from "@/components/sections/PpfOverview";
 import { RelatedServiceProjects } from "@/components/sections/RelatedServiceProjects";
 import { RegionalVisits } from "@/components/sections/RegionalVisits";
 import { Link, useParams } from "react-router-dom";
@@ -14,6 +15,7 @@ export function SearchPage() {
 }
 function SearchContent({page}: {page: typeof pages[number]}) {
   usePageMeta({ title: page.title, description: page.description });
+  if (page.slug === "paint-protection-film") return <PpfOverview faq={page.faq} />;
   return <><HeroSection page="services" title={page.title} description={page.intro} />
     <section className="container-padding mx-auto max-w-5xl py-16 text-white"><Link to="/services" className="text-accent">Explore all services</Link>
       <div className="mt-10 grid gap-10 sm:grid-cols-2">{page.sections.map(s => <article key={s.title}><h2 className="text-2xl font-semibold">{s.title}</h2><p className="mt-4 leading-relaxed text-white/65">{s.text}</p></article>)}</div>
